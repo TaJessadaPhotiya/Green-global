@@ -1,0 +1,37 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-CWJEE1_T.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/addFavorite.js": {
+    "file": "assets/addFavorite-Py5NIQVk.js",
+    "name": "addFavorite",
+    "src": "resources/js/addFavorite.js",
+    "isEntry": true
+  },
+  "resources/js/addProductCart.js": {
+    "file": "assets/addProductCart-DPYoFSTa.js",
+    "name": "addProductCart",
+    "src": "resources/js/addProductCart.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-l0sNRNKZ.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/lazyImage.js": {
+    "file": "assets/lazyImage-BkkNbuQ2.js",
+    "name": "lazyImage",
+    "src": "resources/js/lazyImage.js",
+    "isEntry": true
+  },
+  "resources/js/swiper.js": {
+    "file": "assets/swiper-l0sNRNKZ.js",
+    "name": "swiper",
+    "src": "resources/js/swiper.js",
+    "isEntry": true
+  }
+}
