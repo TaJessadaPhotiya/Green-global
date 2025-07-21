@@ -5,6 +5,7 @@
 @section('content')
 
     <div class="w-full ">
+        TEst
         @include('pages.home.section1')
         @include('pages.home.section2')
         @include('pages.home.section3')
