@@ -8,7 +8,7 @@
                 </li>
                 <li
                     class="xl:text-[14px] text-[12px] border-gray-300/20 border-t py-3 cursor-pointer text-gray-400 hover:text-yellow-500">
-                    <a href="/menu" class="{{ Request::is('menu') ? 'text-yellow-500' : 'text-gray-400' }}">FOOD
+                    <a href="/vision" class="{{ Request::is('menu') ? 'text-yellow-500' : 'text-gray-400' }}">FOOD
                         MENU</a>
                 </li>
                 <li

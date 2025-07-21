@@ -4,10 +4,10 @@
     <div class="flex flex-col justify-center items-center">
         <!-- ไอคอนกาแฟหมุน -->
         <div class="coffee-icon animate-spin mb-4">
-            <img class="w-[100px]" src="/image/test2.png" alt="">
+            <img class="w-[100px]" src="/image/logo-GGS.png 1.png" alt="">
         </div>
         <!-- ข้อความกำลังโหลด -->
-        <div class="font-messiri text-xl font-medium text-white mt-4 ">LOADING <span class="text-xl text-yellow-300">. . .</span></div>
+        <div class="font-messiri italic text-md font-semibold text-[#098C46] mt-4 ">LOADING <span class="text-xl text-[#098C46]">. . .</span></div>
     </div>
 </div>
 

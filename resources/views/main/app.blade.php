@@ -1,10 +1,20 @@
+<?php
+    $language = $_COOKIE['selectedLanguage'];
+    // echo $language;
+    if ($language === 'AR') {
+        echo '<!DOCTYPE html> <html lang="en" dir="rtl">';
+    } else {
+        echo '<!DOCTYPE html> <html lang="en" dir="ltr">';
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'THEONE BBGUN')</title>
+    {{-- <title>@yield('title', 'THEONE BBGUN')</title> --}}
     <link rel="icon" type="image/svg+xml" href="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +36,7 @@
 </head>
 
 <body class="font-poppins flex flex-col min-h-screen relative ">
+    <img class="fixed bottom-0 z-20" src="/image/Rectangle 419.png" alt="">
 
     @include('layouts.loading')
 
@@ -37,8 +48,14 @@
         @yield('content')
     </div>
 
-    @include('layouts.footer')
+    {{-- @include('layouts.footer') --}}
 
+
+    {{-- เซ็ตค่าภาษาจาก localStorage ใช้ชั่วคราว --}}
+    <script>
+        const lang = localStorage.getItem('selectedLanguage') || 'EN';
+        document.cookie = "selectedLanguage=" + lang + "; path=/";
+    </script>
 
     <script>
         // ซ่อนหน้าจอโหลดเมื่อโหลดหน้าเสร็จ

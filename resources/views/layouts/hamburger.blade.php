@@ -93,13 +93,21 @@
             href="/">
             HOME
         </a>
-        <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('menu') || Request::is('detail*') ? 'bg-gray-300/10 ' : '' }} "
-            href="/menu">
+        <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('vision') || Request::is('detail*') ? 'bg-gray-300/10 ' : '' }} "
+            href="/vision">
             FOOD MENU
         </a>
         <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('news') || Request::is('news-detail*') ? 'bg-gray-300/10 ' : '' }} "
             href="/news">
             NEWS
+        </a>
+        <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('product') || Request::is('product-detail*') ? 'bg-gray-300/10 ' : '' }} "
+            href="/product">
+            PRODUCT
+        </a>
+        <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('term') ? 'bg-gray-300/10 ' : '' }} "
+            href="/term">
+            TERM
         </a>
         <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('about') ? 'bg-gray-300/10' : '' }} "
             href="/about">

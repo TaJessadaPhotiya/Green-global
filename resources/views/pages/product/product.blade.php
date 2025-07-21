@@ -1,9 +1,9 @@
 @extends('main.app')
 
-@section('title', 'Service')
+@section('title', 'Product')
 
 @section('content')
     <div class="w-full ">
-        @include('pages.service.section1')
+        @include('pages.product.section1')
     </div>
 @endsection
