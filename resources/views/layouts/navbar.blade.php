@@ -25,7 +25,7 @@
 <nav class="sticky top-0 z-20 bg-[#E9C713]">
     <div class="relative bg-white xl:mt-3 mt-1.5"
         style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;">
-        <img class=" absolute top-full " src="/image/lota.png" alt="">
+        <img class="absolute top-full xl:right-0 right-0 w-full" src="/image/Top-Line.png" alt="">
         <div
             class="relative flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 px-4 drop-shadow-md">
             <a href="/">
@@ -33,34 +33,34 @@
             </a>
 
             <div class="max-xl:hidden flex items-center justify-end w-full space-x-8 mt-1">
-                <a class="text-[16px] font-semibold text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('/') ? 'border-yellow-500' : '' }}"
+                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
+                    {{ Request::is('/') ? 'border-yellow-500 font-[600]' : '' }}"
                     href="/">HOME</a>
 
-                <a class="text-[16px] font-semibold text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('vision') || Request::is('detail*') ? 'border-yellow-500' : '' }}"
+                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
+                    {{ Request::is('vision') ? 'border-yellow-500 font-[600]' : '' }}"
                     href="/vision">VISION</a>
 
-                <a class="text-[16px] font-semibold text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('news') || Request::is('news-detail*') ? 'border-yellow-500' : '' }}"
+                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
+                    {{ Request::is('news') || Request::is('news-detail*') ? 'border-yellow-500 font-[600]' : '' }}"
                     href="/news">NEWS</a>
 
-                <a class="text-[16px] font-semibold text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('product') || Request::is('product*') ? 'border-yellow-500' : '' }}"
+                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
+                    {{ Request::is('product') || Request::is('product-detail*') ? 'border-yellow-500 font-[600]' : '' }}"
                     href="/product">PRODUCT</a>
 
-                <a class="text-[16px] font-semibold text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('term') ? 'border-yellow-500' : '' }}"
+                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
+                    {{ Request::is('term') ? 'border-yellow-500 font-[600]' : '' }}"
                     href="/term">TERM</a>
 
-                <a class="text-[16px] font-semibold text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('contact') ? 'border-yellow-500' : '' }}"
+                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
+                    {{ Request::is('contact') ? 'border-yellow-500 font-[600]' : '' }}"
                     href="/contact">CONTACT US</a>
 
 
                 <div class="relative inline-block text-left">
                     <button id="dropdownBtn"
-                        class="inline-flex justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[16px] font-semibold "
+                        class="inline-flex justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium "
                         onclick="toggleDropdown()">
                         MEMBER
                         <!-- MEMBER Button -->
@@ -148,35 +148,30 @@
     const selectedFlag = document.getElementById("selectedFlag");
     const langIcon = document.getElementById("langIcon");
 
-    // 📌 1. Toggle dropdown
     dropdownBtn2.addEventListener("click", () => {
         dropdownMenu2.classList.toggle("hidden");
         langIcon.classList.toggle("rotate-180");
     });
 
-    // 📌 2. Set language and save to localStorage
     function selectLang(lang) {
-        localStorage.setItem("selectedLanguage", lang); // ✅ Save to localStorage
+        localStorage.setItem("selectedLanguage", lang);
         updateLanguageUI(lang);
         dropdownMenu2.classList.add("hidden");
         langIcon.classList.remove("rotate-180");
         window.location.reload();
     }
 
-    // 📌 3. Update UI with selected language
     function updateLanguageUI(lang) {
         const flagSrc = "/image/" + lang + ".png";
         const langText = lang === "TH" ? "ไทย" : lang === "EN" ? "English" : "Arabic";
 
         selectedFlag.src = flagSrc;
 
-        // อัปเดตข้อความภาษา (ถ้ามี text ด้วย)
         if (dropdownBtn2.childNodes[1].nodeType === 3) {
             dropdownBtn2.childNodes[1].textContent = langText;
         }
     }
 
-    // 📌 4. Close dropdown when click outside
     document.addEventListener("click", (e) => {
         if (!document.getElementById("languageDropdown").contains(e.target)) {
             dropdownMenu2.classList.add("hidden");
@@ -184,9 +179,8 @@
         }
     });
 
-    // 📌 5. เมื่อหน้าโหลด: set ภาษาเดิมที่เลือกไว้
     window.addEventListener("DOMContentLoaded", () => {
-        const savedLang = localStorage.getItem("selectedLanguage") || "TH"; // ค่าเริ่มต้นเป็น TH
+        const savedLang = localStorage.getItem("selectedLanguage") || "TH";
         updateLanguageUI(savedLang);
     });
 </script>

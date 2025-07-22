@@ -12,12 +12,7 @@ export default {
                 "size-mini": "450px",
             },
             fontFamily: {
-                sans: ["Montserrat", "sans-serif"],
-                poppins: ["Poppins", "sans-serif"],
-                libre: ["Libre Baskerville", "serif"],
-                rubik: ["Rubik Vinyl", "cursive"],
-                archivo: ["Archivo", "sans-serif"], 
-                messiri: ["El Messiri", "sans-serif"], 
+                Kanit: ["Kanit", "sans-serif"],
             },
             keyframes: {
                 scaleInCenter: {
