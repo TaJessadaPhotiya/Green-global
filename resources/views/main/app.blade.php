@@ -1,15 +1,5 @@
-<?php
-$language = $_COOKIE['selectedLanguage'];
-// echo $language;
-if ($language === 'AR') {
-    echo '<!DOCTYPE html> <html lang="en" dir="rtl">';
-} else {
-    echo '<!DOCTYPE html> <html lang="en" dir="ltr">';
-}
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $language }}" dir="{{ $language === 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="UTF-8">
@@ -45,7 +35,7 @@ if ($language === 'AR') {
 
     {{-- เซ็ตค่าภาษาจาก localStorage ใช้ชั่วคราว --}}
     <script>
-        const lang = localStorage.getItem('selectedLanguage') || 'EN';
+        const lang = localStorage.getItem('selectedLanguage') || 'th';
         document.cookie = "selectedLanguage=" + lang + "; path=/";
     </script>
 

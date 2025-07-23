@@ -90,32 +90,32 @@
 
     <div class="sidebar ">
         <a class="drop-shadow-md border-y border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('/') ? 'bg-gray-300/10' : '' }} "
-            href="/">
+            href="/<?= $language ?>/">
             HOME
         </a>
         <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('vision') || Request::is('detail*') ? 'bg-gray-300/10 ' : '' }} "
-            href="/vision">
-            FOOD MENU
+            href="/<?= $language ?>/vision">
+            VISION
         </a>
         <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('news') || Request::is('news-detail*') ? 'bg-gray-300/10 ' : '' }} "
-            href="/news">
+            href="/<?= $language ?>/news">
             NEWS
         </a>
         <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('product') || Request::is('product-detail*') ? 'bg-gray-300/10 ' : '' }} "
-            href="/product">
+            href="/<?= $language ?>/product">
             PRODUCT
         </a>
         <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('term') ? 'bg-gray-300/10 ' : '' }} "
-            href="/term">
+            href="/<?= $language ?>/term">
             TERM
         </a>
-        <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('about') ? 'bg-gray-300/10' : '' }} "
-            href="/about">
-            ABOUT US
+        <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('contact') ? 'bg-gray-300/10' : '' }} "
+            href="/<?= $language ?>/contact">
+            CONTACT US
         </a>
         <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is('contact') ? 'bg-gray-300/10' : '' }} "
-            href="/contact">
-            Contact
+            href="/<?= $language ?>/contact">
+            MEMBER
         </a>
     </div>
 </div>

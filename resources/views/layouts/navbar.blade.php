@@ -22,45 +22,46 @@
     ];
 @endphp
 
-<nav class="sticky top-0 z-20 bg-[#E9C713]">
-    <div class="relative bg-white xl:mt-3 mt-1.5"
-        style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;">
-        <img class="absolute top-full xl:right-0 right-0 w-full" src="/image/Top-Line.png" alt="">
+<nav class="sticky top-0 z-20 bg-[#E9C713] ">
+    <div class="relative bg-white xl:mt-3 mt-1.5">
+        {{-- style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;" --}}
+        <img class="absolute top-full xl:right-0 right-0 w-full drop-shadow-xl overflow-hidden " src="/image/Top-Line.png"
+            alt="">
         <div
             class="relative flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 px-4 drop-shadow-md">
-            <a href="/">
+            <a href="/<?= $language ?>/">
                 <img class=" xl:w-[75px] w-[50px] h-auto" src="/image/logo-GGS.png 1.png" alt="">
             </a>
 
             <div class="max-xl:hidden flex items-center justify-end w-full space-x-8 mt-1">
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('/') ? 'border-yellow-500 font-[600]' : '' }}"
-                    href="/">HOME</a>
+                    {{ Request::is("$language") ? 'border-yellow-500 font-[600]' : '' }}"
+                    href="/<?= $language ?>/">HOME</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('vision') ? 'border-yellow-500 font-[600]' : '' }}"
-                    href="/vision">VISION</a>
+                    {{ Request::is("$language/vision") ? 'border-yellow-500 font-[600]' : '' }}"
+                    href="/<?= $language ?>/vision">VISION</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('news') || Request::is('news-detail*') ? 'border-yellow-500 font-[600]' : '' }}"
-                    href="/news">NEWS</a>
+                    {{ Request::is("$language/news") || Request::is("$language/news-detail*") ? 'border-yellow-500 font-[600]' : '' }}"
+                    href="/<?= $language ?>/news">NEWS</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('product') || Request::is('product-detail*') ? 'border-yellow-500 font-[600]' : '' }}"
-                    href="/product">PRODUCT</a>
+                    {{ Request::is("$language/product") || Request::is("$language/product-detail*") ? 'border-yellow-500 font-[600]' : '' }}"
+                    href="/<?= $language ?>/product">PRODUCT</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('term') ? 'border-yellow-500 font-[600]' : '' }}"
-                    href="/term">TERM</a>
+                    {{ Request::is("$language/term") ? 'border-yellow-500 font-[600]' : '' }}"
+                    href="/<?= $language ?>/term">TERM</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is('contact') ? 'border-yellow-500 font-[600]' : '' }}"
-                    href="/contact">CONTACT US</a>
+                    {{ Request::is("$language/contact") ? 'border-yellow-500 font-[600]' : '' }}"
+                    href="/<?= $language ?>/contact">CONTACT US</a>
 
 
                 <div class="relative inline-block text-left">
                     <button id="dropdownBtn"
-                        class="inline-flex justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium "
+                        class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium "
                         onclick="toggleDropdown()">
                         MEMBER
                         <!-- MEMBER Button -->
@@ -74,16 +75,16 @@
                     <div id="dropdownMenu"
                         class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div>
-                            <a href="/signin"
+                            <a href="/<?= $language ?>/signin"
                                 class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
                                 Sign In</a>
-                            <a href="/register"
+                            <a href="/<?= $language ?>/register"
                                 class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">Register</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative inline-block text-left" id="languageDropdown">
+                <div class="relative inline-block" id="languageDropdown">
                     <button id="dropdownBtn2" class="flex justify-center w-full rounded-md ">
                         <img id="selectedFlag" src="/image/TH.png" class="h-5 w-7 mr-1" alt="flag" />
                         <!-- Language Button -->
@@ -158,8 +159,24 @@
         updateLanguageUI(lang);
         dropdownMenu2.classList.add("hidden");
         langIcon.classList.remove("rotate-180");
-        window.location.reload();
+
+        const currentPath = window.location.pathname;
+        const newLang = lang.toLowerCase();
+
+        // สมมุติ: URL ปัจจุบันคือ /product?id=1 → เปลี่ยนเป็น /th/product?id=1
+        const pathParts = currentPath.split('/');
+        if (['th', 'en', 'ar'].includes(pathParts[1])) {
+            pathParts[1] = newLang;
+        } else {
+            pathParts.splice(1, 0, newLang);
+        }
+
+        const newPath = pathParts.join('/');
+        const newUrl = newPath + window.location.search;
+
+        window.location.href = newUrl;
     }
+
 
     function updateLanguageUI(lang) {
         const flagSrc = "/image/" + lang + ".png";

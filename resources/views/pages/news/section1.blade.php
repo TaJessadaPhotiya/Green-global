@@ -57,7 +57,7 @@
                             </div>
                             <div class="flex items-center justify-end px-6 py-4">
                                 <button
-                                    class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#1C9250] rounded-md shadow-md">
+                                    class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] rounded-md shadow-md">
                                     Detail
                                 </button>
                             </div>
