@@ -26,7 +26,7 @@
                             <div class="flex items-center justify-between px-6 py-4">
                                 <p class="text-[#B8B8B8] md:text-[16px] text-sm">Jan 08, 2024</p>
                                 <button
-                                    class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#1C9250] rounded-md shadow-md">
+                                    class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                                     Detail
                                 </button>
                             </div>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="flex items-center justify-end px-6 py-4">
                                 <button
-                                    class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] rounded-md shadow-md">
+                                    class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                                     Detail
                                 </button>
                             </div>

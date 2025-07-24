@@ -1,6 +1,3 @@
-@php
-    $language = app()->getLocale(); // หรือคุณอาจตั้งค่าเอง
-@endphp
 
 {{-- Category --}}
 @php
@@ -52,10 +49,10 @@
     <div
         class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto ">
-            <h1 class="text-[#098C46] text-3xl text-center font-semibold">PRODUCT CROP</h1>
+            <h1 class="text-[#098C46] xl:text-3xl text-2xl text-center font-semibold">PRODUCT CROP</h1>
 
             {{-- swiper --}}
-            <div class="relative max-w-full mx-auto mt-[3.5rem] ">
+            <div class="relative max-w-full mx-auto sm:mt-[3.5rem] mt-[2rem] ">
                 <button id="prevButton-2"
                     class="absolute max-sm:hidden xl:-left-[3rem] -left-11 top-1/2 -translate-y-1/2 rounded-full transition duration-200 opacity-70 z-10">
                     <img class="sm:w-5 w-4 sm:h-5 h-4" src="/icons/prev2.png" alt="Previous Slide">
@@ -68,10 +65,10 @@
                 <div class="swiper-container swiper2 overflow-hidden" data-aos="fade-left" data-aos-duration="1200">
                     <div class="swiper-wrapper">
                         @foreach ($menu_cateB as $category)
-                            <a href="{{ url($language . '/product?id=' . $category->id) }}"
+                            <a href="{{ url('/' . $language . '/product?id=' . $category->id) }}"
                                 class="swiper-slide flex flex-col items-center justify-center group ">
                                 <div
-                                    class="2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] border-[#098C46] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden">
+                                    class="{{ request('id') == $category->id ? 'border-[#7AC53A]' : 'border-[#098C46]' }} 2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden">
                                     <div class="block">
                                         <img class="w-full h-full object-cover rounded-full transition duration-300 group-hover:scale-125"
                                             src="{{ $category->cate_thumbnail }}" alt="{{ $category->cate_title }}">
@@ -93,7 +90,7 @@
             </div>
 
             {{-- Dropdow Fillter --}}
-            <div class="w-full xl:mt-[5rem] sm:mt-[4rem] mt-[3rem] ">
+            <div class="w-full xl:mt-[3rem] sm:mt-[2rem] mt-[2rem] ">
                 <div class="flex items-center justify-end gap-3">
                     <p class="sm:text-[16px] text-[14px] font-semibold text-[#098C46]">SEGMENT :</p>
                     <div class="relative ">
@@ -136,14 +133,14 @@
 
             {{-- Data --}}
             <div
-                class="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[2rem] w-full xl:mt-12 sm:mt-[4rem] mt-[2.6rem] pb-12">
+                class="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[2rem] w-full xl:mt-12 sm:mt-[4rem] mt-[2.6rem] pb-12 ">
                 @foreach ($filtered_products as $product)
-                    <div class="w-full">
+                    <div class="w-full cursor-pointer group">
                         {{-- ส่วนรูป --}}
                         <div class="relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl">
                             <!-- ป้าย NEW -->
                             @if ($product->product_new == 1)
-                                <img class="animate-pulse absolute sm:top-2 top-4 left-3 sm:w-[55px] w-[30px] sm:h-[55px] h-[30px] drop-shadow-sm z-10"
+                                <img class="flash-img absolute sm:top-2 top-3 left-3 sm:w-[55px] w-[40px] sm:h-[55px] h-[40px] drop-shadow-sm z-10"
                                     src="/image/Group 108.png" alt="">
                             @endif
 
@@ -153,7 +150,7 @@
 
                             <!-- พื้นหลัง -->
                             <figure class="w-full h-full overflow-hidden">
-                                <img class="w-full h-full object-cover hover:scale-125 transition duration-500"
+                                <img class="w-full h-full object-cover group-hover:scale-125 transition duration-500"
                                     src="{{ $product->thumbnail }}" alt="{{ $product->title }}">
                             </figure>
 
@@ -169,7 +166,7 @@
                                 {{ $product->title }}
                             </p>
                             <button
-                                class="w-full text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] rounded-md shadow-md mt-2">
+                                class="w-full text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] group-hover:bg-[#EEC90E] group-hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm mt-2">
                                 {{ $product->product_code }}
                             </button>
                         </div>
@@ -190,7 +187,24 @@
         height: auto;
     }
 
+    @keyframes flashRedOrange {
 
+        0%,
+        100% {
+            filter: sepia(1) hue-rotate(-47deg) saturate(10);
+            /* 🔴 แดง */
+            opacity: 1;
+        }
+
+        50% {
+            filter: none;
+            opacity: 1;
+        }
+    }
+
+    .flash-img {
+        animation: flashRedOrange 0.5s infinite;
+    }
 </style>
 
 <script>

@@ -22,7 +22,7 @@
 
     @include('layouts.navbar')
 
-    @if (Request::is('/'))
+    @if (Request::is($language) || Request::is($language . '/'))
         @include('layouts.swiper')
     @endif
 
