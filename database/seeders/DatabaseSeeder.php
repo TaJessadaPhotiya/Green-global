@@ -55,9 +55,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            CategorySeeder::class, //categoriestable
             WebInfoSeeder::class, //web_infostable
-            PostsSeeder::class, //posts & post_images
         ]);
     }
 }
