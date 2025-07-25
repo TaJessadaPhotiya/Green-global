@@ -23,39 +23,45 @@
 @endphp
 
 <nav class="sticky top-0 z-20 bg-[#E9C713] ">
-    <div class="relative bg-white xl:mt-3 mt-1.5">
+    <div class="relative bg-white xl:mt-3 mt-1.5 ">
         {{-- style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;" --}}
-        <img class="absolute top-full xl:right-0 right-0 w-full drop-shadow-xl overflow-hidden " src="/image/Top-Line.png"
-            alt="">
+
+        <img class="absolute top-full right-0 w-full 2xl:hidden" src="/image/Top-Line - Copy (4).png" alt="">
+
+        <img class="absolute top-full left-2 w-full h-[14px] overflow-hidden max-2xl:hidden"
+            src="/image/Top-Line - Copy (2).png" alt="">
         <div
-            class="relative flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 px-4 drop-shadow-md">
+            class="relative flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 xl:px-[4rem] px-4 drop-shadow-md">
+            <img class="absolute top-full left-0 w-[302px] -translate-x-full max-2xl:hidden"
+                src="/image/Top-Line - Copy (3).png" alt="">
+
             <a href="/<?= $language ?>/">
                 <img class=" xl:w-[75px] w-[50px] h-auto" src="/image/logo-GGS.png 1.png" alt="">
             </a>
 
-            <div class="max-xl:hidden flex items-center justify-end w-full space-x-8 mt-1">
+            <div class="max-xl:hidden flex items-center justify-end w-full gap-7 mt-1">
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language") ? 'border-yellow-500 font-[600]' : '' }}"
+                    {{ Request::is("$language") ? 'border-yellow-500 font-[700]' : '' }}"
                     href="/<?= $language ?>/">HOME</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/vision") ? 'border-yellow-500 font-[600]' : '' }}"
+                    {{ Request::is("$language/vision") ? 'border-yellow-500 font-[700]' : '' }}"
                     href="/<?= $language ?>/vision">VISION</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/news") || Request::is("$language/news-detail*") ? 'border-yellow-500 font-[600]' : '' }}"
+                    {{ Request::is("$language/news") || Request::is("$language/news-detail*") ? 'border-yellow-500 font-[700]' : '' }}"
                     href="/<?= $language ?>/news">NEWS</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/product") || Request::is("$language/product-detail*") ? 'border-yellow-500 font-[600]' : '' }}"
+                    {{ Request::is("$language/product") || Request::is("$language/product-detail*") ? 'border-yellow-500 font-[700]' : '' }}"
                     href="/<?= $language ?>/product">PRODUCT</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/term") ? 'border-yellow-500 font-[600]' : '' }}"
-                    href="/<?= $language ?>/term">TERM</a>
+                    {{ Request::is("$language/term") ? 'border-yellow-500 font-[700]' : '' }}"
+                    href="/<?= $language ?>/term">TERM&CONDITION</a>
 
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/contact") ? 'border-yellow-500 font-[600]' : '' }}"
+                    {{ Request::is("$language/contact") ? 'border-yellow-500 font-[700]' : '' }}"
                     href="/<?= $language ?>/contact">CONTACT US</a>
 
 
@@ -95,19 +101,19 @@
                     </button>
 
                     <div id="dropdownMenu2"
-                        class="origin-top-right absolute right-0 mt-4 w-[120px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-50">
+                        class=" absolute right-0 w-[113px] rounded-md shadow-lg bg-white ring-black hidden mt-4 z-50">
                         <div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                             <button onclick="selectLang('TH')"
-                                class="flex items-center w-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-200 rounded-t-md">
-                                <img src="/image/TH.png" class="h-5 w-7 mr-2 font-bold"> ไทย
+                                class="flex items-center gap-2 w-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-200 rounded-t-md">
+                                <img src="/image/TH.png" class="h-5 w-7 "> ไทย
                             </button>
                             <button onclick="selectLang('EN')"
-                                class="flex items-center w-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-200">
-                                <img src="/image/EN.png" class="h-5 w-7 mr-2"> English
+                                class="flex items-center gap-2 w-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-200">
+                                <img src="/image/EN.png" class="h-5 w-7 "> English
                             </button>
                             <button onclick="selectLang('AR')"
-                                class="flex items-center w-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-200 rounded-b-md">
-                                <img src="/image/AR.png" class="h-5 w-7 mr-2"> Arabic
+                                class="flex items-center gap-2 w-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition duration-200 rounded-b-md">
+                                <img src="/image/AR.png" class="h-5 w-7 "> Arabic
                             </button>
                         </div>
                     </div>
