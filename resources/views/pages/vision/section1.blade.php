@@ -1,5 +1,5 @@
 <div class="relative w-full h-full">
-    <div class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+    <div class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto ">
             <div class="xl:w-[900px] w-full h-auto mx-auto">
                 <img class="w-full h-full object-cover" src="/image/Rectangle 156 (1).png" alt="">

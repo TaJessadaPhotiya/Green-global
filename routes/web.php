@@ -9,8 +9,8 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DetailController;
 use App\Http\Controllers\NewsDetailController;
+use App\Http\Controllers\ProductDetailController;
 
 
 Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], function () {
@@ -21,7 +21,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
     Route::get('/term', [TermController::class, 'index'])->name('term');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::get('/about', [AboutController::class, 'index'])->name('about');
-    Route::get('/detail/{id}', [DetailController::class, 'index'])->name('detail');
+    Route::get('/product-detail/{id}', [ProductDetailController::class, 'index'])->name('product-detail');
     Route::get('/news-detail/{id}', [NewsDetailController::class, 'index'])->name('news-detail');
 });
 

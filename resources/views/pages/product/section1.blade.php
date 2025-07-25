@@ -1,4 +1,3 @@
-
 {{-- Category --}}
 @php
     $menu_cateB = collect([
@@ -47,7 +46,7 @@
 
 <div class="relative w-full h-full ">
     <div
-        class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+        class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto ">
             <h1 class="text-[#098C46] xl:text-3xl text-2xl text-center font-semibold">PRODUCT CROP</h1>
 
@@ -68,9 +67,9 @@
                             <a href="{{ url('/' . $language . '/product?id=' . $category->id) }}"
                                 class="swiper-slide flex flex-col items-center justify-center group ">
                                 <div
-                                    class="{{ request('id') == $category->id ? 'border-[#7AC53A]' : 'border-[#098C46]' }} 2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden">
+                                    class="{{ request('id') == $category->id ? 'border-[#7AC53A] ' : 'border-[#098C46]' }} group-hover:border-[#7AC53A] 2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden">
                                     <div class="block">
-                                        <img class="w-full h-full object-cover rounded-full transition duration-300 group-hover:scale-125"
+                                        <img class="w-full h-full object-cover rounded-full transition duration-300 group-hover:scale-125 "
                                             src="{{ $category->cate_thumbnail }}" alt="{{ $category->cate_title }}">
                                     </div>
                                 </div>
@@ -135,7 +134,8 @@
             <div
                 class="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[2rem] w-full xl:mt-12 sm:mt-[4rem] mt-[2.6rem] pb-12 ">
                 @foreach ($filtered_products as $product)
-                    <div class="w-full cursor-pointer group">
+                    <a class="w-full cursor-pointer group"
+                        href="{{ url('/' . $language . '/product-detail/' . $product->id) }}">
                         {{-- ส่วนรูป --}}
                         <div class="relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl">
                             <!-- ป้าย NEW -->
@@ -150,7 +150,7 @@
 
                             <!-- พื้นหลัง -->
                             <figure class="w-full h-full overflow-hidden">
-                                <img class="w-full h-full object-cover group-hover:scale-125 transition duration-500"
+                                <img class="w-full h-full object-cover group-hover:scale-125 transition duration-500 "
                                     src="{{ $product->thumbnail }}" alt="{{ $product->title }}">
                             </figure>
 
@@ -166,14 +166,18 @@
                                 {{ $product->title }}
                             </p>
                             <button
-                                class="w-full text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] group-hover:bg-[#EEC90E] group-hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm mt-2">
+                                class="w-full text-white sm:text-[16px] text-sm font-medium text-center py-2 
+                                        bg-gradient-to-r from-[#19703D] to-[#1a7a43]
+                                        group-hover:from-[#EEC90E] group-hover:to-[#f7d73e]
+                                        transition-all duration-500 ease-in-out
+                                        rounded-md shadow-md group-hover:shadow-xl mt-2
+                                        transform ">
                                 {{ $product->product_code }}
                             </button>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
-
 
         </div>
     </div>
