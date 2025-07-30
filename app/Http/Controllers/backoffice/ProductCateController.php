@@ -1,0 +1,219 @@
+<?php
+
+namespace App\Http\Controllers\backoffice;
+
+use App\Http\Controllers\Controller;
+use App\Models\ProductCate;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
+class ProductCateController extends BaseController
+{
+    public function cateIndex(Request $request)
+    {
+        $cates = $this->getProductCate($request->language);
+        return response([
+            'message' => 'ok',
+            'status' => true,
+            'description' => 'Get product cate success',
+            'cates' => $cates,
+            'maxPriority' => ProductCate::max('priority'),
+        ], 200);
+    }
+
+    public function updatePin(Request $request, $id)
+    {
+        try {
+            $cate = ProductCate::where('id', $id)
+                ->where('language', $request->language)
+                ->update(['pin' => $request->pin]);
+
+            return response([
+                'message' => 'ok',
+                'status' => true,
+                'description' => 'update pin successfully',
+                'updated' => $cate,
+            ], 200);
+        } catch (Exception $e) {
+            return response([
+                'message' => 'server error',
+                'description' => 'Something went wrong.',
+                'errorsMessage' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function updateDisplay(Request $request, $id)
+    {
+        try {
+            $cate = ProductCate::where('id', $id)
+                ->where('language', $request->language)
+                ->update(['display' => $request->display]);
+
+            return response([
+                'message' => 'ok',
+                'status' => true,
+                'description' => 'update display successfully',
+                'updated' => $cate,
+            ], 200);
+        } catch (Exception $e) {
+            return response([
+                'message' => 'server error',
+                'description' => 'Something went wrong.',
+                'errorsMessage' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function createProductcate(Request $request)
+    {
+        $this->getAuthUser();
+        $files = $request->allFiles();
+        $params = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'string|required',
+            'details' => 'string|nullable',
+            'description' => 'string|nullable',
+            'display' => 'numeric|required',
+            'pin' => 'numeric|required',
+            'priority' => 'numeric|required',
+            'language' => 'string|nullable',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendErrorValidators('Invalid params', $validator->errors());
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
+
+            /* Upload Thumbnail */
+            $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['ImageName']) : "";
+
+            $this->updatePriority("product_category", $params['priority']);
+
+            ProductCate::create([
+                "title" => $params['title'],
+                "details" => $params['details'],
+                "description" => $params['description'],
+                "thumbnail_link" => $thumbnail,
+                "thumbnail_title" => $params['thumbnail_title'],
+                "thumbnail_alt" => $params['thumbnail_alt'],
+
+                "priority" => $params['priority'],
+                "display" => boolval($params['display']),
+                "pin" => boolval($params['pin']),
+                "language" => $params['language'],
+                "defaults" => 1,
+            ]);
+
+            DB::commit();
+            return response([
+                'message' => 'ok',
+                'status' => true,
+                'description' => 'Product care has been created successfully',
+            ], 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response([
+                'status' => false,
+                'message' => 'server error',
+                'description' => 'Something went wrong.',
+                'errorsMessage' => $e->getMessage()
+            ], 501);
+        }
+    }
+
+    public function updateProductcate(Request $request, $id)
+    {
+        $this->getAuthUser();
+        $files = $request->allFiles();
+        $params = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'numeric|required',
+            'title' => 'string|required',
+            'details' => 'string|nullable',
+            'description' => 'string|nullable',
+            'display' => 'numeric|required',
+            'pin' => 'numeric|required',
+            'priority' => 'numeric|required',
+            'language' => 'string|nullable',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendErrorValidators('Invalid params', $validator->errors());
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $cateUpdate = ProductCate::findOrFail($id);
+
+            /* Upload Thumbnail */
+            $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
+            $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['ImageName']) : $params['thumbnail_link'];
+
+            $conditions = ['id' => $params['id'], 'language' => $params['language']];
+            $values = [
+                'id' => $params['id'],
+                "title" => $params['title'],
+                "details" => $params['details'],
+                "description" => $params['description'],
+                "thumbnail_link" => $thumbnail,
+                "thumbnail_title" => $params['thumbnail_title'],
+                "thumbnail_alt" => $params['thumbnail_alt'],
+                "language" => $params['language'],
+                "priority" => $params['priority'],
+                "updated_at" => date('Y-m-d H:i:s')
+            ];
+
+            if ($cateUpdate->priority != $params['priority']) {
+                $this->updatePriority("product_category", $params['priority']);
+            }
+
+            DB::table('product_category')->updateOrInsert($conditions, $values);
+
+            DB::commit();
+            return response([
+                'message' => 'ok',
+                'status' => true,
+                'description' => 'Product cate has been updated successfully',
+            ], 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response([
+                'message' => 'server error',
+                'description' => 'Something went wrong.',
+                'errorsMessage' => $e->getMessage()
+            ], 501);
+        }
+    }
+
+    public function deleteProductcate($id, $language)
+    {
+        try {
+
+            $product = ProductCate::where('id', $id)->where('language', $language);
+            $product->delete();
+
+            return response([
+                'message' => 'ok',
+                'status' => true,
+                'description' => 'Product cate has been deleted successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response([
+                'message' => 'server error',
+                'description' => 'Something went wrong.',
+                'errorsMessage' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+}

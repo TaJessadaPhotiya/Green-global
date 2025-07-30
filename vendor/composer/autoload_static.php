@@ -338,13 +338,13 @@ class ComposerStaticInit0c7b2b7fad24a89054471394e0908f15
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
-            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
-            1 => __DIR__ . '/..' . '/spatie/ignition/src',
+            0 => __DIR__ . '/..' . '/spatie/ignition/src',
+            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -602,12 +602,22 @@ class ComposerStaticInit0c7b2b7fad24a89054471394e0908f15
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Http\\Controllers\\BookingController' => __DIR__ . '/../..' . '/app/Http/Controllers/BookingController.php',
+        'App\\Http\\Controllers\\AboutController' => __DIR__ . '/../..' . '/app/Http/Controllers/AboutController.php',
         'App\\Http\\Controllers\\ContactController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContactController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\DetailController' => __DIR__ . '/../..' . '/app/Http/Controllers/DetailController.php',
-        'App\\Http\\Controllers\\GalleryController' => __DIR__ . '/../..' . '/app/Http/Controllers/GalleryController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\NewsController' => __DIR__ . '/../..' . '/app/Http/Controllers/NewsController.php',
+        'App\\Http\\Controllers\\NewsDetailController' => __DIR__ . '/../..' . '/app/Http/Controllers/NewsDetailController.php',
+        'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
+        'App\\Http\\Controllers\\ProductDetailController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductDetailController.php',
+        'App\\Http\\Controllers\\ServiceController' => __DIR__ . '/../..' . '/app/Http/Controllers/ServiceController.php',
+        'App\\Http\\Controllers\\TermController' => __DIR__ . '/../..' . '/app/Http/Controllers/TermController.php',
+        'App\\Http\\Controllers\\VisionController' => __DIR__ . '/../..' . '/app/Http/Controllers/VisionController.php',
+        'App\\Http\\Controllers\\backoffice\\AuthBackOfficeController' => __DIR__ . '/../..' . '/app/Http/Controllers/backoffice/AuthBackOfficeController.php',
+        'App\\Http\\Controllers\\backoffice\\BaseController' => __DIR__ . '/../..' . '/app/Http/Controllers/backoffice/BaseController.php',
+        'App\\Http\\Controllers\\backoffice\\ProducrAgricultureController' => __DIR__ . '/../..' . '/app/Http/Controllers/backoffice/ProducrAgricultureController.php',
+        'App\\Http\\Controllers\\backoffice\\ProductCateController' => __DIR__ . '/../..' . '/app/Http/Controllers/backoffice/ProductCateController.php',
+        'App\\Http\\Controllers\\backoffice\\WebInfoController' => __DIR__ . '/../..' . '/app/Http/Controllers/backoffice/WebInfoController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -642,6 +652,7 @@ class ComposerStaticInit0c7b2b7fad24a89054471394e0908f15
         'App\\Models\\Orders' => __DIR__ . '/../..' . '/app/Models/Orders.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
+        'App\\Models\\ProductCate' => __DIR__ . '/../..' . '/app/Models/ProductCate.php',
         'App\\Models\\ProductsImages' => __DIR__ . '/../..' . '/app/Models/ProductsImages.php',
         'App\\Models\\Province' => __DIR__ . '/../..' . '/app/Models/Province.php',
         'App\\Models\\Room' => __DIR__ . '/../..' . '/app/Models/Room.php',
