@@ -3,12 +3,15 @@
 use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AboutController;
 use App\Http\Controllers\VisionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ForgotController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsDetailController;
 use App\Http\Controllers\ProductDetailController;
 
@@ -20,7 +23,10 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
     Route::get('/product', [ProductController::class, 'index'])->name('product');
     Route::get('/term', [TermController::class, 'index'])->name('term');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-    Route::get('/about', [AboutController::class, 'index'])->name('about');
+    Route::get('/register', [RegisterController::class, 'index'])->name('register');
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::get('/forgot', [ForgotController::class, 'index'])->name('forgot');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/product-detail/{id}', [ProductDetailController::class, 'index'])->name('product-detail');
     Route::get('/news-detail/{id}', [NewsDetailController::class, 'index'])->name('news-detail');
 });

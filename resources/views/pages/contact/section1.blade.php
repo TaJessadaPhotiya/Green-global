@@ -1,46 +1,114 @@
-<div class="relative w-full h-full ">
+@php
+    $images = ['/image/Rectangle 158.png', '/image/Rectangle 157.png', '/image/Rectangle 156.png'];
+@endphp
 
-    {{-- ข้อความ --}}
-    <div class="2xl:w-[1300px] w-full mx-auto max-2xl:px-4 xl:mt-[4rem] mt-[1.5rem] xl:mb-[4rem] mb-[1.5rem] ">
-        <div class="2xl:w-[1300px] w-full">
-            <p class="xl:text-4xl text-2xl font-semibold ">CONSTACT US</p>
-            <div class="flex justify-between">
-                <p class="xl:text-[16px] text-[12px] font-medium">THE KITCHEN BEEF BISTRO</p>
-                <p class="xl:text-[16px] text-[12px] text-gray-400 font-medium">Home / Food Menu</p>
-            </div>
-        </div>
-
-        <div class="border-gray-300/40 border-t-2 xl:mt-8 mt-4"></div>
-
-        <div class="flex xl:flex-row flex-col xl:gap-[3.5rem] gap-[1.5rem] xl:pt-12 pt-6 pb-12">
-            <div data-aos="fade-right" data-aos-duration="1000" class="2xl:w-1/2 w-full">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.7658682734395!2d102.83243147514484!3d16.48738888425428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31228ae99b598b43%3A0x56b4538d2ace7037!2z4Lij4Lix4Lia4LiX4Liz4LmA4Lin4LmH4Lia4LmE4LiL4LiV4LmMIOC4guC4reC4meC5geC4geC5iOC4mSBXWU5OU09GVCBTT0xVVElPTiBDTy4sTFRELg!5e0!3m2!1sth!2sth!4v1737951077871!5m2!1sth!2sth"
-                    width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-
-            <div data-aos="fade-left" data-aos-duration="1000" class="2xl:w-1/2 w-full">
-                <p class="xl:text-[20px] text-[12px] text-gray-700 font-medium text-start">CUSTOMER SERVICE</p>
-                <p class="text-[#747474] xl:text-[16px] text-[12px] font-[300] text-justify xl:mt-2 mt-1">Lorem ipsum
-                    dolor
-                    sit amet
-                    consectetur
-                    adipisicing
-                    elit. Ut esse, incidunt ratione expedita recusandae sit nulla nesciunt architecto nisi blanditiis
-                    optio
-                    quos fuga natus.
+<div class="relative w-full h-full">
+    <div
+        class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+        <div class="container mx-auto ">
+            <div class="w-full">
+                <p class="text-3xl text-center text-[#19703D] font-semibold">
+                    CONTACT US
                 </p>
-                <p class="xl:text-[20px] text-[12px] text-gray-700 font-medium text-start mt-6">THE KITCHEN BEEF BISTRO/p>
-                <ul
-                    class="text-[#747474] xl:text-[16px] text-[12px] font-[300] text-justify ml-4 list-disc list-inside xl:mt-2 mt-1">
-                    <li>12 mins to Ekkamai BTS Station, Ekamai Soi 8</li>
-                    <li>0345343434</li>
-                    <li>0621323233</li>
-                    <li>Location</li>
-                    <li>Send an enquiry</li>
-                </ul>
+                <div class="border-b-2 border-[#19703D]"></div>
+                <div class="border-b-2 border-[#19703D] mt-1"></div>
+            </div>
+            <div class="grid md:grid-cols-2 grid-cols-1  w-full mt-12">
+                {{-- ซ้าย --}}
+                <div class="w-full ">
+                    <div class="flex items-center gap-3">
+                        <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm"
+                            src="/icons/icon-telephone.png" alt="">
+                        <div class="border-l-2 border-[#008C46] pl-3">
+                            <p class="text-[#19703D] sm:text-xl text-md font-semibold">Phone</p>
+                            <p class="text-[#19703D] text-md font-sans">0933365675</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 mt-5">
+                        <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm" src="/icons/icon-web.png"
+                            alt="">
+                        <div class="border-l-2 border-[#008C46] pl-3">
+                            <p class="text-[#19703D] sm:text-xl text-md font-semibold">Website</p>
+                            <p class="text-[#19703D] text-md font-sans">WWW.REENGLOBLSEEDS.COM</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 mt-5">
+                        <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm" src="/icons/icon-mail.png"
+                            alt="">
+                        <div class="border-l-2 border-[#008C46] pl-3">
+                            <p class="text-[#19703D] sm:text-xl text-md font-semibold">E-Mail</p>
+                            <p class="text-[#19703D] text-md font-sans">ggs.web@greenglobalseeds.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 mt-5">
+                        <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm"
+                            src="/icons/icon-address.png" alt="">
+                        <div class="border-l-2 border-[#008C46] pl-3">
+                            <p class="text-[#19703D] sm:text-xl text-md font-semibold">Address</p>
+                            <p class="text-[#19703D] text-md font-sans">GREEN GLOBAL SEEDS COMPANY
+                                199/376, Moo 4, Rangsit Sub-district, Thanyaburi District, Pathum Thani 12110. Thailand
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center w-full mt-8">
+                        <figure class="relative">
+                            <img class="w-auto h-[140px]" src="/image/Group 104.png" alt="">
+                            <img class=" absolute top-1/2 right-full -translate-y-1/2 w-auto h-[25px] mr-2"
+                                src="/icons/scan me.png" alt="">
+                        </figure>
+                    </div>
+                </div>
+
+                {{-- ซ้าย --}}
+                <div class="w-full ">
+                    <p class="text-[#19703D] text-xl font-medium text-center max-xl:mt-6">Tell Us Your Message</p>
+                    <div class="space-y-4 w-full max-w-md mx-auto mt-4">
+                        <!-- Name -->
+                        <div>
+                            <label class="block text-sm font-medium text-[#005F25] mb-1" for="name">Name:</label>
+                            <input type="text" id="name" name="name"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                                placeholder="Enter your name" />
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium text-[#005F25] mb-1" for="email">Email:</label>
+                            <input type="email" id="email" name="email"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                                placeholder="Enter your email" />
+                        </div>
+
+                        <!-- Phone -->
+                        <div>
+                            <label class="block text-sm font-medium text-[#005F25] mb-1" for="phone">Phone:</label>
+                            <input type="tel" id="phone" name="phone"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                                placeholder="Enter your phone number" />
+                        </div>
+
+                        <!-- Message -->
+                        <div>
+                            <label class="block text-sm font-medium text-[#005F25] mb-1" for="message">Message:</label>
+                            <textarea id="message" name="message" rows="4"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                                placeholder="Write your message here"></textarea>
+                        </div>
+                    </div>
+                    <form class="flex justify-center w-full">
+                        <button type="submit"
+                            class="mt-4 w-[95px] text-white py-1.5 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
+                            Send
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {{-- Image --}}
+            <div class="flex flex-wrap justify-center gap-4 w-full mt-12 mb-12">
+                @foreach ($images as $image)
+                    <img class="h-[270px] max-w-full object-cover flex-1 min-w-[200px] shadow-md"
+                        src="{{ $image }}" alt="">
+                @endforeach
             </div>
         </div>
     </div>

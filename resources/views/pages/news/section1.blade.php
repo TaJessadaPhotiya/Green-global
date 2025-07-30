@@ -352,7 +352,7 @@
                                 </div>
                                 <div class="flex items-center justify-end px-6 py-4">
                                     <a href="{{ url('/' . $language . '/product-detail/' . $new_product->id) }}"
-                                        class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm text-center block">
+                                        class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm block">
                                         Detail
                                     </a>
                                 </div>

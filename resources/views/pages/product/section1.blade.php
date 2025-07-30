@@ -150,7 +150,8 @@
 
                             <!-- พื้นหลัง -->
                             <figure class="w-full h-full overflow-hidden">
-                                <img class="w-full h-full object-cover group-hover:scale-125 transition duration-500 "
+                                <img loading="lazy"
+                                    class="w-full h-full object-cover group-hover:scale-125 transition duration-500"
                                     src="{{ $product->thumbnail }}" alt="{{ $product->title }}">
                             </figure>
 
@@ -169,9 +170,7 @@
                                 class="w-full text-white sm:text-[16px] text-sm font-medium text-center py-2 
                                         bg-gradient-to-r from-[#19703D] to-[#1a7a43]
                                         group-hover:from-[#EEC90E] group-hover:to-[#f7d73e]
-                                        transition-all duration-500 ease-in-out
-                                        rounded-md shadow-md group-hover:shadow-xl mt-2
-                                        transform ">
+                                        rounded-md shadow-md group-hover:shadow-xl mt-2">
                                 {{ $product->product_code }}
                             </button>
                         </div>
@@ -179,6 +178,54 @@
                 @endforeach
             </div>
 
+            {{-- Pagination links --}}
+            @if ($filtered_products->lastPage() > 1)
+                <nav aria-label="Page navigation" class="flex justify-center xl:mb-10 mb-1 space-x-2">
+                    {{-- Previous --}}
+                    @if ($filtered_products->onFirstPage())
+                        <span
+                            class="w-8 h-8 bg-gray-300 text-gray-600 rounded-md cursor-not-allowed select-none text-lg shadow-sm flex items-center justify-center">
+                            «
+                        </span>
+                    @else
+                        <a href="{{ $filtered_products->previousPageUrl() }}"
+                            class="w-8 h-8 bg-green-700 text-white rounded-md shadow hover:bg-yellow-500 transition duration-150 ease-in-out cursor-pointer select-none text-lg flex items-center justify-center"
+                            aria-label="Previous Page">
+                            «
+                        </a>
+                    @endif
+
+                    {{-- Page Numbers --}}
+                    @for ($i = 1; $i <= $filtered_products->lastPage(); $i++)
+                        @if ($i == $filtered_products->currentPage())
+                            <span aria-current="page"
+                                class="w-8 h-8 bg-white text-green-700 border rounded-md font-normal shadow select-none text-md flex items-center justify-center">
+                                {{ $i }}
+                            </span>
+                        @else
+                            <a href="{{ $filtered_products->url($i) }}"
+                                class="w-8 h-8 bg-green-700 text-white rounded-md shadow hover:bg-yellow-500 transition duration-150 ease-in-out cursor-pointer select-none text-md flex items-center justify-center"
+                                aria-label="Go to page {{ $i }}">
+                                {{ $i }}
+                            </a>
+                        @endif
+                    @endfor
+
+                    {{-- Next --}}
+                    @if ($filtered_products->hasMorePages())
+                        <a href="{{ $filtered_products->nextPageUrl() }}"
+                            class="w-8 h-8 bg-green-700 text-white rounded-md shadow hover:bg-yellow-500 transition duration-150 ease-in-out cursor-pointer select-none text-lg flex items-center justify-center"
+                            aria-label="Next Page">
+                            »
+                        </a>
+                    @else
+                        <span
+                            class="w-8 h-8 bg-gray-300 text-gray-600 rounded-md cursor-not-allowed select-none text-lg shadow-sm flex items-center justify-center">
+                            »
+                        </span>
+                    @endif
+                </nav>
+            @endif
         </div>
     </div>
 </div>
