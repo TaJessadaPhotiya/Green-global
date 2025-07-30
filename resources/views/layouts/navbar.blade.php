@@ -22,19 +22,23 @@
     ];
 @endphp
 
+{{-- เช็คสถาณ Login --}}
+@php
+    $status = 0;
+@endphp
+
 <nav class="sticky top-0 z-20 bg-[#E9C713] ">
     <div class="relative bg-white xl:mt-3 mt-1.5 ">
         {{-- style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;" --}}
 
-        <img class="absolute top-full right-0 w-full 2xl:hidden" src="/image/Top-Line - Copy (4).png" alt="">
+        <img class="absolute top-full left-0 w-[302px] max-2xl:hidden z-20" src="/image/Top-Line - Copy (3).png" alt="">
 
-        <img class="absolute top-full left-2 w-full h-[14px] overflow-hidden max-2xl:hidden"
+        <img class="absolute top-full right-0 w-full 2xl:hidden" src="/image/Top-Line - Copy (4).png" alt="">
+ 
+        <img class="absolute top-full left-0 w-full h-[14px] overflow-hidden max-2xl:hidden "
             src="/image/Top-Line - Copy (2).png" alt="">
         <div
-            class="relative flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 xl:px-[4rem] px-4 drop-shadow-md">
-            <img class="absolute top-full left-0 w-[302px] -translate-x-full max-2xl:hidden"
-                src="/image/Top-Line - Copy (3).png" alt="">
-
+            class="flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 xl:px-[4rem] px-4 drop-shadow-md">
             <a href="/<?= $language ?>/">
                 <img class=" xl:w-[75px] w-[50px] h-auto" src="/image/logo-GGS.png 1.png" alt="">
             </a>
@@ -64,31 +68,55 @@
                     {{ Request::is("$language/contact") ? 'border-yellow-500 font-[700]' : '' }}"
                     href="/<?= $language ?>/contact">CONTACT US</a>
 
+                @if ($status == 1)
+                    {{-- Member --}}
+                    <div class="relative inline-block text-left">
+                        <button id="dropdownBtn"
+                            class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
+                            onclick="toggleDropdown()">
+                            <img class="w-3.5 h-3.5 mr-1.5" src="/icons/Vector.png" alt="">
+                            MEMBER
+                            <svg id="memberIcon" class="ml-1 transition-transform duration-300"
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
 
-                <div class="relative inline-block text-left">
-                    <button id="dropdownBtn"
-                        class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium "
-                        onclick="toggleDropdown()">
-                        MEMBER
-                        <!-- MEMBER Button -->
-                        <svg id="memberIcon" class="ml-1 transition-transform duration-300"
-                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black"
-                            viewBox="0 0 24 24">
-                            <path d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-
-                    <div id="dropdownMenu"
-                        class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div>
-                            <a href="/<?= $language ?>/signin"
-                                class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
-                                Sign In</a>
-                            <a href="/<?= $language ?>/register"
-                                class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">Register</a>
+                        <div id="dropdownMenu"
+                            class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div>
+                                <a href="/{{ $language }}/profile"
+                                    class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
+                                    Profile</a>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
+                                    Sign out</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    {{-- Register --}}
+                    <div class="relative inline-block text-left">
+                        <button id="dropdownBtn"
+                            class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
+                            onclick="toggleDropdown()">
+                            REGISTER
+                        </button>
+
+                        <div id="dropdownMenu"
+                            class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div>
+                                <a href="/{{ $language }}/login"
+                                    class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
+                                    Sign In</a>
+                                <a href="/{{ $language }}/register"
+                                    class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
+                                    Register</a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
                 <div class="relative inline-block" id="languageDropdown">
                     <button id="dropdownBtn2" class="flex justify-center w-full rounded-md ">

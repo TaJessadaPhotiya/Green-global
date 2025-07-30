@@ -18,26 +18,26 @@
                                 Plant Growth
                             </p>
                         </div>
-                        <div class="w-full">
+                        <div class="w-full group">
                             <figure
-                                class="flex items-center justify-center w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg bg-[#098C46] overflow-hidden shadow-md cursor-pointer">
+                                class="flex items-center justify-center w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg bg-[#098C46] group-hover:bg-[#7AC53A] transition duration-200 overflow-hidden shadow-md cursor-pointer">
                                 <img class="w-auto sm:h-[85px] h-[60px] " src="/icons/chevron-left-svgrepo-com.png"
                                     alt="">
                             </figure>
-                            <p class="xl:text-lg sm:text-md text-sm text-[#098C46] text-center font-semibold mt-1">
+                            <p class="xl:text-lg sm:text-md text-sm text-[#098C46] group-hover:text-[#7AC53A] text-center font-semibold mt-1">
                                 Watch Video
                             </p>
                         </div>
-                        <div class="w-full">
+                        <a class="w-full group" href="/pdf/test.pdf" download>
                             <figure
-                                class="flex items-center justify-center w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg bg-[#098C46] overflow-hidden shadow-md cursor-pointer">
+                                class="flex items-center justify-center w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg bg-[#098C46] group-hover:bg-[#7AC53A] transition duration-200 overflow-hidden shadow-md cursor-pointer">
                                 <img class="w-auto sm:h-[85px] h-[50px] "
                                     src="/icons/fluent_document-pdf-32-regular.png" alt="">
                             </figure>
-                            <p class="xl:text-lg sm:text-md text-sm text-[#098C46] text-center font-semibold mt-1">
+                            <p class="xl:text-lg sm:text-md text-sm text-[#098C46] group-hover:text-[#7AC53A] text-center font-semibold mt-1">
                                 Download PDF
                             </p>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 {{-- ขวา --}}

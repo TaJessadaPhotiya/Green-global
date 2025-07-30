@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
@@ -292,16 +293,25 @@ class ProductController extends Controller
 
         $cate_id = $request->query('id');
 
-        // ถ้ามี id ให้กรอง cate_id, ถ้าไม่มีให้แสดงทั้งหมด
-        $filtered_products = $cate_id
+        $filtered = $cate_id
             ? $menu_product->where('cate_id', $cate_id)
             : $menu_product;
 
-        $filtered_products = $filtered_products->sortByDesc('product_new');
+        $sorted = $filtered->sortByDesc('product_new')->values(); // รี index ใหม่
+
+        // ---- Pagination ----
+        $perPage = 12;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $sorted->forPage($currentPage, $perPage);
+
+        $filtered_products = new LengthAwarePaginator(
+            $currentItems,
+            $sorted->count(),
+            $perPage,
+            $currentPage,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
 
         return view('pages.product.product', compact('filtered_products'));
-
-        // ถ้าใช้ ฐานข้อมูลจริง เปิดใช้งาน
-        // Product::where('cate_id', $cate_id)->orderBy('product_new', 'desc')->get();
     }
 }

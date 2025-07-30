@@ -16,7 +16,7 @@
 </head>
 
 <body class="font-Kanit flex flex-col min-h-screen relative ">
-    <img class="fixed bottom-0 w-full sm:h-[60px] h-[25px] z-20" src="/image/Rectangle 419.png" alt="">
+    <img class="fixed bottom-0 w-full sm:h-[60px] h-[25px] z-[110]" src="/image/Rectangle 419.png" alt="">
 
     @include('layouts.loading')
 
@@ -30,9 +30,6 @@
         @yield('content')
     </div>
 
-    {{-- @include('layouts.footer') --}}
-
-
     {{-- เซ็ตค่าภาษาจาก localStorage ใช้ชั่วคราว --}}
     <script>
         const lang = localStorage.getItem('selectedLanguage') || 'th';
@@ -42,10 +39,14 @@
     <script>
         window.addEventListener('load', () => {
             const loadingScreen = document.getElementById('loading-screen');
-            loadingScreen.classList.add('hidden');
+
+            // รอ 3 วินาทีแล้วค่อยซ่อน loading screen
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+            }, 100); // 3000 มิลลิวินาที = 3 วินาที
         });
 
-        AOS.init();
+        // AOS.init();
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

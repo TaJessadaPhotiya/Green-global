@@ -289,7 +289,7 @@
 
 <div class="relative w-full h-full">
     <div
-        class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+        class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto">
             <div class="grid md:grid-cols-2 grid-cols-1 gap-6 w-full">
                 {{-- ซ้าย --}}
@@ -352,7 +352,7 @@
                                 </div>
                                 <div class="flex items-center justify-end px-6 py-4">
                                     <a href="{{ url('/' . $language . '/product-detail/' . $new_product->id) }}"
-                                        class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm text-center block">
+                                        class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm block">
                                         Detail
                                     </a>
                                 </div>
