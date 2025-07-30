@@ -4,7 +4,7 @@
 
 <div class="relative w-full h-full">
     <div
-        class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+        class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto ">
             <div class="w-full">
                 <p class="text-3xl text-center text-[#19703D] font-semibold">

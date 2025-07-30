@@ -312,7 +312,6 @@ class ProductController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
-
         return view('pages.product.product', compact('filtered_products'));
     }
 }

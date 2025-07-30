@@ -39,11 +39,11 @@
 
     <!-- Navigation Buttons -->
     <button id="prevButton"
-        class="absolute xl:left-[8rem] left-6 top-1/2 -translate-y-1/2 hover:bg-[#eec90e] rounded-full transition duration-200 opacity-70 z-20">
+        class="absolute xl:left-[8rem] left-6 top-1/2 -translate-y-1/2 hover:bg-[#eec90e] rounded-full transition duration-200 opacity-70 z-10">
         <img class="sm:w-9 w-5 sm:h-9 h-5" src="/icons/prev.png" alt="Previous Slide">
     </button>
     <button id="nextButton"
-        class="absolute xl:right-[8rem] right-6 top-1/2 -translate-y-1/2 hover:bg-[#eec90e] rounded-full transition duration-200 opacity-70 z-20">
+        class="absolute xl:right-[8rem] right-6 top-1/2 -translate-y-1/2 hover:bg-[#eec90e] rounded-full transition duration-200 opacity-70 z-10">
         <img class="sm:w-9 w-5 sm:h-9 h-5" src="/icons/next.png" alt="Next Slide">
     </button>
 </div>

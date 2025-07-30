@@ -1,5 +1,5 @@
 <!-- Warranty Popup Overlay -->
-<div id="warranty-popup" class="fixed inset-0 bg-black/20 bg-opacity-60 z-50 flex justify-center items-center">
+<div id="warranty-popup" class="fixed inset-0 bg-black/20 bg-opacity-60 z-50 flex justify-center items-center p-4">
     <div class="relative flex justify-center bg-[#283891] rounded-lg shadow-xl">
 
         <!-- ปุ่มกากบาท SVG -->
@@ -11,7 +11,7 @@
             </svg>
         </button>
 
-        <div class="w-[90%] md:w-[700px] max-h-[90vh] overflow-y-auto py-6 xl:px-[3rem] px-6">
+        <div class="w-[90%] md:w-[700px] max-h-[83vh] overflow-y-auto py-6 xl:px-[3rem] px-2">
             <h2 class="text-2xl text-center font-bold mb-4 text-white">WARRANTY AND LIMITATION OF LIABILITY</h2>
             <div class="text-sm text-gray-300 space-y-4">
                 <p>

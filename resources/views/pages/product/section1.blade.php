@@ -67,7 +67,7 @@
                             <a href="{{ url('/' . $language . '/product?id=' . $category->id) }}"
                                 class="swiper-slide flex flex-col items-center justify-center group ">
                                 <div
-                                    class="{{ request('id') == $category->id ? 'border-[#7AC53A] ' : 'border-[#098C46]' }} group-hover:border-[#7AC53A] 2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden">
+                                    class="{{ request('id') == $category->id ? 'border-[#7AC53A] ' : 'border-[#098C46]' }} group-hover:border-[#7AC53A] 2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden ">
                                     <div class="block">
                                         <img class="w-full h-full object-cover rounded-full transition duration-300 group-hover:scale-125 "
                                             src="{{ $category->cate_thumbnail }}" alt="{{ $category->cate_title }}">
@@ -134,7 +134,7 @@
             <div
                 class="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[2rem] w-full xl:mt-12 sm:mt-[4rem] mt-[2.6rem] pb-12 ">
                 @foreach ($filtered_products as $product)
-                    <a class="w-full cursor-pointer group"
+                    <a class="w-full cursor-pointer group "
                         href="{{ url('/' . $language . '/product-detail/' . $product->id) }}">
                         {{-- ส่วนรูป --}}
                         <div class="relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl">
@@ -144,20 +144,32 @@
                                     src="/image/Group 108.png" alt="">
                             @endif
 
-                            <!-- รูปด้านบน -->
-                            <img class="absolute left-0 w-full top-[22px] -translate-y-full drop-shadow-sm z-10"
+                            <!-- รูป PNG ด้านบน -->
+                            <img class="absolute left-0 w-full top-[22px] -translate-y-full drop-shadow-sm z-10 "
                                 src="/image/Group 105.png" alt="">
 
-                            <!-- พื้นหลัง -->
+                            <!-- รูป -->
                             <figure class="w-full h-full overflow-hidden">
                                 <img loading="lazy"
-                                    class="w-full h-full object-cover group-hover:scale-125 transition duration-500"
+                                    class="w-full h-full object-cover group-hover:scale-125 transition duration-500 "
                                     src="{{ $product->thumbnail }}" alt="{{ $product->title }}">
                             </figure>
 
-                            <!-- รูปล่าง -->
+                            <!-- รูป PNG ล่าง -->
                             <img class="absolute left-0 w-full bottom-0 translate-y-full z-10"
                                 src="/image/Rectangle 407.png" alt="">
+
+
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent group-hover:from-[hsl(50,80%,49%)] group-hover:via-[#EEC90E]/10 transition-colors duration-300">
+                            </div>
+
+
+                            <div
+                                class="absolute inset-0 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition duration-300">
+                                <img class="h-9" src="/icons/view-alt-svgrepo-com.png" alt="">
+                                <p class="text-md">VIEW DETAIL</p>
+                            </div>
                         </div>
 
                         {{-- ส่วนล่าง --}}
