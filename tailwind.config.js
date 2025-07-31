@@ -19,14 +19,6 @@ export default {
                     "0%": { transform: "scale(0)", opacity: "1" },
                     "100%": { transform: "scale(1)", opacity: "1" },
                 },
-            },
-            animation: {
-                scaleInCenter: "scaleInCenter 0.3s ease-in-out",
-            },
-            transitionProperty: {
-                "max-height": "max-height",
-            },
-            keyframes: {
                 kenburnsTopRight: {
                     "0%": {
                         transform: "scale(1) translate(0, 0)",
@@ -37,9 +29,24 @@ export default {
                         transformOrigin: "right top",
                     },
                 },
+                swingRightFwd: {
+                    "0%": {
+                        transform: "rotateY(0)",
+                        transformOrigin: "right",
+                    },
+                    "100%": {
+                        transform: "rotateY(180deg)",
+                        transformOrigin: "right",
+                    },
+                },
             },
             animation: {
+                scaleInCenter: "scaleInCenter 0.3s ease-in-out",
                 kenburnsTopRight: "kenburnsTopRight 10s ease-in-out infinite",
+                swingRightFwd: "swingRightFwd 0.7s ease-in-out forwards",
+            },
+            transitionProperty: {
+                "max-height": "max-height",
             },
         },
     },

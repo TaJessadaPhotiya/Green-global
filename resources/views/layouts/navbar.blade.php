@@ -31,10 +31,12 @@
     <div class="relative bg-white xl:mt-3 mt-1.5 ">
         {{-- style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;" --}}
 
-        <img class="absolute top-full left-0 w-[302px] max-2xl:hidden z-20" src="/image/Top-Line - Copy (3).png" alt="">
+        <img class=" {{ $language == 'ar' ? 'right-0 scale-x-[-1]' : 'left-0' }} absolute top-full w-[302px] max-2xl:hidden z-20"
+            src="/image/Top-Line - Copy (3).png" alt="">
 
-        <img class="absolute top-full right-0 w-full 2xl:hidden" src="/image/Top-Line - Copy (4).png" alt="">
- 
+        <img class=" {{ $language == 'ar' ? 'right-0 scale-x-[-1]' : 'left-0' }} absolute top-full w-full 2xl:hidden"
+            src="/image/Top-Line - Copy (4).png" alt="">
+
         <img class="absolute top-full left-0 w-full h-[14px] overflow-hidden max-2xl:hidden "
             src="/image/Top-Line - Copy (2).png" alt="">
         <div

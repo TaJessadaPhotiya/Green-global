@@ -137,7 +137,7 @@
                     <a class="w-full cursor-pointer group "
                         href="{{ url('/' . $language . '/product-detail/' . $product->id) }}">
                         {{-- ส่วนรูป --}}
-                        <div class="relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl">
+                        <div class=" relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl ">
                             <!-- ป้าย NEW -->
                             @if ($product->product_new == 1)
                                 <img class="flash-img absolute sm:top-2 top-3 left-3 sm:w-[55px] w-[40px] sm:h-[55px] h-[40px] drop-shadow-sm z-10"
@@ -149,11 +149,15 @@
                                 src="/image/Group 105.png" alt="">
 
                             <!-- รูป -->
-                            <figure class="w-full h-full overflow-hidden">
-                                <img loading="lazy"
-                                    class="w-full h-full object-cover group-hover:scale-125 transition duration-500 "
-                                    src="{{ $product->thumbnail }}" alt="{{ $product->title }}">
+                            <figure class=" w-full h-full overflow-hidden relative">
+                                <img class="lazy-image  w-full h-full object-cover transition-all duration-500 blur-md scale-105"
+                                    loading="lazy" src="{{ $product->thumbnail }}" alt="{{ $product->title }}"
+                                    onload="this.classList.remove('blur-md', 'scale-105')">
                             </figure>
+
+                            {{-- group-hover:animate-swingRightFwd --}}
+
+
 
                             <!-- รูป PNG ล่าง -->
                             <img class="absolute left-0 w-full bottom-0 translate-y-full z-10"
@@ -166,7 +170,7 @@
 
 
                             <div
-                                class="absolute inset-0 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition duration-300">
+                                class="absolute inset-0 flex flex-col justify-center items-center text-green-500 opacity-0 group-hover:opacity-100 transition duration-300">
                                 <img class="h-9" src="/icons/view-alt-svgrepo-com.png" alt="">
                                 <p class="text-md">VIEW DETAIL</p>
                             </div>
@@ -179,7 +183,7 @@
                                 {{ $product->title }}
                             </p>
                             <button
-                                class="w-full text-white sm:text-[16px] text-sm font-medium text-center py-2 
+                                class=" w-full text-white sm:text-[16px] text-sm font-medium text-center py-2 
                                         bg-gradient-to-r from-[#19703D] to-[#1a7a43]
                                         group-hover:from-[#EEC90E] group-hover:to-[#f7d73e]
                                         rounded-md shadow-md group-hover:shadow-xl mt-2">
