@@ -14,7 +14,9 @@ class CategoryController extends BaseController
 {
     public function index(Request $req) {
         $menuList = $this->categoryCreateList($req->language);
+        // dd($menuList);
         $cateData = $this->getCategory($req->language);
+
         try {
             return response([
                 'message'=> 'ok',

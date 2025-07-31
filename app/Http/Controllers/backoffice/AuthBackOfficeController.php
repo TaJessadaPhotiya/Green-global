@@ -52,15 +52,14 @@ class AuthBackOfficeController extends BaseController
                 'admin_level' => 4,
                 'admin_status' => 2
             ]);
-            $token = $userCreated->createToken('AuthToken')->plainTextToken;
+            // $token = $userCreated->createToken('AuthToken')->plainTextToken;
             /* ส่งเมล */
             // $token = md5($userCreated->created_at . $userCreated->email . $userCreated->id);
             DB::commit();
             return response()->json([
                 'message' => 'success',
                 'description' => 'An account has been created successfully.',
-                'user' => $userCreated,
-                'token' => $token
+                'confirm_token' => $userCreated
             ], 201);
         } catch (Exception $e) {
             DB::rollback();
@@ -92,7 +91,7 @@ class AuthBackOfficeController extends BaseController
                     'description' => 'You do not have permission to access this area.',
                 ], 403);
             }
-            $profile = AdminAccount::where('account_id', $user->id)->get()->first();
+            $profile = AdminAccount::where('account_id', $user->id)->first();
             if (!$profile) {
                 return response()->json([
                     'message' => 'error',
@@ -115,14 +114,15 @@ class AuthBackOfficeController extends BaseController
                 ], 403);
             }
 
-            $token = $user->createToken('AuthToken')->plainTextToken;
+            // สร้าง token พร้อม expiration
+            $token = $user->createToken('AuthToken')->accessToken;
 
             return response()->json([
                 'message' => 'success',
                 'description' => 'Login successful.',
                 'user' => $user,
                 'profile' => $profile,
-                'token' => $token
+                'token' =>  $token,
             ], 200);
         } else {
             return response()->json([
@@ -136,16 +136,19 @@ class AuthBackOfficeController extends BaseController
     {
         try {
             $userAccount = $this->queryAccount(Auth::id());
+
             if (is_array($userAccount)) {
                 $userAccount = !empty($userAccount) ? (object) $userAccount : null;
             }
-            $langDefault = LanguageAvailable::where('default', 1)->first();
+            $langDefault = LanguageAvailable::where('defaults', 1)->first();
+
             if (!$langDefault) {
                 return response()->json([
                     'message' => 'error',
                     'description' => 'Default language not found.',
                 ], 404);
             }
+
             if (!$userAccount || $userAccount->admin_status !== 1) {
                 return response()->json([
                     'message' => 'error',
@@ -178,6 +181,7 @@ class AuthBackOfficeController extends BaseController
                 foreach ($queryLangs as $lng) {
                     $activateLanguage .= ",{$lng->abbv_name}";
                 }
+
                 return response()->json([
                     'message' => 'success',
                     'data' => [
@@ -393,7 +397,7 @@ class AuthBackOfficeController extends BaseController
     private function sendmailReset($user, $user_account, $reset_token)
     {
         try {
-            $infos = $this->getWebInfo('',);
+            $infos = $this->getWebInfo('', );
             $webInfo = $this->infoSetting($infos);
             $url = array_filter(explode('/', URL::current()));
             // dd($user->account_role);

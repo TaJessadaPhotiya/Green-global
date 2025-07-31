@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminAccount;
 use App\Models\LanguageAvailable;
 use App\Models\WebInfo;
+use App\Models\WebInfoType;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,13 +20,13 @@ class WebInfoController extends Controller
         $infoList = [];
         $infoDetail = [];
         $webInfos = $this->webInfoList($request->language);
-        $infoTypeArr =  $this->webInfoType($request->language);
+        $infoTypeArr = $this->webInfoType($request->language);
         // $adminLevel = AdminAccount::where('account_id', Auth::user()->id)->first();
 
         try {
 
             foreach ($webInfos as $val) {
-                $infoTypeId = (int)$val->infoTypeId;
+                $infoTypeId = (int) $val->infoTypeId;
                 // if($adminLevel->admin_level > $val->admin_level) {
                 //     continue;
                 // }
@@ -123,13 +124,13 @@ class WebInfoController extends Controller
                 ":webname" => $params['webNameValue'],
                 ":extraname" => $params['extraNameValue'],
                 ":companyname" => $params['companyNameValue'],
-                ":lang" =>  $params['language']
+                ":lang" => $params['language']
             ]);
 
             return response()->json([
                 'message' => 'ok',
                 'description' => "Web info has been updated successfully.",
-                'images' =>  $img
+                'images' => $img
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -213,7 +214,7 @@ class WebInfoController extends Controller
                 'info_iframe' => $params['iframe'],
                 'info_attribute' => $params['attribute'],
                 'info_priority' => $params['priority'],
-                'info_display' => ((int)$params['display'] === 1) ? 1 : 0,
+                'info_display' => ((int) $params['display'] === 1) ? 1 : 0,
                 'language' => $params['language'],
                 'admin_level' => 3,
                 'defaults' => 1,
@@ -259,7 +260,7 @@ class WebInfoController extends Controller
                 'info_iframe' => $request->iframe,
                 'info_attribute' => $request->attribute,
                 'info_priority' => $request->priority,
-                'info_display' => ((int)$request->display === 1) ? 1 : 0,
+                'info_display' => ((int) $request->display === 1) ? 1 : 0,
             ]);
 
             return response()->json([
@@ -313,7 +314,7 @@ class WebInfoController extends Controller
                 'info_iframe' => $params['iframe'],
                 'info_attribute' => $params['attribute'],
                 'info_priority' => $params['priority'],
-                'info_display' => ((int)$params['display'] === 1) ? 1 : 0,
+                'info_display' => ((int) $params['display'] === 1) ? 1 : 0,
                 'language' => $params['language'],
                 'admin_level' => 3,
                 'defaults' => 0,
@@ -401,12 +402,12 @@ class WebInfoController extends Controller
     public function guestindex()
     {
         $favicon = WebInfo::where('info_param', 'favicon')
-        ->where('defaults', 1)->first();
+            ->where('defaults', 1)->first();
         // dd($favicon);
         return response()->json([
             'message' => 'ok',
             'description' => 'Web info has been deleted.',
-            'favicon' =>  $favicon
+            'favicon' => $favicon
         ]);
     }
 
@@ -443,7 +444,15 @@ class WebInfoController extends Controller
 
     private function webInfoType($language)
     {
-        $sql = "SELECT id, type_name as typeName, title  FROM web_info_types WHERE language = :lang OR defaults = 1 GROUP BY id ORDER BY defaults ASC, id ASC";
-        return DB::select($sql, [":lang" => $language]);
+        // $sql = "SELECT id, type_name as typeName, title
+        // FROM web_info_types
+        // WHERE language = :lang OR defaults = 1 GROUP BY id ORDER BY defaults ASC, id ASC";
+        $sql = WebInfoType::select('id', 'type_name as typeName', 'title')
+        ->where('language', $language)
+        ->orWhere('defaults', 1)
+        ->orderBy('defaults', 'ASC')
+        ->orderBy('id', 'ASC')
+        ->get();
+        return $sql;
     }
 }

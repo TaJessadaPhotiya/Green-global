@@ -36,11 +36,22 @@ Route::prefix('backoffice/v1')->group(function () {
     Route::get('webinfo/datafavicon', [WebInfoController::class, 'guestindex']);
 
     Route::middleware('auth:sanctum')->group(function () {
+
         Route::post('account/settings', [AuthBackOfficeController::class, 'getAccountSettings']);
         Route::post('account/token/revoke/current', [AuthBackOfficeController::class, 'revokeCurrentToken']);
         Route::post('account/token/revoke/token_id', [AuthBackOfficeController::class, 'revokeTokenByID']);
         Route::post('account/token/revoke/all', [AuthBackOfficeController::class, 'revokeAllToken']);
-
+        /* Infomation Page */
+        Route::prefix('webinfo/')->group(function () {
+            Route::get('data', [WebInfoController::class, 'index']);
+            Route::post('details', [WebInfoController::class, 'updateWebDetails']);
+            Route::delete('image/{language}/{position}', [WebInfoController::class, 'deleteImage']);
+            Route::post('create', [WebInfoController::class, 'createWebInfo']);
+            Route::post('token/{token}', [WebInfoController::class, 'addWebInfo']);
+            Route::patch('token/{token}', [WebInfoController::class, 'editWebInfo']);
+            Route::patch('display/toggle', [WebInfoController::class, 'toggleDisplayByToken']);
+            Route::delete('{language}/{token}', [WebInfoController::class, 'deleteWebInfoByInfoId']);
+        });
         /* Product Page */
         Route::prefix('productcate/')->group(function () {
             Route::get('data', [ProductCateController::class, 'cateIndex']);
@@ -78,17 +89,6 @@ Route::prefix('backoffice/v1')->group(function () {
             Route::post('create', [SlideController::class, 'createSlide']);
             Route::post('update/{id}', [SlideController::class, 'updateSlideById']);
             Route::delete('{language}/{token}', [SlideController::class, 'deleteWebInfoByInfoId']);
-        });
-        /* Infomation Page */
-        Route::prefix('webinfo/')->group(function () {
-            Route::get('data', [WebInfoController::class, 'index']);
-            Route::post('details', [WebInfoController::class, 'updateWebDetails']);
-            Route::delete('image/{language}/{position}', [WebInfoController::class, 'deleteImage']);
-            Route::post('create', [WebInfoController::class, 'createWebInfo']);
-            Route::post('token/{token}', [WebInfoController::class, 'addWebInfo']);
-            Route::patch('token/{token}', [WebInfoController::class, 'editWebInfo']);
-            Route::patch('display/toggle', [WebInfoController::class, 'toggleDisplayByToken']);
-            Route::delete('{language}/{token}', [WebInfoController::class, 'deleteWebInfoByInfoId']);
         });
         /* Category Page */
         Route::prefix('category/')->group(function () {
