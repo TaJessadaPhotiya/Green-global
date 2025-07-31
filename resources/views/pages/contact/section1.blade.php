@@ -19,7 +19,7 @@
                     <div class="flex items-center gap-3">
                         <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm"
                             src="/icons/icon-telephone.png" alt="">
-                        <div class="border-l-2 border-[#008C46] pl-3">
+                        <div class="{{ $language == 'ar' ? 'border-r-2 pr-3' : 'border-l-2 pl-3' }} border-[#008C46] ">
                             <p class="text-[#19703D] sm:text-xl text-md font-semibold">Phone</p>
                             <p class="text-[#19703D] text-md font-sans">0933365675</p>
                         </div>
@@ -27,7 +27,7 @@
                     <div class="flex items-center gap-3 mt-5">
                         <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm" src="/icons/icon-web.png"
                             alt="">
-                        <div class="border-l-2 border-[#008C46] pl-3">
+                        <div class="{{ $language == 'ar' ? 'border-r-2 pr-3' : 'border-l-2 pl-3' }} border-[#008C46] ">
                             <p class="text-[#19703D] sm:text-xl text-md font-semibold">Website</p>
                             <p class="text-[#19703D] text-md font-sans">WWW.REENGLOBLSEEDS.COM</p>
                         </div>
@@ -35,7 +35,7 @@
                     <div class="flex items-center gap-3 mt-5">
                         <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm" src="/icons/icon-mail.png"
                             alt="">
-                        <div class="border-l-2 border-[#008C46] pl-3">
+                        <div class="{{ $language == 'ar' ? 'border-r-2 pr-3' : 'border-l-2 pl-3' }} border-[#008C46] ">
                             <p class="text-[#19703D] sm:text-xl text-md font-semibold">E-Mail</p>
                             <p class="text-[#19703D] text-md font-sans">ggs.web@greenglobalseeds.com</p>
                         </div>
@@ -43,7 +43,7 @@
                     <div class="flex items-center gap-3 mt-5">
                         <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm"
                             src="/icons/icon-address.png" alt="">
-                        <div class="border-l-2 border-[#008C46] pl-3">
+                        <div class="{{ $language == 'ar' ? 'border-r-2 pr-3' : 'border-l-2 pl-3' }} border-[#008C46] ">
                             <p class="text-[#19703D] sm:text-xl text-md font-semibold">Address</p>
                             <p class="text-[#19703D] text-md font-sans">GREEN GLOBAL SEEDS COMPANY
                                 199/376, Moo 4, Rangsit Sub-district, Thanyaburi District, Pathum Thani 12110. Thailand
