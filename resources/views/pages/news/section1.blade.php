@@ -293,7 +293,7 @@
         <div class="container mx-auto">
             <div class="grid md:grid-cols-2 grid-cols-1 gap-6 w-full">
                 {{-- ซ้าย --}}
-                <div class="w-full">
+                <div class="w-full" data-aos="fade-right" data-aos-duration="1200">
                     <div class="sm:w-[300px] w-full bg-[#EEC90E] py-1 pr-4 max-sm:pl-4">
                         <div class="bg-[#098C46] p-1">
                             <p class="text-center text-white text-lg font-semibold">NEWS</p>
@@ -323,7 +323,7 @@
                     </div>
                 </div>
                 {{-- ซ้าย --}}
-                <div class="w-full">
+                <div class="w-full" data-aos="fade-left" data-aos-duration="1200">
                     @if ($new_product)
                         <div class="sm:w-[300px] w-full bg-[#EEC90E] py-1 pr-4 max-sm:pl-4">
                             <div class="bg-[#098C46] p-1">

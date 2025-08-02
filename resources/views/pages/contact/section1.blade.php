@@ -7,7 +7,7 @@
         class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto ">
             <div class="w-full">
-                <p class="text-3xl text-center text-[#19703D] font-semibold">
+                <p class="text-3xl text-center text-[#19703D] font-semibold animate-focusInExpand">
                     CONTACT US
                 </p>
                 <div class="border-b-2 border-[#19703D]"></div>
@@ -15,7 +15,7 @@
             </div>
             <div class="grid md:grid-cols-2 grid-cols-1  w-full mt-12">
                 {{-- ซ้าย --}}
-                <div class="w-full ">
+                <div class="w-full" data-aos="fade-right" data-aos-duration="1200">
                     <div class="flex items-center gap-3">
                         <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm"
                             src="/icons/icon-telephone.png" alt="">
@@ -60,7 +60,7 @@
                 </div>
 
                 {{-- ซ้าย --}}
-                <div class="w-full ">
+                <div class="w-full " data-aos="fade-left" data-aos-duration="1200">
                     <p class="text-[#19703D] text-xl font-medium text-center max-xl:mt-6">Tell Us Your Message</p>
                     <div class="space-y-4 w-full max-w-md mx-auto mt-4">
                         <!-- Name -->
@@ -104,7 +104,7 @@
                 </div>
             </div>
             {{-- Image --}}
-            <div class="flex flex-wrap justify-center gap-4 w-full mt-12 mb-12">
+            <div class="flex flex-wrap justify-center gap-4 w-full mt-12 mb-12" data-aos="fade-up" data-aos-duration="1200">
                 @foreach ($images as $image)
                     <img class="h-[270px] max-w-full object-cover flex-1 min-w-[200px] shadow-md"
                         src="{{ $image }}" alt="">

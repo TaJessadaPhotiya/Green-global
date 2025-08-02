@@ -48,7 +48,8 @@
     <div
         class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto ">
-            <h1 class="text-[#098C46] xl:text-3xl text-2xl text-center font-semibold">PRODUCT CROP</h1>
+            <h1 class="text-[#098C46] xl:text-3xl text-2xl text-center font-semibold animate-focusInExpand ">PRODUCT CROP
+            </h1>
 
             {{-- swiper --}}
             <div class="relative max-w-full mx-auto sm:mt-[3.5rem] mt-[2rem] ">
@@ -62,15 +63,21 @@
                 </button>
 
                 <div class="swiper-container swiper2 overflow-hidden" data-aos="fade-left" data-aos-duration="1200">
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper h-[230px] ">
                         @foreach ($menu_cateB as $category)
                             <a href="{{ url('/' . $language . '/product?id=' . $category->id) }}"
-                                class="swiper-slide flex flex-col items-center justify-center group ">
+                                class="swiper-slide flex flex-col items-center justify-center group {{ request('id') == $category->id ? 'focus-slide' : '' }}">
                                 <div
-                                    class="{{ request('id') == $category->id ? 'border-[#7AC53A] ' : 'border-[#098C46]' }} group-hover:border-[#7AC53A] 2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden ">
+                                    class="{{ request('id') == $category->id ? 'border-[#7AC53A] ' : 'border-[#098C46]' }} relative shadow-md hover:animate-jelloHorizontal group-hover:border-[#7AC53A] 2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden ">
                                     <div class="block">
                                         <img class="w-full h-full object-cover rounded-full transition duration-300 group-hover:scale-125 "
                                             src="{{ $category->cate_thumbnail }}" alt="{{ $category->cate_title }}">
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 transition-colors duration-300
+                                        {{ request('id') == $category->id
+                                            ? 'bg-gradient-to-t from-[hsl(50,80%,49%)] via-[#EEC90E]/10'
+                                            : 'bg-gradient-to-t from-transparent via-transparent group-hover:from-[hsl(50,80%,49%)] group-hover:via-[#EEC90E]/10' }}">
                                     </div>
                                 </div>
                                 <p
@@ -131,10 +138,10 @@
             </div>
 
             {{-- Data --}}
-            <div
-                class="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[2rem] w-full xl:mt-12 sm:mt-[4rem] mt-[2.6rem] pb-12 ">
+            <div class="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[2rem] w-full xl:mt-12 sm:mt-[4rem] mt-[2.6rem] pb-12 "
+                data-aos="fade-up" data-aos-duration="1200">
                 @foreach ($filtered_products as $product)
-                    <a class="w-full cursor-pointer group "
+                    <a class="w-full cursor-pointer group hover:scale-105 transition duration-300 "
                         href="{{ url('/' . $language . '/product-detail/' . $product->id) }}">
                         {{-- ส่วนรูป --}}
                         <div class=" relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl ">
@@ -150,7 +157,7 @@
 
                             <!-- รูป -->
                             <figure class=" w-full h-full overflow-hidden relative">
-                                <img class="lazy-image  w-full h-full object-cover transition-all duration-500 blur-md scale-105"
+                                <img class="lazy-image  w-full h-full object-cover transition-all duration-500 blur-md group-hover:blur-md scale-105"
                                     loading="lazy" src="{{ $product->thumbnail }}" alt="{{ $product->title }}"
                                     onload="this.classList.remove('blur-md', 'scale-105')">
                             </figure>
@@ -164,13 +171,13 @@
                                 src="/image/Rectangle 407.png" alt="">
 
 
-                            <div
+                            {{-- <div
                                 class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent group-hover:from-[hsl(50,80%,49%)] group-hover:via-[#EEC90E]/10 transition-colors duration-300">
-                            </div>
+                            </div> --}}
 
 
                             <div
-                                class="absolute inset-0 flex flex-col justify-center items-center text-green-500 opacity-0 group-hover:opacity-100 transition duration-300">
+                                class="absolute inset-0 flex flex-col justify-center items-center text-[#EEC90E] opacity-0 group-hover:opacity-100 transition duration-300">
                                 <img class="h-9" src="/icons/view-alt-svgrepo-com.png" alt="">
                                 <p class="text-md">VIEW DETAIL</p>
                             </div>
@@ -344,6 +351,13 @@
                 swiper2.slideNext();
                 console.log("nextButton-2");
             });
+
+        // ✅ เพิ่มส่วนนี้เพื่อเลื่อนไปยัง slide ที่มี .focus-slide
+        const focusSlide = document.querySelector(".swiper2 .swiper-slide.focus-slide");
+        if (focusSlide) {
+            const index = Array.from(focusSlide.parentElement.children).indexOf(focusSlide);
+            swiper2.slideTo(index, 500);
+        }
     });
 </script>
 

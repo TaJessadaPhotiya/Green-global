@@ -4,7 +4,7 @@
         <div class="container mx-auto">
             <div class="grid xl:grid-cols-2 grid-cols-1 xl:gap-6 gap-7 w-full">
                 {{-- ซ้าย --}}
-                <div class="flex flex-col xl:gap-4 gap-3 w-full ">
+                <div class="flex flex-col xl:gap-4 gap-3 w-full " data-aos="fade-right" data-aos-duration="1200">
                     <div class="w-full md:h-[400px] h-auto rounded-tl-[50px] overflow-hidden">
                         <img class="w-full h-full object-cover" src="{{ $product->thumbnail }}" alt="">
                     </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 {{-- ขวา --}}
-                <div class="w-full">
+                <div class="w-full" data-aos="fade-left" data-aos-duration="1200">
                     <div class="text-2xl text-[#8E8E8E]">{{ $product->title }} | <span
                             class="text-[#098C46] font-semibold">{{ $product->product_code }}</span></div>
                     <div class="flex items-start gap-6 mt-4 mb-6">
