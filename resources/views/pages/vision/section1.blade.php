@@ -5,6 +5,8 @@
                 <img class="w-full h-full object-cover" src="/image/Rectangle 156 (1).png" alt="">
             </div>
             <h1 class="text-[#098C46] lg:text-2xl text-xl font-semibold text-center italic mt-6">Our Company</h1>
+            
+            {{-- ck --}}
             <p class="text-md text-[#098C46] xl:mt-6 mt-4">Global population increasing special for emerging  markets,  but
                 food will short in coming year done
                 climate change  and global warming make grower difficult and yield lower than before  ,Green  Global

@@ -1,5 +1,4 @@
 <div class="w-full h-full">
-    @include('layouts.popup')
     <div
         class="flex flex-col justify-center 2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[7rem] pb-[4rem] shadow-2xl ">
         <div class="container w-full max-w-3xl mx-auto px-6 sm:px-[5rem] py-12 bg-[#283891] rounded-lg shadow-2xl " data-aos="fade-up" data-aos-duration="1200">

@@ -1,4 +1,19 @@
 <div class="relative w-full h-full">
+    {{-- videoModal --}}
+    <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[999] hidden">
+        <div class="relative w-[80vw] max-w-4xl aspect-video bg-black rounded-lg shadow-lg">
+            <button id="closeVideoModal"
+                class="absolute -top-[4rem] right-0 text-white text-[50px] font-bold hover:text-red-600 z-50">
+                &times;
+            </button>
+            <iframe id="youtubeIframe" class="w-full h-full rounded-lg" src="{{ $product->youtube_link ?? '' }}"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
     <div
         class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto">
@@ -11,31 +26,34 @@
                     <div class="grid grid-cols-3 xl:gap-4 gap-3 w-full">
                         <div class="w-full">
                             <figure
-                                class="w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg overflow-hidden shadow-md cursor-pointer">
-                                <img class="w-full h-full object-cover" src="/image/Rectangle 1692.png" alt="">
+                                class="w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg overflow-hidden shadow-md ">
+                                <img class="w-full h-full object-cover" src="{{ $product->thumbnail }}" alt="">
                             </figure>
                             <p class="xl:text-lg sm:text-md text-sm text-[#098C46] text-center font-semibold mt-1">
                                 Plant Growth
                             </p>
                         </div>
-                        <div class="w-full group">
+                        <div class="w-full group cursor-pointer" id="openVideoModal">
                             <figure
-                                class="flex items-center justify-center w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg bg-[#098C46] group-hover:bg-[#7AC53A] transition duration-200 overflow-hidden shadow-md cursor-pointer">
-                                <img class="w-auto sm:h-[85px] h-[60px] " src="/icons/chevron-left-svgrepo-com.png"
-                                    alt="">
+                                class="flex items-center justify-center w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg bg-[#098C46] group-hover:bg-[#7AC53A] transition duration-200 overflow-hidden shadow-md">
+                                <img class="w-auto sm:h-[85px] h-[60px]" src="/icons/chevron-left-svgrepo-com.png"
+                                    alt="Watch Video" />
                             </figure>
-                            <p class="xl:text-lg sm:text-md text-sm text-[#098C46] group-hover:text-[#7AC53A] text-center font-semibold mt-1">
+                            <p
+                                class="xl:text-lg sm:text-md text-sm text-[#098C46] group-hover:text-[#7AC53A] text-center font-semibold mt-1">
                                 Watch Video
                             </p>
                         </div>
-                        <a class="w-full group" href="/pdf/test.pdf" download>
+                        <a class="w-full group" href="/pdf/test.pdf" target="_blank"
+                            onclick="event.preventDefault(); window.open('/pdf/test.pdf');">
                             <figure
                                 class="flex items-center justify-center w-full md:h-[130px] sm:h-[100px] h-[75px] xl:rounded-2xl rounded-lg bg-[#098C46] group-hover:bg-[#7AC53A] transition duration-200 overflow-hidden shadow-md cursor-pointer">
-                                <img class="w-auto sm:h-[85px] h-[50px] "
-                                    src="/icons/fluent_document-pdf-32-regular.png" alt="">
+                                <img class="w-auto sm:h-[85px] h-[50px]" src="/icons/fluent_document-pdf-32-regular.png"
+                                    alt="">
                             </figure>
-                            <p class="xl:text-lg sm:text-md text-sm text-[#098C46] group-hover:text-[#7AC53A] text-center font-semibold mt-1">
-                                Download PDF
+                            <p
+                                class="xl:text-lg sm:text-md text-sm text-[#098C46] group-hover:text-[#7AC53A] text-center font-semibold mt-1">
+                                ดู PDF
                             </p>
                         </a>
                     </div>
@@ -94,7 +112,7 @@
                     </div>
                     <div class="border-[#098C46] border"></div>
                     <div class="flex sm:justify-end justify-center w-full">
-                        <a href="/<?= $language ?>/product"
+                        <a href="javascript:history.back()"
                             class="flex items-start justify-center gap-4 w-[110px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm mt-6">
                             <img class="w-5 h-5" src="/icons/icon-park-solid_back.png" alt="">BACK
                         </a>
@@ -104,3 +122,45 @@
         </div>
     </div>
 </div>
+
+{{-- Script --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const openBtn = document.getElementById("openVideoModal");
+        const closeBtn = document.getElementById("closeVideoModal");
+        const modal = document.getElementById("videoModal");
+        const iframe = document.getElementById("youtubeIframe");
+
+        const youtubeUrl = "{{ $product->youtube_link ?? '' }}?autoplay=1";
+
+        openBtn.addEventListener("click", () => {
+            iframe.src = youtubeUrl; // ตั้งค่า URL พร้อม autoplay
+            modal.classList.remove("hidden");
+        });
+
+        closeBtn.addEventListener("click", () => {
+            iframe.src = ""; // หยุดวีดีโอ
+            modal.classList.add("hidden");
+        });
+
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                iframe.src = "";
+                modal.classList.add("hidden");
+            }
+        });
+    });
+</script>
+
+<script>
+    function openPDFPreview(pdfUrl) {
+        document.getElementById('pdfViewer').src = pdfUrl;
+        document.getElementById('downloadPDFLink').href = pdfUrl;
+        document.getElementById('pdfModal').classList.remove('hidden');
+    }
+
+    function closePDFModal() {
+        document.getElementById('pdfViewer').src = "";
+        document.getElementById('pdfModal').classList.add('hidden');
+    }
+</script>

@@ -1,48 +1,41 @@
-<div class=" 2xl:w-[1300px] w-full max-2xl:px-4 mx-auto xl:mt-[5rem] mt-8 xl:mb-[2rem] mb-[1rem] ">
-    <div class="2xl:w-[1300px] w-full">
-        <p class="xl:text-4xl text-2xl font-semibold ">NEWS</p>
-        <div class="flex justify-between">
-            <p class="xl:text-[16px] text-[12px] font-medium">THE KITCHEN BEEF BISTRO</p>
-            <p class="xl:text-[16px] text-[12px] text-gray-400 font-medium">Home / Food Menu</p>
-        </div>
-    </div>
+<div class="relative w-full h-full">
+    <div
+        class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+        <div class="container mx-auto">
+            <div class="grid xl:grid-cols-2 grid-cols-1 xl:gap-6 gap-7 w-full">
+                {{-- ซ้าย --}}
+                <div class="w-full " data-aos="fade-right" data-aos-duration="1200">
+                    <div class="w-full md:h-[430px] h-auto overflow-hidden">
+                        <img class="w-full h-full object-cover" src="{{ $news['image'] }}" alt="">
+                    </div>
+                </div>
+                {{-- ขวา --}}
+                <div class="w-full" data-aos="fade-left" data-aos-duration="1200">
+                    <div class="text-2xl text-[#8E8E8E]">{{ $news['name'] }}
+                        |
+                        <span class="text-[#098C46] font-semibold">{{ $news['date'] }}</span>
+                    </div>
 
-    <div class="flex flex-col w-full xl:mt-10 mt-5">
-        <div class="border-gray-300/40 border-t-2 xl:mb-10 mb-6 "></div>
-        <div class="grid md:grid-cols-2 grid-cols-1 xl:gap-[4rem] gap-4">
-            <div data-aos="fade-right" data-aos-duration="1000" class=" 2xl:order-1 order-2 ">
-                <p class="xl:text-[20px] text-[14px] font-medium">
-                    {{ $news['name'] }}
-                </p>
-                <p class="text-[#747474] xl:text-[16px] text-[12px] font-[300] mt-1">
-                    {{ $news['date'] }}
-                </p>
-                <p class="text-[#747474] xl:text-[16px] text-[12px] font-[300] line-clamp-4 mt-4">
-                    {{ $news['description'] }}
-                </p>
-            </div>
-
-            <div data-aos="fade-left" data-aos-duration="1000" class="2xl:order-2 order-1">
-                <figure class="w-full sm:h-[370px] h-auto shadow-md ">
-                    <img class="w-full h-full object-cover" src={{ $news['image'] }} alt={{ $news['name'] }}>
-                </figure>
-                <p class="xl:text-[16px] text-[12px] font-medium 2xl:mt-6 mt-3">
-                    Shear on
-                </p>
-                <div class="flex gap-2 mt-1">
-                    <figure
-                        class="flex items-center justify-center xl:w-[50px] w-[35px] xl:h-[50px] h-[35px] rounded-md bg-[#3e5795]">
-                        <img class="xl:w-[31px] w-[25px] h-auto " src="/icons/facebook.png" alt="">
-                    </figure>
-                    <figure
-                        class="flex items-center justify-center xl:w-[50px] w-[35px] xl:h-[50px] h-[35px] rounded-md bg-[#d62c2b]">
-                        <img class="xl:w-[31px] w-[25px] h-auto " src="/icons/youtube.png" alt="">
-                    </figure>
+                    {{-- ck --}}
+                    <div class="w-full min-h-[320px] mt-4 text-[16px] text-[#098C46]">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam
+                        accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim
+                        nihil quis harum animi?
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam
+                        accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim
+                        nihil quis harum animi?
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam
+                        accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim
+                    </div>
+                    <div class="border-[#098C46] border mt-4"></div>
+                    <div class="flex sm:justify-end justify-center w-full">
+                        <a href="javascript:history.back()"
+                            class="flex items-start justify-center gap-4 w-[110px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm mt-6">
+                            <img class="w-5 h-5" src="/icons/icon-park-solid_back.png" alt="">BACK
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="border-gray-300/40 border-t-2 xl:mt-10 mt-6 "></div>
-
     </div>
 </div>
