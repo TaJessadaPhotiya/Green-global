@@ -16,7 +16,6 @@
 </head>
 
 <body class="font-Kanit flex flex-col min-h-screen relative ">
-    <img class="fixed bottom-0 w-full sm:h-[60px] h-[25px] z-[110]" src="/image/Rectangle 419.png" alt="">
 
     @include('layouts.loading')
 
@@ -29,6 +28,8 @@
     <div class="flex-grow max-w-full overflow-hidden">
         @yield('content')
     </div>
+
+    @include('layouts.footer')
 
     {{-- เซ็ตค่าภาษาจาก localStorage ใช้ชั่วคราว --}}
     <script>
@@ -43,7 +44,7 @@
             // รอ 3 วินาทีแล้วค่อยซ่อน loading screen
             setTimeout(() => {
                 loadingScreen.classList.add('hidden');
-            }, 100); // 3000 มิลลิวินาที = 3 วินาที
+            }, 100); // 100 มิลลิวินาที = 0.1 วินาที
         });
 
         // AOS.init();

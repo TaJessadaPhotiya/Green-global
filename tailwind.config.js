@@ -39,11 +39,39 @@ export default {
                         transformOrigin: "right",
                     },
                 },
+                jelloHorizontal: {
+                    "0%": { transform: "scale3d(1, 1, 1)" },
+                    "30%": { transform: "scale3d(1.1, 0.9, 1)" },
+                    "40%": { transform: "scale3d(0.95, 1.05, 1)" },
+                    "50%": { transform: "scale3d(1.05, 0.95, 1)" },
+                    "65%": { transform: "scale3d(0.98, 1.02, 1)" },
+                    "75%": { transform: "scale3d(1.02, 0.98, 1)" },
+                    "100%": { transform: "scale3d(1, 1, 1)" },
+                },
+                focusInExpand: {
+                    "0%": {
+                        letterSpacing: "-0.5em",
+                        filter: "blur(12px)",
+                        opacity: "0",
+                    },
+                    "100%": {
+                        letterSpacing: "normal",
+                        filter: "blur(0px)",
+                        opacity: "1",
+                    },
+                },
+                arrowWiggle: {
+                    "0%, 100%": { transform: "translateX(0)" },
+                    "50%": { transform: "translateX(6px)" },
+                },
             },
             animation: {
                 scaleInCenter: "scaleInCenter 0.3s ease-in-out",
                 kenburnsTopRight: "kenburnsTopRight 10s ease-in-out infinite",
                 swingRightFwd: "swingRightFwd 0.7s ease-in-out forwards",
+                jelloHorizontal: "jelloHorizontal 1s both",
+                focusInExpand: "focusInExpand 0.8s ease-out both",
+                arrowWiggle: "arrowWiggle 0.6s ease-in-out infinite",
             },
             transitionProperty: {
                 "max-height": "max-height",
