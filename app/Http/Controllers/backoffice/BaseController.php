@@ -84,7 +84,7 @@ class BaseController extends Controller
                 ->orWhere('defaults', 1);
         })
             ->where('display', 1)
-            ->groupBy('id')
+            // ->groupBy('id','language')
             ->orderBy('updated_at', 'DESC')
             ->get();
 

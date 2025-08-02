@@ -55,7 +55,7 @@ class WebInfoController extends Controller
 
             $webSiteLanguages = LanguageAvailable::select('abbv_name', 'name')->orderBy('defaults', 'DESC')->get()->all();
             $setDetails = $this->infoSetting($infoDetail);
-
+// dd($infoList);
             return response()->json([
                 'data' => [
                     'details' => $setDetails->detail,
