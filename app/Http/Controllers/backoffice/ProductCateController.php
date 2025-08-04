@@ -81,7 +81,7 @@ class ProductCateController extends BaseController
         $validator = Validator::make($request->all(), [
             'title' => 'string|required',
             'details' => 'string|nullable',
-            'description' => 'string|nullable',
+            'segment' => 'string|nullable',
             'display' => 'numeric|required',
             'pin' => 'numeric|required',
             'priority' => 'numeric|required',
@@ -92,11 +92,23 @@ class ProductCateController extends BaseController
             return $this->sendErrorValidators('Invalid params', $validator->errors());
         }
 
-        $segment = json_decode($request->segment, true);
-        $new_segment = array_filter($segment, function ($item): bool {
+        $segment = [];
+
+        if (!empty($params['segment']) && is_string($params['segment'])) {
+            $decoded = json_decode($params['segment'], true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                $segment = $decoded;
+            }
+        }
+        // ตรวจสอบว่าไม่มี 'id' และมี 'new' เป็น 'y' เพื่อให้แน่ใจว่าเป็นข้อมูลใหม่ที่ต้องสร้าง
+        $segment_not_id = array_filter($segment, function ($item): bool {
             return isset($item['new']) && $item['new'] === 'y';
         });
-        // dd($new_segment);
+        // กรองเอาเฉพาะข้อมูลที่มี 'id'
+        $segment_is_id = array_filter($segment, function ($item): bool {
+            return isset($item['id']);
+        });
+
         try {
             DB::beginTransaction();
 
@@ -108,12 +120,19 @@ class ProductCateController extends BaseController
             $this->updatePriority("product_category", $params['priority']);
 
             $idTag = [];
-            if (isset($new_segment)) {
-                foreach ($new_segment as $tag) {
+            // เพิ่มข้อมูลใหม่ลงในตารางและเก็บ id ที่ได้
+            if (!empty($segment_not_id)) {
+                foreach ($segment_not_id as $tag) {
                     $catTag = Segment::create([
                         'title' => $tag['title']
                     ]);
                     array_push($idTag, $catTag->id);
+                }
+            }
+            // นำ id ของกลุ่มที่มี id อยู่แล้วมารวมกับ $idTag
+            if (!empty($segment_is_id)) {
+                foreach ($segment_is_id as $tag) {
+                    array_push($idTag, $tag['id']);
                 }
             }
 
@@ -171,6 +190,23 @@ class ProductCateController extends BaseController
             return $this->sendErrorValidators('Invalid params', $validator->errors());
         }
 
+        $segment = [];
+
+        if (!empty($params['segment']) && is_string(value: $params['segment'])) {
+            $decoded = json_decode($params['segment'], true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                $segment = $decoded;
+            }
+        }
+        // ตรวจสอบว่าไม่มี 'id' และมี 'new' เป็น 'y' เพื่อให้แน่ใจว่าเป็นข้อมูลใหม่ที่ต้องสร้าง
+        $segment_not_id = array_filter($segment, function ($item): bool {
+            return isset($item['new']) && $item['new'] === 'y';
+        });
+        // กรองเอาเฉพาะข้อมูลที่มี 'id'
+        $segment_is_id = array_filter($segment, function ($item): bool {
+            return isset($item['id']);
+        });
+
         try {
             DB::beginTransaction();
 
@@ -180,10 +216,28 @@ class ProductCateController extends BaseController
             $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
             $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['ImageName']) : $params['thumbnail_link'];
 
+            $idTag = [];
+            // เพิ่มข้อมูลใหม่ลงในตารางและเก็บ id ที่ได้
+            if (!empty($segment_not_id)) {
+                foreach ($segment_not_id as $tag) {
+                    $catTag = Segment::create([
+                        'title' => $tag['title']
+                    ]);
+                    array_push($idTag, $catTag->id);
+                }
+            }
+            // นำ id ของกลุ่มที่มี id อยู่แล้วมารวมกับ $idTag
+            if (!empty($segment_is_id)) {
+                foreach ($segment_is_id as $tag) {
+                    array_push($idTag, $tag['id']);
+                }
+            }
+
             $conditions = ['id' => $params['id'], 'language' => $params['language']];
             $values = [
                 'id' => $params['id'],
                 "title" => $params['title'],
+                "segment_id" => implode(',', $idTag) . ',',
                 "details" => $params['details'],
                 "description" => $params['description'],
                 "thumbnail_link" => $thumbnail,
