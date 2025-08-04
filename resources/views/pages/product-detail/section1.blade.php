@@ -60,7 +60,7 @@
                 </div>
                 {{-- ขวา --}}
                 <div class="w-full" data-aos="fade-left" data-aos-duration="1200">
-                    <div class="text-2xl text-[#8E8E8E]">{{ $product->title }} | <span
+                    <div class="xl:text-2xl text-xl text-[#8E8E8E]">{{ $product->title }} | <span
                             class="text-[#098C46] font-semibold">{{ $product->product_code }}</span></div>
                     <div class="flex items-start gap-6 mt-4 mb-6">
                         <figure>

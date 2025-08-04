@@ -94,7 +94,7 @@
             </div>
 
             {{-- Dropdow Fillter --}}
-            <div class="w-full xl:mt-[3rem] sm:mt-[2rem] mt-0 ">
+            <div class="w-full xl:mt-[3rem] iPad-mini:mt-[1rem] mt-0">
                 <div class="flex items-center justify-end gap-3">
                     <p class="sm:text-[16px] text-[14px] font-semibold text-[#098C46]">SEGMENT :</p>
                     <div class="relative ">
@@ -136,10 +136,10 @@
             </div>
 
             {{-- Data --}}
-            <div class="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[2rem] w-full xl:mt-12 sm:mt-[4rem] mt-[2.6rem] pb-12 "
+            <div class="grid xl:grid-cols-4 md:grid-cols-3 iPad-mini:grid-cols-3 sm:grid-cols-3 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[3rem] w-full xl:mt-12 sm:mt-[3rem] size-mini:mt-[2.6rem] mt-[1.7rem] pb-12 "
                 data-aos="fade-up" data-aos-duration="1200">
                 @foreach ($filtered_products as $product)
-                    <a class="w-full cursor-pointer group hover:scale-105 transition duration-300 "
+                    <a class="w-full cursor-pointer group xl:hover:scale-105 transition duration-300 "
                         href="{{ url('/' . $language . '/product-detail/' . $product->id) }}">
                         {{-- ส่วนรูป --}}
                         <div class=" relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl ">
@@ -169,8 +169,8 @@
                             </div> --}}
                             <div
                                 class="absolute inset-0 flex flex-col justify-center items-center text-white drop-shadow-lg opacity-0 group-hover:opacity-100 transition duration-300">
-                                <img class="h-12" src="/icons/view-alt-svgrepo-com.png" alt="">
-                                <p class="text-md">VIEW DETAIL</p>
+                                <img class="lg:h-12 h-10" src="/icons/view-alt-svgrepo-com.png" alt="">
+                                <p class="xl:text-[16px] text-sm xl:mt-2 mt-1">VIEW DETAIL</p>
                             </div>
                         </div>
 
@@ -199,7 +199,6 @@
                                     DETAIL <span class="inline-block ml-1 group-hover:animate-arrowWiggle">➤</span>
                                 </span>
                             </button>
-
                         </div>
                     </a>
                 @endforeach
@@ -256,7 +255,6 @@
         </div>
     </div>
 </div>
-
 
 <style>
     .swiper2 {
