@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backoffice;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProductCate;
+use App\Models\Segment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,12 +15,16 @@ class ProductCateController extends BaseController
     public function cateIndex(Request $request)
     {
         $cates = $this->getProductCate($request->language);
+
+        $topic = Segment::select('id', 'title', 'is_active')->orderBy('title', 'ASC')->get();
+        // dd($topic);
         return response([
             'message' => 'ok',
             'status' => true,
             'description' => 'Get product cate success',
             'cates' => $cates,
             'maxPriority' => ProductCate::max('priority'),
+            'tags' => $topic,
         ], 200);
     }
 
@@ -87,6 +92,11 @@ class ProductCateController extends BaseController
             return $this->sendErrorValidators('Invalid params', $validator->errors());
         }
 
+        $segment = json_decode($request->segment, true);
+        $new_segment = array_filter($segment, function ($item): bool {
+            return isset($item['new']) && $item['new'] === 'y';
+        });
+        // dd($new_segment);
         try {
             DB::beginTransaction();
 
@@ -97,8 +107,19 @@ class ProductCateController extends BaseController
 
             $this->updatePriority("product_category", $params['priority']);
 
+            $idTag = [];
+            if (isset($new_segment)) {
+                foreach ($new_segment as $tag) {
+                    $catTag = Segment::create([
+                        'title' => $tag['title']
+                    ]);
+                    array_push($idTag, $catTag->id);
+                }
+            }
+
             ProductCate::create([
                 "title" => $params['title'],
+                "segment_id" => implode(',', $idTag) . ',',
                 "details" => $params['details'],
                 "description" => $params['description'],
                 "thumbnail_link" => $thumbnail,

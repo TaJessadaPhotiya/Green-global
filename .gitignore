@@ -1,1 +1,9 @@
 node_modules
+/public/upload
+/public/build
+/public/hot
+/public/storage
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode

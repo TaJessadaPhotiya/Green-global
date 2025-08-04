@@ -215,7 +215,7 @@ class ProducrAgricultureController extends BaseController
             $query->where('language', $language)
                 ->orWhere('defaults', 1);
         })
-            ->groupBy('id')
+            // ->groupBy('id')
             ->orderBy('updated_at', 'DESC')
             ->get();
 
