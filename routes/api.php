@@ -59,6 +59,7 @@ Route::prefix('backoffice/v1')->group(function () {
             Route::patch('updatedisplay/{id}', [ProductCateController::class, 'updateDisplay']);
             Route::post('create', [ProductCateController::class, 'createProductcate']);
             Route::post('update/{id}', [ProductCateController::class, 'updateProductcate']);
+            Route::delete('segment/destroy/{id}', [ProductCateController::class, 'deleteSegment']);
             Route::delete('destroy/{id}/{language}', [ProductCateController::class, 'deleteProductcate']);
         });
         /* agriculture Page */

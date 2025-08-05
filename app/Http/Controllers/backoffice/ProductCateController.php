@@ -291,4 +291,28 @@ class ProductCateController extends BaseController
         }
     }
 
+    public function deleteSegment($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $segment = Segment::find($id);
+            $segment->delete();
+
+            DB::commit();
+            return response([
+                'message' => 'ok',
+                'status' => true,
+                'description' => 'Segment has been deleted successfully',
+            ], 200);
+        } catch (Exception $e) {
+            return response([
+                'message' => 'server error',
+                'description' => 'Something went wrong.',
+                'errorsMessage' => $e->getMessage()
+            ], 500);
+        }
+
+    }
+
 }
