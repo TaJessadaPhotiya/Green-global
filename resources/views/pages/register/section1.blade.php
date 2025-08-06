@@ -34,7 +34,8 @@
     @include('layouts.popup')
     <div
         class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[7rem] pb-[4rem] shadow-2xl ">
-        <div class="container w-full max-w-3xl mx-auto px-6 sm:px-[5rem] py-12 bg-[#283891] rounded-lg shadow-2xl" data-aos="fade-up" data-aos-duration="1200">
+        <div class="container w-full max-w-3xl mx-auto px-6 sm:px-[5rem] py-12 bg-[#283891] rounded-lg shadow-2xl"
+            data-aos="fade-up" data-aos-duration="1200">
             {{-- Header --}}
             <div class="text-center mb-8">
                 <h1 class="text-xl text-white font-extrabold mb-4">
@@ -99,8 +100,9 @@
                                 placeholder="••••••••" />
                             <button type="button" onclick="togglePassword('password', this)"
                                 class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700 hover:text-gray-400" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 text-gray-700 hover:text-gray-400" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -119,8 +121,9 @@
                                 placeholder="••••••••" />
                             <button type="button" onclick="togglePassword('password_confirmation', this)"
                                 class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700 hover:text-gray-400" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 text-gray-700 hover:text-gray-400" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -166,13 +169,21 @@
                         <label for="country" class="text-white font-semibold mb-2 block">
                             Which country are you from?
                         </label>
-                        <select name="country" id="country"
-                            class="rounded-md px-4 py-2 bg-white text-gray-900 flex justify-center w-full text-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            <option value="">Please select a country</option>
-                            @foreach ($countries as $country)
-                                <option value="{{ strtolower($country) }}">{{ $country }}</option>
-                            @endforeach
-                        </select>
+                        <div class="relative w-full">
+                            <select name="country" id="country"
+                                class="peer appearance-none rounded-md px-4 py-2 bg-white text-gray-900 flex justify-center w-full text-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">Please select a country</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ strtolower($country) }}">{{ $country }}</option>
+                                @endforeach
+                            </select>
+
+                            <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-600 transition-transform duration-300 peer-focus:rotate-180"
+                                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
 

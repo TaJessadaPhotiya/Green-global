@@ -289,9 +289,9 @@
 
 <div class="relative w-full h-full">
     <div
-        class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+        class="2xl:w-[1300px] flex items-center w-full h-full overflow-hidden min-h-screen 2xl:min-h-[calc(100vh-92px)] mx-auto md:px-[4rem] px-[1rem] xl:pb-[4rem] pb-[6rem] shadow-2xl ">
         <div class="container mx-auto">
-            <div class="grid md:grid-cols-2 grid-cols-1 gap-6 w-full">
+            <div class="grid xl:grid-cols-2 grid-cols-1 gap-6 w-full">
                 {{-- ซ้าย --}}
                 <div class="w-full" data-aos="fade-right" data-aos-duration="1200">
                     <div class="sm:w-[300px] w-full bg-[#EEC90E] py-1 pr-4 max-sm:pl-4">

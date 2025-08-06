@@ -22,7 +22,7 @@
 @endphp
 
 
-<div class="relative w-full xl:h-[500px] h-auto overflow-hidden">
+<div class="relative w-full xl:h-[500px] lg:h-[400px] md:h-[300px] iPad-mini:h-[300px] h-[180px]  overflow-hidden">
     <div id="mySwiper" class="swiper-container relative w-full h-full">
         <div class="swiper-wrapper">
             @foreach ($slides as $slide)

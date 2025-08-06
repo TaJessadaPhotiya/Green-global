@@ -46,13 +46,14 @@
 
 <div class="relative w-full h-full ">
     <div
-        class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+        class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[6rem] shadow-2xl ">
         <div class="container mx-auto ">
-            <h1 class="text-[#098C46] xl:text-3xl text-2xl text-center font-semibold animate-focusInExpand ">PRODUCT CROP
+            <h1 class="text-[#098C46] xl:text-3xl text-2xl text-center font-semibold animate-focusInExpand ">
+                PRODUCT CROP
             </h1>
 
             {{-- swiper --}}
-            <div class="relative max-w-full mx-auto sm:mt-[3.5rem] mt-[2rem] ">
+            <div class="relative max-w-full mx-auto xl:mt-[3.5rem] mt-[1rem] ">
                 <button id="prevButton-2"
                     class="absolute max-sm:hidden xl:-left-[3rem] -left-11 top-1/2 -translate-y-1/2 rounded-full transition duration-200 opacity-70 z-10">
                     <img class="sm:w-5 w-4 sm:h-5 h-4" src="/icons/prev2.png" alt="Previous Slide">
@@ -63,23 +64,27 @@
                 </button>
 
                 <div class="swiper-container swiper2 overflow-hidden" data-aos="fade-left" data-aos-duration="1200">
-                    <div class="swiper-wrapper h-[230px] ">
+                    <div class="swiper-wrapper xl:h-[257px] h-[220px] ">
                         @foreach ($menu_cateB as $category)
                             <a href="{{ url('/' . $language . '/product?id=' . $category->id) }}"
                                 class="swiper-slide flex flex-col items-center justify-center group {{ request('id') == $category->id ? 'focus-slide' : '' }}">
                                 <div
-                                    class="{{ request('id') == $category->id ? 'border-[#EEC90E] ' : 'border-[#098C46]' }} relative shadow-md hover:animate-jelloHorizontal 2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] sm:border-4 border-[3px] bg-white rounded-full overflow-hidden ">
+                                    class="{{ request('id') == $category->id ? 'border-[#7AC53A] -translate-y-2 scale-125' : 'border-[#098C46]' }}
+                                            relative shadow-md hover:scale-[1.3] hover:-translate-y-2 transition-transform duration-300 ease-out
+                                            2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 
+                                            2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] 
+                                            sm:border-4 border-[3px] bg-white rounded-full overflow-hidden">
                                     <div class="block">
-                                        <img class="w-full h-full object-cover rounded-full transition duration-300 group-hover:scale-125 "
+                                        <img class="w-full h-full object-cover rounded-full transition-transform duration-300 ease-out group-hover:scale-[1.2]"
                                             src="{{ $category->cate_thumbnail }}" alt="{{ $category->cate_title }}">
                                     </div>
-                                    <div
+                                    {{-- <div
                                         class="absolute inset-0 transition-colors duration-300
                                         {{ request('id') == $category->id ? 'bg-gradient-to-t from-[#EEC90E] via-[#FFFACD]/10' : '' }}">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <p
-                                    class="{{ request('id') == $category->id ? 'text-[#EEC90E]' : 'text-[#098C46]' }}  font-semibold xl:text-[20px] sm:text-lg text-sm text-center transition duration-200 mt-4">
+                                    class="{{ request('id') == $category->id ? 'text-[#7AC53A]' : 'text-[#098C46]' }}  font-semibold xl:text-[20px] sm:text-lg text-sm text-center transition duration-200 mt-4 ">
                                     {{ $category->cate_title }}
                                 </p>
                             </a>
@@ -94,7 +99,7 @@
             </div>
 
             {{-- Dropdow Fillter --}}
-            <div class="w-full xl:mt-[3rem] iPad-mini:mt-[1rem] mt-0">
+            <div class="w-full xl:mt-[2.5rem] iPad-mini:mt-[1rem] mt-0">
                 <div class="flex items-center justify-end gap-3">
                     <p class="sm:text-[16px] text-[14px] font-semibold text-[#098C46]">SEGMENT :</p>
                     <div class="relative ">
@@ -136,7 +141,7 @@
             </div>
 
             {{-- Data --}}
-            <div class="grid xl:grid-cols-4 md:grid-cols-3 iPad-mini:grid-cols-3 sm:grid-cols-3 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[3rem] w-full xl:mt-12 sm:mt-[3rem] size-mini:mt-[2.6rem] mt-[1.7rem] pb-12 "
+            <div class="grid xl:grid-cols-4 md:grid-cols-3 iPad-mini:grid-cols-3 sm:grid-cols-3 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[3rem] w-full xl:mt-12 sm:mt-[3rem] size-mini:mt-[2.6rem] mt-[1.7rem] xl:pb-12 pb-8 "
                 data-aos="fade-up" data-aos-duration="1200">
                 @foreach ($filtered_products as $product)
                     <a class="w-full cursor-pointer group xl:hover:scale-105 transition duration-300 "
@@ -286,7 +291,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const swiper2 = new Swiper(".swiper2", {
-            spaceBetween: 27,
+            spaceBetween: 5,
             loop: false,
             pagination: {
                 el: ".swiper2 .swiper-pagination",
