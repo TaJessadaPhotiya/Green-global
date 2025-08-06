@@ -23,7 +23,7 @@ class ProductDetailController extends Controller
                 'title' => 'SWEET PEPPER',
                 'cate_id' => 1,
                 'product_code' => 'ALL 2045',
-                'youtube_link' => 'https://www.youtube.com/embed/L2TfObfuAec',
+                'youtube_link' => 'https://www.youtube.com/embed/F6j0DM-JKQ0?si=YOEApj-Kh4LT05x2',
                 'product_new' => 1,
                 'thumbnail' => '/image/m1.png',
             ],

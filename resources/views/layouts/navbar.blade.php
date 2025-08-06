@@ -42,10 +42,12 @@
         <div
             class="flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 xl:px-[4rem] px-4 drop-shadow-md">
             <a href="/<?= $language ?>/">
-                <img class=" xl:w-[75px] w-[50px] h-auto" src="/image/logo-GGS.png 1.png" alt="" data-aos="fade-right" data-aos-duration="1200">
+                <img class=" xl:w-[75px] w-[50px] h-auto" src="/image/logo-GGS.png 1.png" alt=""
+                    data-aos="fade-right" data-aos-duration="1200">
             </a>
 
-            <div class="max-xl:hidden flex items-center justify-end w-full gap-7 mt-1" data-aos="fade-left" data-aos-duration="1200">
+            <div class="max-xl:hidden flex items-center justify-end w-full gap-7 mt-1" data-aos="fade-left"
+                data-aos-duration="1200">
                 <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
                     {{ Request::is("$language") ? 'border-yellow-500 font-[700]' : '' }}"
                     href="/<?= $language ?>/">HOME</a>
@@ -148,7 +150,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             {{-- Hamberger --}}

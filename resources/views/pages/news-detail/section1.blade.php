@@ -11,13 +11,12 @@
                 </div>
                 {{-- ขวา --}}
                 <div class="w-full" data-aos="fade-left" data-aos-duration="1200">
-                    <div class="text-2xl text-[#8E8E8E]">{{ $news['name'] }}
-                        |
-                        <span class="text-[#098C46] font-semibold">{{ $news['date'] }}</span>
-                    </div>
+                    <p class="text-2xl text-[#098C46] font-semibold">{{ $news['name'] }}
+                    </p>
+                    <p class="text-[#8E8E8E] text-[14px] font-semibold mt-4">{{ $news['date'] }}</p>
 
                     {{-- ck --}}
-                    <div class="w-full min-h-[320px] mt-4 text-[16px] text-[#098C46]">
+                    <div class="w-full min-h-[320px] mt-4 text-[18px] text-[#098C46]">
                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam
                         accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim
                         nihil quis harum animi?

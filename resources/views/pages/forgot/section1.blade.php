@@ -1,6 +1,6 @@
 <div class="w-full h-full">
     <div
-        class="flex flex-col justify-center 2xl:w-[1300px] w-full h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[7rem] pb-[4rem] shadow-2xl ">
+        class="flex flex-col justify-center 2xl:w-[1300px] w-full min-h-screen 2xl:min-h-[calc(100vh-92px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[7rem] pb-[4rem] shadow-2xl ">
         <div class="container w-full max-w-3xl mx-auto px-6 sm:px-[5rem] py-12 bg-[#283891] rounded-lg shadow-2xl ">
             {{-- Header --}}
             <div class="text-center mb-8">
@@ -32,4 +32,3 @@
         </div>
     </div>
 </div>
-

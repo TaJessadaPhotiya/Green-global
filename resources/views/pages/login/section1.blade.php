@@ -1,7 +1,8 @@
 <div class="w-full h-full">
     <div
-        class="flex flex-col justify-center 2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[7rem] pb-[4rem] shadow-2xl ">
-        <div class="container w-full max-w-3xl mx-auto px-6 sm:px-[5rem] py-12 bg-[#283891] rounded-lg shadow-2xl " data-aos="fade-up" data-aos-duration="1200">
+        class="flex flex-col justify-center 2xl:w-[1300px] w-full h-full min-h-[calc(100vh)] 2xl:min-h-[calc(100vh-92px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[7rem] pb-[4rem] shadow-2xl ">
+        <div class="container w-full max-w-3xl mx-auto px-6 sm:px-[5rem] py-12 bg-[#283891] rounded-lg shadow-2xl "
+            data-aos="fade-up" data-aos-duration="1200">
             {{-- Header --}}
             <div class="text-center mb-8">
                 <h1 class="text-xl text-white font-extrabold mb-4">
@@ -56,12 +57,13 @@
                 <div class="flex xl:flex-row flex-col justify-between max-xl:items-center max-xl:gap-4">
                     <div class="flex items-center gap-2">
                         <img class="w-5 h-5" src="/icons/hugeicons_reset-password.png" alt="">
-                        <a class="text-white font-medium hover:text-yellow-300 hover:underline" href="/{{ $language }}/forgot">
+                        <a class="text-white font-medium hover:text-yellow-300 hover:underline"
+                            href="/{{ $language }}/forgot">
                             Forgot password?
                         </a>
                     </div>
                     <div>
-                        <a class="text-white text-sm font-normal hover:text-yellow-300 hover:underline"
+                        <a class="text-white text-sm font-normal hover:text-yellow-300 hover:underline underline"
                             href="/{{ $language }}/register">
                             Register to get password for business growth together (B2B)
                         </a>
