@@ -6,11 +6,12 @@
                 class="absolute -top-[4rem] right-0 text-white text-[50px] font-bold hover:text-red-600 z-50">
                 &times;
             </button>
+
             <iframe id="youtubeIframe" class="w-full h-full rounded-lg" src="{{ $product->youtube_link ?? '' }}"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
+    title="YouTube video player" frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
         </div>
     </div>
 
@@ -171,3 +172,6 @@
         document.getElementById('pdfModal').classList.add('hidden');
     }
 </script>
+
+
+
