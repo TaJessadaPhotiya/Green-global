@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backoffice;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Segment;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,12 +26,14 @@ class ProducrAgricultureController extends BaseController
     public function indexproduct(Request $request)
     {
         $product = $this->getProductAll($request->language);
+        $segment = Segment::select('id', 'title',)->orderBy('title', 'ASC')->get();
         return response([
             'message' => 'ok',
             'status' => true,
             'description' => 'Get product all success',
             'product' => $product,
-            'maxPriority' => Product::max('priority')
+            'maxPriority' => Product::max('priority'),
+            'segment' => $segment,
         ], 200);
     }
 
