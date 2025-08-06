@@ -19,4 +19,9 @@ class ProductCate extends Model
         return $this->hasMany(Product::class,'category','id')
         ->groupBy('id');
     }
+
+    public function segmentsChild(){
+        return $this->hasMany(Segment::class,'id','segment_id')
+        ->groupBy('id');
+    }
 }

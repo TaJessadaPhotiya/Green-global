@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backoffice;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductCate;
 use App\Models\Segment;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,19 +15,31 @@ class ProducrAgricultureController extends BaseController
 {
     public function indexcategory(Request $request)
     {
-        $cates = $this->getProductCate($request->language);
+        $cates = $this->getProductCate($request->language)->toarray();
+        $segment = Segment::select('id', 'title')->orderBy('title', 'ASC')->get()->toarray();
+        $catesCollection = collect($cates);
+        $newCatesCollection = $catesCollection->map(function ($cate) use ($segment) {
+            // ... transformation logic here ...
+            $segmentIds = explode(',', rtrim($cate['segment_id'], ','));
+            $segmentsData = collect($segment)->filter(function ($s) use ($segmentIds) {
+                return in_array($s['id'], $segmentIds);
+            });
+            $cate['segments_data'] = $segmentsData->values()->all();
+            return $cate;
+        });
+
         return response([
             'message' => 'ok',
             'status' => true,
             'description' => 'Get product category success',
-            'cates' => $cates,
+            'cates' => $newCatesCollection->toarray(),
         ], 200);
     }
 
     public function indexproduct(Request $request)
     {
         $product = $this->getProductAll($request->language);
-        $segment = Segment::select('id', 'title',)->orderBy('title', 'ASC')->get();
+        $segment = Segment::select('id', 'title', )->orderBy('title', 'ASC')->get();
         return response([
             'message' => 'ok',
             'status' => true,
@@ -93,7 +106,7 @@ class ProducrAgricultureController extends BaseController
                 "defaults" => 1,
             ]);
             DB::table('products')
-                ->where('id',  $productsCreated->id)
+                ->where('id', $productsCreated->id)
                 ->update(['short_url' => $productsCreated->language . '/product-detail/' . $productsCreated->id]);
             DB::commit();
             return response([
@@ -141,7 +154,7 @@ class ProducrAgricultureController extends BaseController
             $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
             $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['ImageName']) : $params['thumbnail_link'];
 
-            $conditions  = ['id' => $params['id'], 'language' => $params['language']];
+            $conditions = ['id' => $params['id'], 'language' => $params['language']];
             $values = [
                 'id' => $params['id'],
                 "slug" => $params['slug'],
