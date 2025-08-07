@@ -57,16 +57,18 @@ class ProducrAgricultureController extends BaseController
         $params = $request->all();
 
         $validator = Validator::make($request->all(), [
-            'slug' => 'string|required|unique:products,slug',
-            'title' => 'string|required',
+
+            'title' => 'string|required|unique:products,title',
             'category' => 'string|required',
-            'description' => 'string|required',
-            'seement' => 'string|nullable',
-            'hr' => 'string|nullable',
-            'ir' => 'string|nullable',
+            'seement' => 'string|required',
+            'plant' => 'string|required',
+            'fruit' => 'string|required',
+            'taste' => 'string|required',
+            'disease' => 'string|required',
+            'link_youtube' => 'string|required',
 
             'display' => 'numeric|required',
-            'pin' => 'numeric|required',
+            'p_new' => 'numeric|required',
             'priority' => 'numeric|required',
             'language' => 'string|required',
         ]);
@@ -79,32 +81,34 @@ class ProducrAgricultureController extends BaseController
             DB::beginTransaction();
 
             $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
-
+            $newFolderFile = "pdf/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
             /* Upload Thumbnail */
             $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['ImageName']) : "";
+            $doc_pdf = (isset($files['pdf'])) ? $this->uploadImage($newFolderFile, $files['pdf'], "", "", $params['pdfName'] . time()) : "";
 
             $this->updatePriority("products", $params['priority']);
 
             $productsCreated = Product::create([
-                "slug" => $params['slug'],
-                "title" => $params['title'],
-                "category" => $params['category'],
-                "description" => $params['description'],
                 "thumbnail_link" => $thumbnail,
                 "thumbnail_title" => $params['thumbnail_title'],
                 "thumbnail_alt" => $params['thumbnail_alt'],
+                "category" => $params['category'],
+                "title" => $params['title'],
                 "seement" => $params['seement'],
-                "hr" => $params['hr'],
-                "ir" => $params['ir'],
-                // "link_facebook" => $params['link_facebook'],
-                // "link_twitter" => $params['link_twitter'],
+                "plant" => $params['plant'],
+                "fruit" => $params['fruit'],
+                "taste" => $params['taste'],
+                "disease" => $params['disease'],
+                "link_youtube" => $params['link_youtube'],
+                "doc_link" => $doc_pdf,
 
                 "priority" => $params['priority'],
                 "display" => boolval($params['display']),
-                "pin" => boolval($params['pin']),
+                "pin" => boolval($params['p_new']),
                 "language" => $params['language'],
-                "defaults" => 1,
+                "defaults" => $params['language'] == "th" ? 1 : 0,
             ]);
+
             DB::table('products')
                 ->where('id', $productsCreated->id)
                 ->update(['short_url' => $productsCreated->language . '/product-detail/' . $productsCreated->id]);
