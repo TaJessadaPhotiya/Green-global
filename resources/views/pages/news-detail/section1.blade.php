@@ -1,6 +1,6 @@
 <div class="relative w-full h-full">
     <div
-        class="2xl:w-[1300px] w-full h-full min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
+        class="2xl:w-[1300px] w-full h-full min-h-screen 2xl:min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto">
             <div class="grid xl:grid-cols-2 grid-cols-1 xl:gap-6 gap-7 w-full">
                 {{-- ซ้าย --}}

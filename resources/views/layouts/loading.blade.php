@@ -7,8 +7,10 @@
             <img class="w-[100px]" src="/image/logo-GGS.png 1.png" alt="">
         </div>
         <!-- ข้อความกำลังโหลด -->
-        <div class="font-messiri italic text-md font-semibold text-[#098C46] mt-4 ">LOADING <span
-                class="text-xl text-[#098C46]">. . .</span></div>
+        <div class="font-messiri italic text-md font-semibold text-[#098C46] mt-4 ">
+            LOADING
+            <span class="text-xl text-[#098C46]">. . .</span>
+        </div>
     </div>
 </div>
 
