@@ -38,7 +38,7 @@
         position: fixed;
         top: 55px;
         /* right: 0; */
-        width: 240px;
+        width: 300px;
         height: 100vh;
         background: #fff;
         color: white;
@@ -215,9 +215,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 </div>
 
