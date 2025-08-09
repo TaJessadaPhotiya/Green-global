@@ -139,9 +139,16 @@ class ProducrAgricultureController extends BaseController
             'id' => 'numeric|required',
             'title' => 'string|required',
             'category' => 'string|nullable',
-            'description' => 'string|nullable',
+            'seement' => 'string|required',
+            'Plant' => 'string|required',
+            'Fruit' => 'string|required',
+            'Taste' => 'string|required',
+            'Disease' => 'string|required',
+            'linkYoutub' => 'string|required',
+            'docLink' => 'string|required',
+
             'display' => 'numeric|required',
-            'pin' => 'numeric|required',
+            'pNew' => 'numeric|required',
             'priority' => 'numeric|required',
             'language' => 'string|nullable',
         ]);
@@ -153,40 +160,42 @@ class ProducrAgricultureController extends BaseController
         try {
             DB::beginTransaction();
 
-            $productUpdate = Product::findOrFail($id);
+            $productUpdate = Product::where('id', $id)->where('language', $params['language'])->first();
             /* Upload Thumbnail */
             $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
-            $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['ImageName']) : $params['thumbnail_link'];
+            $newFolderFile = "pdf/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
+
+            $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['thumbnail_link']) : $params['thumbnail_link'];
+            $doc_pdf = (isset($files['pdf'])) ? $this->uploadImage($newFolderFile, $files['pdf'], "", "", $params['docLink'] . time()) :$params['docLink'] ;
+
 
             $conditions = ['id' => $params['id'], 'language' => $params['language']];
             $values = [
-                'id' => $params['id'],
-                "slug" => $params['slug'],
-                "title" => $params['title'],
-                "description" => $params['description'],
                 "thumbnail_link" => $thumbnail,
                 "thumbnail_title" => $params['thumbnail_title'],
                 "thumbnail_alt" => $params['thumbnail_alt'],
                 "category" => $params['category'],
+                "title" => $params['title'],
                 "seement" => $params['seement'],
-                "hr" => $params['hr'],
-                "ir" => $params['ir'],
+                "plant" => $params['Plant'],
+                "fruit" => $params['Fruit'],
+                "taste" => $params['Taste'],
+                "disease" => $params['Disease'],
+                "link_youtube" => $params['linkYoutub'],
+                "doc_link" => $doc_pdf,
                 // "link_facebook" => $params['link_facebook'],
                 // "link_twitter" => $params['link_twitter'],
 
-                "language" => $params['language'],
-
-                "priority" => $params['priority'],
-                "pin" => $params['pin'],
+                "pin" => $params['pNew'],
                 "display" => $params['display'],
                 "updated_at" => date('Y-m-d H:i:s')
             ];
 
+            DB::table('products')->updateOrInsert($conditions, $values);
+
             if ($productUpdate->priority != $params['priority']) {
                 $this->updatePriority("products", $params['priority']);
             }
-
-            DB::table('products')->updateOrInsert($conditions, $values);
 
             DB::table('products')
                 ->where($conditions)

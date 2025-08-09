@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backoffice;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\postImage;
 use Exception;
@@ -17,9 +18,11 @@ class PostController extends BaseController
     {
         try {
             $data = $this->getPostData($req->language);
+            $menuPage = Category::where('language', $req->language)->get();
             return response([
                 'message' => 'ok',
                 'data' => $data,
+                'menuPage' => $menuPage
             ], 200);
         } catch (Exception $e) {
             return response([
@@ -44,9 +47,9 @@ class PostController extends BaseController
 
         /* Upload Thumbnail */
         $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
-        $newFolderFile = "upload/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
+        // $newFolderFile = "upload/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
         $thumbnail = (isset($files['Thumbnail'])) ? $this->uploadImage($newFolder, $files['Thumbnail'], "", "", $params['ThumbnailName']) : "";
-        $doc_link = (isset($files['fileDoc'])) ? $this->uploadImage($newFolderFile, $files['fileDoc'], "", "", $params['fileDocName'] . time()) : "";
+        // $doc_link = (isset($files['fileDoc'])) ? $this->uploadImage($newFolderFile, $files['fileDoc'], "", "", $params['fileDocName'] . time()) : "";
         try {
 
             DB::beginTransaction();
@@ -56,20 +59,20 @@ class PostController extends BaseController
                 "thumbnail_alt" => $params['ThumbnailAlt'],
                 "category" => $params['category'],
                 "title" => $params['title'],
-                "keyword" => $params['keyword'],
+                // "keyword" => $params['keyword'],
                 "description" => $params['description'],
-                "freetag" => Auth::user()->username,
-                "topic" => $params['topic'],
-                "short_url" => $params['short_url'],
+                // "freetag" => Auth::user()->username,
+                // "topic" => $params['topic'],
+                // "short_url" => $params['short_url'],
                 "slug" => $params['slug'],
                 "content" => $params['content'],
-                "redirect" => $params['redirect'],
-                "date_begin_display" => $params['display_date'],
-                "date_end_display" => $params['hidden_date'],
+                // "redirect" => $params['redirect'],
+                // "date_begin_display" => $params['display_date'],
+                // "date_end_display" => $params['hidden_date'],
                 "status_display" => $params['display'],
                 "pin" => $params['pin'],
                 "is_maincontent" => $params['isMainContent'],
-                "doc_link" => $doc_link,
+                // "doc_link" => $doc_link,
                 "priority" => $params['priority'],
                 "language" => $params['language'],
                 "defaults" => $params['language'] == "th" ? 1 : 0,
@@ -273,22 +276,15 @@ class PostController extends BaseController
     private function getPostData($language)
     {
 
-        $sql = "SELECT posts.*,
-                        GROUP_CONCAT(post_images.id) imgId,
-                        GROUP_CONCAT(post_images.title) imgTitle,
-                        GROUP_CONCAT(post_images.alt) imgAlt,
-                        GROUP_CONCAT(post_images.language) imgLanguage,
-                        GROUP_CONCAT(post_images.image_link) imgLink
-                    FROM (
-                    SELECT * FROM (
-                        SELECT * FROM posts
-                        WHERE language = ? OR defaults = 1
-                        ORDER BY defaults ASC
-                        ) as posts GROUP BY posts.id) as posts
-                    LEFT JOIN (SELECT * FROM post_images WHERE post_images.language = ? OR defaults = 1 ORDER BY defaults ASC) as post_images ON posts.id = post_images.post_id
-                    GROUP BY posts.id
-                    ORDER BY updated_at DESC";
-        return DB::select($sql, [$language, $language]);
+         return Post::with(['imagesOpsts' => function ($query) use ($language) {
+            $query->where('language', $language)
+                  ->orWhere('defaults', 1)
+                  ->orderBy('defaults', 'asc');
+        }])
+        ->where('language', $language)
+        ->orWhere('defaults', 1)
+        ->orderBy('updated_at', 'desc')
+        ->get();
     }
 
     private function priorityPostUpdate($current, $new, $language, $column)
