@@ -122,9 +122,16 @@ class PostController extends BaseController
         $this->getAuthUser();
         $files = $req->allFiles();
         $params = $req->all();
+
         $validator = Validator::make($req->all(), [
-            'Thumbnail' => "mimes:jpg,png,jpeg,pdf|max:5000|nullable",
+            'id' => "required",
+            'category' => "required",
+            'title' => "required",
+            'content' => "required",
+            'status_display' => "required",
+            'language' => "required|srting"
         ]);
+
         if ($validator->fails()) {
             return $this->sendErrorValidators('Invalid params', $validator->errors());
         }
@@ -132,86 +139,83 @@ class PostController extends BaseController
         try {
             DB::beginTransaction();
             $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
-            $newFolderFile = "upload/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
-            $uploadMoreImage = array();
-            $addMoreImage = array();
-            $idRemove = explode(',', $params['moreImageRemove']);
+            // $newFolderFile = "upload/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
+            // $uploadMoreImage = array();
+            // $addMoreImage = array();
+            // $idRemove = explode(',', $params['moreImageRemove']);
 
-            if (isset($params['EditImageLink'])) {
-                PostImage::where('post_id', $params['id'])->where('language', $params['language'])->delete();
-                $numb = count($params['EditImageLink']);
-                for ($ii = 0; $ii < $numb; $ii++) {
-                    array_push($addMoreImage, [
-                        "post_id" => $params['id'],
-                        "language" =>  $params['language'],
-                        "title" => ($params['EditImageTitle'][$ii]) ? $params['EditImageTitle'][$ii] : "",
-                        "alt" => ($params['EditImageAlt'][$ii]) ? $params['EditImageAlt'][$ii] : "",
-                        "image_link" =>   $params['EditImageLink'][$ii],
-                        "position" => $ii + 1,
-                    ]);
-                }
-                PostImage::insert($addMoreImage);
-            }
+            // if (isset($params['EditImageLink'])) {
+            //     PostImage::where('post_id', $params['id'])->where('language', $params['language'])->delete();
+            //     $numb = count($params['EditImageLink']);
+            //     for ($ii = 0; $ii < $numb; $ii++) {
+            //         array_push($addMoreImage, [
+            //             "post_id" => $params['id'],
+            //             "language" => $params['language'],
+            //             "title" => ($params['EditImageTitle'][$ii]) ? $params['EditImageTitle'][$ii] : "",
+            //             "alt" => ($params['EditImageAlt'][$ii]) ? $params['EditImageAlt'][$ii] : "",
+            //             "image_link" => $params['EditImageLink'][$ii],
+            //             "position" => $ii + 1,
+            //         ]);
+            //     }
+            //     PostImage::insert($addMoreImage);
+            // }
 
-            if (isset($params['Images'])) {
-                foreach ($files['Images'] as $key => $val) {
-                    array_push($uploadMoreImage, [
-                        "post_id" => $params['id'],
-                        "image_link" => $this->uploadImage($newFolder, $files['Images'][$key], "", "", $params['ImagesName'][$key]),
-                        "alt" => ($params['ImagesAlt'][$key]) ? $params['ImagesAlt'][$key] : "",
-                        "title" => ($params['ImagesTitle'][$key]) ? $params['ImagesTitle'][$key] : "",
-                        "position" => $params['ImagesPosition'][$key],
-                        "language" => $params['language'],
-                    ]);
-                }
-                PostImage::insert($uploadMoreImage);
-            }
+            // if (isset($params['Images'])) {
+            //     foreach ($files['Images'] as $key => $val) {
+            //         array_push($uploadMoreImage, [
+            //             "post_id" => $params['id'],
+            //             "image_link" => $this->uploadImage($newFolder, $files['Images'][$key], "", "", $params['ImagesName'][$key]),
+            //             "alt" => ($params['ImagesAlt'][$key]) ? $params['ImagesAlt'][$key] : "",
+            //             "title" => ($params['ImagesTitle'][$key]) ? $params['ImagesTitle'][$key] : "",
+            //             "position" => $params['ImagesPosition'][$key],
+            //             "language" => $params['language'],
+            //         ]);
+            //     }
+            //     PostImage::insert($uploadMoreImage);
+            // }
 
             /* ยังขาด function สำหรับลบ image ออกจาก frontend! */
-            PostImage::where('post_id', $params['id'])
-                ->where('language', $params['language'])
-                ->whereIn('id', $idRemove)
-                ->delete();
+            // PostImage::where('post_id', $params['id'])
+            //     ->where('language', $params['language'])
+            //     ->whereIn('id', $idRemove)
+            //     ->delete();
 
             /* Upload Thumbnail */
-            $doc_link = $params['doc_link'];
+            // $doc_link = $params['doc_link'];
             $thumbnail = (isset($files['Thumbnail'])) ? $this->uploadImage($newFolder, $files['Thumbnail'], "", "", $params['ThumbnailName']) : $params['ThumbnailLink'];
-            if (isset($files['fileDoc'])) {
-                $fileToDelete = public_path($params['doc_link']);
-                if (file_exists($fileToDelete) && $params['doc_link']) {
-                    unlink($fileToDelete);
-                }
-                $doc_link = $this->uploadImage($newFolderFile, $files['fileDoc'], "", "", $params['fileDocName'] . time());
-            }
+            // if (isset($files['fileDoc'])) {
+            //     $fileToDelete = public_path($params['doc_link']);
+            //     if (file_exists($fileToDelete) && $params['doc_link']) {
+            //         unlink($fileToDelete);
+            //     }
+            //     $doc_link = $this->uploadImage($newFolderFile, $files['fileDoc'], "", "", $params['fileDocName'] . time());
+            // }
 
-            $this->priorityPostUpdate($params['old_priority'], $params['priority'], $params['language'], "priority");
-
-            $conditions  = ['id' => $params['id'], 'language' => $params['language']];
+            $conditions = ['id' => $params['id'], 'language' => $params['language']];
             $values = [
-                'id' => $params['id'],
-                "language" => $params['language'],
                 "thumbnail_link" => $thumbnail,
                 "thumbnail_title" => $params['ThumbnailTitle'],
                 "thumbnail_alt" => $params['ThumbnailAlt'],
                 "category" => $params['category'],
                 "title" => $params['title'],
-                "keyword" => $params['keyword'],
+                // "keyword" => $params['keyword'],
                 "description" => $params['description'],
-                "short_url" => $params['short_url'],
-                "topic" => $params['topic'],
+                // "short_url" => $params['short_url'],
+                // "topic" => $params['topic'],
                 "slug" => $params['slug'],
-                "doc_link" => $doc_link,
                 "content" => $params['content'],
-                "defaults" => $params['language'] == "th" ? 1 : 0,
-                "redirect" => $params['redirect'],
-                "date_begin_display" => $params['display_date'],
-                "date_end_display" => $params['hidden_date'],
+                // "defaults" => $params['language'] == "th" ? 1 : 0,
+                // "redirect" => $params['redirect'],
+                // "date_begin_display" => $params['display_date'],
+                // "date_end_display" => $params['hidden_date'],
                 "status_display" => $params['status_display'],
                 "pin" => $params['pin'],
                 "is_maincontent" => $params['is_maincontent'],
-                "priority" => $params['priority'],
+                // "priority" => $params['priority'],
                 "updated_at" => date('Y-m-d H:i:s')
             ];
+
+            $this->priorityPostUpdate($params['old_priority'], $params['priority'], $params['language'], "priority");
 
             DB::table('posts')->updateOrInsert($conditions, $values);
             if ($params['category'] == ',4,') {
@@ -219,6 +223,7 @@ class PostController extends BaseController
                     ->where($conditions)
                     ->update(['iframe' => $params['language'] . '/news-detail/' . $params['id']]);
             }
+
             DB::commit();
             return response([
                 'message' => 'success',
@@ -276,15 +281,17 @@ class PostController extends BaseController
     private function getPostData($language)
     {
 
-         return Post::with(['imagesOpsts' => function ($query) use ($language) {
-            $query->where('language', $language)
-                  ->orWhere('defaults', 1)
-                  ->orderBy('defaults', 'asc');
-        }])
-        ->where('language', $language)
-        ->orWhere('defaults', 1)
-        ->orderBy('updated_at', 'desc')
-        ->get();
+        return Post::with([
+            'imagesOpsts' => function ($query) use ($language) {
+                $query->where('language', $language)
+                    ->orWhere('defaults', 1)
+                    ->orderBy('defaults', 'asc');
+            }
+        ])
+            ->where('language', $language)
+            ->orWhere('defaults', 1)
+            ->orderBy('updated_at', 'desc')
+            ->get();
     }
 
     private function priorityPostUpdate($current, $new, $language, $column)

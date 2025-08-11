@@ -299,7 +299,7 @@ class CategoryController extends BaseController
             SELECT * FROM `categories`
             WHERE language = :lang OR defaults = 1
             ORDER BY defaults ASC
-        ) as cate GROUP BY id ORDER BY updated_at DESC";
+        ) as cate GROUP BY id ORDER BY cate_priority ASC";
         return DB::select($sql, [':lang' => $language]);
     }
 

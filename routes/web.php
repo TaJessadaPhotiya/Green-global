@@ -15,7 +15,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsDetailController;
 use App\Http\Controllers\ProductDetailController;
 
-
 Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/vision', [VisionController::class, 'index'])->name('vision');
@@ -30,9 +29,3 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
     Route::get('/product-detail/{id}', [ProductDetailController::class, 'index'])->name('product-detail');
     Route::get('/news-detail/{id}', [NewsDetailController::class, 'index'])->name('news-detail');
 });
-
-
-
-
-
-

@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index($language)
     {
-        return view('pages.home.home');
+
+
+
+        return view('pages.home.home', compact('language'));
     }
 }
