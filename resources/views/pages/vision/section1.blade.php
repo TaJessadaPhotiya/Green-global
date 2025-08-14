@@ -5,26 +5,16 @@
             <div class="xl:w-[920px] w-full h-auto mx-auto">
                 <img class="w-full h-full object-cover" src="/image/Rectangle 156 (1).png" alt="">
             </div>
-            <h1 class="text-[#098C46] lg:text-2xl text-xl font-semibold text-center italic mt-6">Our Company</h1>
+            <h1 class="text-[#098C46] lg:text-2xl text-xl font-semibold text-center italic mt-6">
+                {{ $visionContent->title }}
+            </h1>
 
             {{-- ck --}}
-            <p class="text-[18px] text-[#098C46] xl:mt-6 mt-4">Global population increasing special for emerging
-                markets,  but
-                food will short in coming year done
-                climate change  and global warming make grower difficult and yield lower than before  ,Green  Global
-                seeds company with business partnership development hybrids and market for wide adaptability variety for
-                climate change  and meet demand  of provisional  grower  , food collectors , supper market , new
-                generation of consumer  for healthy and good taste . Green global seeds   company focus delivery
-                innovation product seeds to food by “Premium seed for  high yield and good taste ” since 2013
-                climate change  and global warming make grower difficult and yield lower than before  ,Green  Global
-                seeds company with business partnership development hybrids and market for wide adaptability variety for
-                climate change  and meet demand  of provisional  grower  , food collectors , supper market , new
-                generation of consumer  for healthy and good taste . Green global seeds   company focus delivery
-                innovation product seeds to food by “Premium seed for  high yield and good taste ” since 2013
-            </p>
-            <h1 class="text-[#098C46] lg:text-2xl text-xl font-semibold text-center italic mt-6">“Premium seed for high
-                yield and
-                good taste” </br> Since 2013
+            <div class="xl:mt-6 mt-4">
+                {!! $visionContent->content !!}
+            </div>
+            <h1 class="text-[#098C46] lg:text-2xl text-xl font-semibold text-center italic mt-6">
+                {!! $visionContent->description !!}
             </h1>
         </div>
     </div>

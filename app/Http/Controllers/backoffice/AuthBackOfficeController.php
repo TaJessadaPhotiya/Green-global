@@ -176,7 +176,7 @@ class AuthBackOfficeController extends BaseController
                 }
 
                 $checkLangs = explode(",", $userAccount->language);
-                $queryLangs = LanguageAvailable::whereIn('abbv_name', $checkLangs)->get()->all();
+                $queryLangs = LanguageAvailable::whereIn('abbv_name', $checkLangs)->get();
                 $activateLanguage = "";
                 foreach ($queryLangs as $lng) {
                     $activateLanguage .= ",{$lng->abbv_name}";

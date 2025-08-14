@@ -20,6 +20,7 @@
             'flag' => 'image/AR.png',
         ],
     ];
+    // dd($menuChildren);
 @endphp
 
 {{-- เช็คสถาณ Login --}}
@@ -48,79 +49,66 @@
 
             <div class="max-xl:hidden flex items-center justify-end w-full gap-7 mt-1" data-aos="fade-left"
                 data-aos-duration="1200">
-                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language") ? 'border-yellow-500 font-[700]' : '' }}"
-                    href="/<?= $language ?>/">HOME</a>
+                @foreach ($mainMenu as $menu)
+                    <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent
+                    {{ Request::is($language.$menu->cate_url) ? 'border-yellow-500 font-[700]' : '' }}"
+                        href={{ $menu->cate_redirect }}>{{ $menu->cate_title }}</a>
+                @endforeach
+                @if ($menuChildren)
+                    @if (Auth::check())
+                        {{-- Member --}}
+                        <div class="relative inline-block text-left">
+                            <button id="dropdownBtn"
+                                class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
+                                onclick="toggleDropdown()">
+                                <img class="w-3.5 h-3.5 mr-1.5" src="/icons/Vector.png" alt="">
+                                {{ $menuChildren['member']->cate_title }}
+                                <svg id="memberIcon" class="ml-1 transition-transform duration-300"
+                                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
 
-                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/vision") ? 'border-yellow-500 font-[700]' : '' }}"
-                    href="/<?= $language ?>/vision">VISION</a>
-
-                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/news") || Request::is("$language/news-detail*") ? 'border-yellow-500 font-[700]' : '' }}"
-                    href="/<?= $language ?>/news">NEWS</a>
-
-                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/product") || Request::is("$language/product-detail*") ? 'border-yellow-500 font-[700]' : '' }}"
-                    href="/<?= $language ?>/product">PRODUCT</a>
-
-                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/term") ? 'border-yellow-500 font-[700]' : '' }}"
-                    href="/<?= $language ?>/term">TERM&CONDITION</a>
-
-                <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent 
-                    {{ Request::is("$language/contact") ? 'border-yellow-500 font-[700]' : '' }}"
-                    href="/<?= $language ?>/contact">CONTACT US</a>
-
-                @if ($status == 1)
-                    {{-- Member --}}
-                    <div class="relative inline-block text-left">
-                        <button id="dropdownBtn"
-                            class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
-                            onclick="toggleDropdown()">
-                            <img class="w-3.5 h-3.5 mr-1.5" src="/icons/Vector.png" alt="">
-                            MEMBER
-                            <svg id="memberIcon" class="ml-1 transition-transform duration-300"
-                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                viewBox="0 0 24 24">
-                                <path d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-
-                        <div id="dropdownMenu"
-                            class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div>
-                                <a href="/{{ $language }}/profile"
-                                    class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
-                                    Profile</a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
-                                    Sign out</a>
+                            <div id="dropdownMenu"
+                                class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div>
+                                    <a href="/{{ $language }}/profile"
+                                        class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
+                                        {{ $menuChildren['member'][0]->childrenData->cate_title }}</a>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
+                                        Sign out</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @else
-                    {{-- Register --}}
-                    <div class="relative inline-block text-left">
-                        <button id="dropdownBtn"
-                            class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
-                            onclick="toggleDropdown()">
-                            REGISTER
-                        </button>
+                    @else
+                        {{-- Register --}}
+                        <div class="relative inline-block text-left">
+                            <button id="dropdownBtn"
+                                class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
+                                onclick="toggleDropdown()">
+                               {{ $menuChildren['register']->cate_title }}
+                            </button>
 
-                        <div id="dropdownMenu"
-                            class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div>
-                                <a href="/{{ $language }}/login"
-                                    class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
-                                    Sign In</a>
-                                <a href="/{{ $language }}/register"
-                                    class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
-                                    Register</a>
+                            <div id="dropdownMenu"
+                                class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div>
+                                    @foreach ($menuChildren['register']->childrenData as $children)
+                                    <a href={{ $children->cate_redirect }}
+                                        class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
+                                        {{ $children->cate_title }}</a>
+                                    @endforeach
+
+                                    {{-- <a href="/{{ $language }}/register"
+                                        class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
+                                        Register</a> --}}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
+
 
                 <div class="relative inline-block" id="languageDropdown">
                     <button id="dropdownBtn2" class="flex justify-center w-full rounded-md ">

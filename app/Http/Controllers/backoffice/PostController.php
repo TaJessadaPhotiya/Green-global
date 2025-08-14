@@ -129,7 +129,7 @@ class PostController extends BaseController
             'title' => "required",
             'content' => "required",
             'status_display' => "required",
-            'language' => "required|srting"
+            'language' => "required"
         ]);
 
         if ($validator->fails()) {

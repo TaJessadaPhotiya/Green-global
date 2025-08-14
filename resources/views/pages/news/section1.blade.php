@@ -294,47 +294,46 @@
             <div class="grid xl:grid-cols-2 grid-cols-1 gap-6 w-full">
                 {{-- ซ้าย --}}
                 <div class="w-full" data-aos="fade-right" data-aos-duration="1200">
-                    <div class="sm:w-[300px] w-full bg-[#EEC90E] py-1 pr-4 max-sm:pl-4">
-                        <div class="bg-[#098C46] p-1">
-                            <p class="text-center text-white text-lg font-semibold">NEWS</p>
+                    @if ($NewsData)
+                        <div class="sm:w-[300px] w-full bg-[#EEC90E] py-1 pr-4 max-sm:pl-4">
+                            <div class="bg-[#098C46] p-1">
+                                <p class="text-center text-white text-lg font-semibold">NEWS</p>
+                            </div>
                         </div>
-                    </div>
-
-                    @foreach ($newsList as $news)
                         <div class="w-full rounded-xl shadow-md overflow-hidden mt-4">
                             <div class="w-full xl:h-[360px] sm:h-[260px] h-[250px] bg-[#FFFAE8] py-4 xl:px-[3rem] px-4">
                                 <figure class="w-full h-full rounded-xl overflow-hidden">
-                                    <img class="w-full h-full object-cover"
-                                        src="{{ $news['image'] ?? '/image/Rectangle 169.png' }}" alt="">
+                                    <img class="w-full h-full object-cover" src={{ '/' . $NewsData->thumbnail_link }}
+                                        alt={{ $NewsData->thumbnail_alt }}>
                                 </figure>
                             </div>
                             <div class="flex flex-col w-full">
                                 <div class="w-full p-6">
                                     <p class="text-[#098C46] sm:text-xl text-lg font-semibold">
-                                        {{ $news['name'] ?? '-' }}
+                                        {{ $NewsData->title ?? '-' }}
                                     </p>
                                     <p
                                         class="h-[40px] text-[#098C46] sm:text-[16px] text-sm font-normal line-clamp-2 mt-2">
-                                        {{ $news['description'] ?? '-' }}
+                                        {{ $NewsData->description ?? '-' }}
                                     </p>
                                 </div>
                                 <div class="flex items-center justify-between px-6 py-4">
                                     <p class="text-[#B8B8B8] md:text-[16px] text-sm">
-                                        {{ \Carbon\Carbon::parse($news['date'])->format('M d, Y') }}
+                                        {{ \Carbon\Carbon::parse($NewsData->updated_at)->format('M d, Y') }}
                                     </p>
-                                    <a href="{{ url('/' . $language . '/news-detail/' . $news['id']) }}"
+                                    <a href={{ url('/' . $NewsData->iframe) }}
                                         class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                                         Detail
                                     </a>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endif
                 </div>
 
                 {{-- ขวา --}}
                 <div class="w-full" data-aos="fade-left" data-aos-duration="1200">
-                    @if ($new_product)
+                    @if ($ProductData)
                         <div class="sm:w-[300px] w-full bg-[#EEC90E] py-1 pr-4 max-sm:pl-4">
                             <div class="bg-[#098C46] p-1">
                                 <p class="text-center text-white text-lg font-semibold">NEW PRODUCT</p>
@@ -343,16 +342,16 @@
                         <div class="w-full rounded-xl shadow-md overflow-hidden mt-4">
                             <div class="w-full xl:h-[360px] sm:h-[260px] h-[250px] bg-[#FFFAE8] py-4 xl:px-[3rem] px-4">
                                 <figure class="w-full h-full rounded-xl overflow-hidden">
-                                    <img class="w-full h-full object-cover" src="{{ $new_product->thumbnail }}"
-                                        alt="">
+                                    <img class="w-full h-full object-cover" src={{ '/'.$ProductData->thumbnail_link }}
+                                        alt={{ '/'.$ProductData->thumbnail_alt }}>
                                 </figure>
                             </div>
                             <div class="flex flex-col w-full">
                                 <div class="w-full p-6">
                                     <div class="text-[#8E8E8E] sm:text-xl text-lg font-medium">
-                                        {{ $new_product->title }} :
+                                        {{ $ProductData->c_title }} :
                                         <span class="text-[#098C46] sm:text-xl text-lg font-semibold ml-2">
-                                            {{ $new_product->product_code }}
+                                            {{ $ProductData->title }}
                                         </span>
                                     </div>
                                     <p
@@ -361,7 +360,7 @@
                                     </p>
                                 </div>
                                 <div class="flex items-center justify-end px-6 py-4">
-                                    <a href="{{ url('/' . $language . '/product-detail/' . $new_product->id) }}"
+                                    <a href="{{ url('/' . $ProductData->short_url) }}"
                                         class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm block">
                                         Detail
                                     </a>
