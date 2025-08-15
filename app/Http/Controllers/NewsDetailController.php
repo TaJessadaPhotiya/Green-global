@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsDetailController extends Controller
 {
@@ -33,17 +34,39 @@ class NewsDetailController extends Controller
         //     ],
         // ]);
 
-        $news = Post::where('id', (int) $id)
-        ->where('slug', 'NEWS')
-        ->where('language', $language)
-        ->first();
+        $news = Post::select(
+            'id',
+            'title',
+            'description',
+            'thumbnail_link',
+            'thumbnail_title',
+            'thumbnail_alt',
+            'category',
+            'content',
+            DB::raw('DATE_FORMAT(updated_at, "%a %D %b %Y") AS date')
+        )
+            ->where('id', (int) $id)
+            ->where('slug', 'NEWS')
+            ->where('language', $language)
+            ->first();
 
         if (!$news) {
             // abort(404, 'News not found');
-             $news = Post::where('id', (int) $id)
-        ->where('slug', 'NEWS')
-        ->where('defaults', 1)
-        ->first();
+            $news = Post::select(
+                'id',
+                'title',
+                'description',
+                'thumbnail_link',
+                'thumbnail_title',
+                'thumbnail_alt',
+                'category',
+                'content',
+                DB::raw('DATE_FORMAT(updated_at, "%a %D %b %Y") AS date')
+            )
+                ->where('id', (int) $id)
+                ->where('slug', 'NEWS')
+                ->where('defaults', 1)
+                ->first();
         }
 
         return view('pages.news-detail.news-detail', compact('news'));

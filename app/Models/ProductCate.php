@@ -22,6 +22,6 @@ class ProductCate extends Model
 
     public function segmentsChild(){
         return $this->hasMany(Segment::class,'id','segment_id')
-        ->groupBy('id');
+        ;
     }
 }

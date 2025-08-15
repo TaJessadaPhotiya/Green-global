@@ -66,7 +66,7 @@ class PostController extends BaseController
                 // "short_url" => $params['short_url'],
                 "slug" => $params['slug'],
                 "content" => $params['content'],
-                // "redirect" => $params['redirect'],
+                "redirect" => $params['redirect'],
                 // "date_begin_display" => $params['display_date'],
                 // "date_end_display" => $params['hidden_date'],
                 "status_display" => $params['display'],
@@ -126,10 +126,10 @@ class PostController extends BaseController
         $validator = Validator::make($req->all(), [
             'id' => "required",
             'category' => "required",
-            'title' => "required",
-            'content' => "required",
+            // 'title' => "required",
+            // 'content' => "required",
             'status_display' => "required",
-            'language' => "required"
+            // 'language' => "required"
         ]);
 
         if ($validator->fails()) {
@@ -205,7 +205,7 @@ class PostController extends BaseController
                 "slug" => $params['slug'],
                 "content" => $params['content'],
                 // "defaults" => $params['language'] == "th" ? 1 : 0,
-                // "redirect" => $params['redirect'],
+                "redirect" => $params['redirect'],
                 // "date_begin_display" => $params['display_date'],
                 // "date_end_display" => $params['hidden_date'],
                 "status_display" => $params['status_display'],

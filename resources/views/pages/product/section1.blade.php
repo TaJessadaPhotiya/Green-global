@@ -1,5 +1,5 @@
 {{-- Category --}}
-@php
+{{-- @php
     $menu_cateB = collect([
         (object) [
             'id' => 1,
@@ -42,7 +42,7 @@
             'cate_thumbnail' => '/image/Rectangle 409 (1).png',
         ],
     ]);
-@endphp
+@endphp --}}
 
 <div class="relative w-full h-full ">
     <div
@@ -65,18 +65,19 @@
 
                 <div class="swiper-container swiper2 overflow-hidden" data-aos="fade-left" data-aos-duration="1200">
                     <div class="swiper-wrapper xl:h-[257px] h-[220px] ">
-                        @foreach ($menu_cateB as $category)
+                        @foreach ($MenuProductCrop as $category)
                             <a href="{{ url('/' . $language . '/product?id=' . $category->id) }}"
                                 class="swiper-slide flex flex-col items-center justify-center group {{ request('id') == $category->id ? 'focus-slide' : '' }}">
                                 <div
                                     class="{{ request('id') == $category->id ? 'border-[#7AC53A] -translate-y-2 scale-125' : 'border-[#098C46]' }}
                                             relative shadow-md hover:scale-[1.3] hover:-translate-y-2 transition-transform duration-300 ease-out
-                                            2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px] 
-                                            2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px] 
+                                            2xl:w-[150px] xl:w-[140px] sm:w-[120px] w-[90px]
+                                            2xl:h-[150px] xl:h-[140px] sm:h-[120px] h-[90px]
                                             sm:border-4 border-[3px] bg-white rounded-full overflow-hidden">
                                     <div class="block">
                                         <img class="w-full h-full object-cover rounded-full transition-transform duration-300 ease-out group-hover:scale-[1.2]"
-                                            src="{{ $category->cate_thumbnail }}" alt="{{ $category->cate_title }}">
+                                            src="{{ '/' . $category->thumbnail_link }}"
+                                            alt="{{ $category->thumbnail_alt }}">
                                     </div>
                                     {{-- <div
                                         class="absolute inset-0 transition-colors duration-300
@@ -85,7 +86,7 @@
                                 </div>
                                 <p
                                     class="{{ request('id') == $category->id ? 'text-[#7AC53A]' : 'text-[#098C46]' }}  font-semibold xl:text-[20px] sm:text-lg text-sm text-center transition duration-200 mt-4 ">
-                                    {{ $category->cate_title }}
+                                    {{ $category->title }}
                                 </p>
                             </a>
                         @endforeach
@@ -149,7 +150,7 @@
                         {{-- ส่วนรูป --}}
                         <div class=" relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl ">
                             <!-- ป้าย NEW -->
-                            @if ($product->product_new == 1)
+                            @if ($product->pin == 1)
                                 <img class="flash-img absolute sm:top-2 top-3 left-3 sm:w-[55px] w-[40px] sm:h-[55px] h-[40px] drop-shadow-sm z-10"
                                     src="/image/Group 108.png" alt="">
                             @endif
@@ -161,7 +162,8 @@
                             <!-- รูป -->
                             <figure class=" w-full h-full overflow-hidden relative">
                                 <img class="lazy-image  w-full h-full object-cover transition-all duration-500 blur-md group-hover:blur-lg group-hover:bg-black/80 scale-105"
-                                    loading="lazy" src="{{ $product->thumbnail }}" alt="{{ $product->title }}"
+                                    loading="lazy" src="{{ '/' . $product->thumbnail_link }}"
+                                    alt="{{ $product->thumbnail_alt }}"
                                     onload="this.classList.remove('blur-md', 'scale-105')">
                             </figure>
 
@@ -183,10 +185,10 @@
                         <div class="w-full sm:mt-12 mt-10">
                             <p
                                 class="h-[24px] sm:text-[16px] text-[14px] text-center font-normal text-[#848484] line-clamp-1">
-                                {{ $product->title }}
+                                {{ $product->c_title }}
                             </p>
                             <button
-                                class="relative w-full text-white sm:text-[16px] text-sm font-medium text-center py-2 
+                                class="relative w-full text-white sm:text-[16px] text-sm font-medium text-center py-2
                                         bg-gradient-to-r from-[#19703D] to-[#1a7a43]
                                         group-hover:from-[#EEC90E] group-hover:to-[#f7d73e]
                                         rounded-md shadow-md group-hover:shadow-xl mt-2 overflow-hidden group transition-all duration-500">
@@ -194,7 +196,7 @@
                                 <!-- ข้อความเดิม -->
                                 <span
                                     class="block transition-all duration-500 group-hover:-translate-y-full group-hover:opacity-0">
-                                    {{ $product->product_code }}
+                                    {{ $product->title }}
                                 </span>
 
                                 <!-- ลูกศรเลื่อนเข้ามา -->
@@ -325,7 +327,7 @@
         });
 
         const slidesPerView = swiper2.params.slidesPerView;
-        const categoryCount = {{ count($menu_cateB) }};
+        const categoryCount = {{ count($MenuProductCrop) }};
         const prevButton = document.getElementById("prevButton-2");
 
         if (categoryCount <= slidesPerView) {

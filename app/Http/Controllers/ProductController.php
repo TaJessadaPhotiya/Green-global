@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\ProductCate;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $language)
     {
         $menu_product = collect([
             (object) [
@@ -291,13 +293,48 @@ class ProductController extends Controller
             ],
         ]);
 
+        // Define the columns to be selected to avoid repetition.
+        $selectedColumns = [
+            'id',
+            'thumbnail_link',
+            'thumbnail_title',
+            'thumbnail_alt',
+            'title'
+        ];
+
+        // First, try to get categories for the specified language.
+        $MenuProductCrop = ProductCate::with(['segmentsChild'])
+           ->select($selectedColumns)
+            ->where('language', $language)
+            ->get();
+dd($MenuProductCrop);
+        // If no categories are found for the language, get the default ones.
+        if ($MenuProductCrop->isEmpty()) {
+            $MenuProductCrop = ProductCate::select($selectedColumns)
+                ->where('defaults', 1)
+                ->get();
+        }
+
+        $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
+            ->select('products.*', 'product_category.title AS c_title')
+            ->where('products.display', 1)
+            ->where('products.language', $language)
+            ->get();
+        if ($ProductLists->isEmpty()) {
+            $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
+                ->select('products.*', 'product_category.title AS c_title')
+                ->where('products.display', 1)
+                ->where('products.defaults', 1)
+                ->get();
+        }
+        // dd($ProductLists);
         $cate_id = $request->query('id');
 
         $filtered = $cate_id
-            ? $menu_product->where('cate_id', $cate_id)
-            : $menu_product;
+            ? $ProductLists->where('id', $cate_id)
+            : $ProductLists;
 
-        $sorted = $filtered->sortByDesc('product_new')->values(); // รี index ใหม่
+        $sorted = $filtered->sortByDesc('pin')->values(); // รี index ใหม่
 
         // ---- Pagination ----
         $perPage = 12;
@@ -312,6 +349,6 @@ class ProductController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
-        return view('pages.product.product', compact('filtered_products'));
+        return view('pages.product.product', compact('MenuProductCrop', 'filtered_products'));
     }
 }
