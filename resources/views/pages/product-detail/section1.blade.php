@@ -7,11 +7,11 @@
                 &times;
             </button>
 
-            <iframe id="youtubeIframe" class="w-full h-full rounded-lg" src="{{ $product->youtube_link ?? '' }}"
-    title="YouTube video player" frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-</iframe>
+            <iframe id="youtubeIframe" class="w-full h-full rounded-lg" src="https://www.youtube.com/embed/Xx7sxWI9FNI?si=3tMOYYSTbFaG2NkT"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
         </div>
     </div>
 
@@ -24,14 +24,16 @@
                     data-aos-duration="1200">
                     <div
                         class="xl:w-full sm:w-[80%] w-full xl:h-[460px] h-auto rounded-tl-[50px] overflow-hidden drop-shadow-md">
-                        <img class="w-full h-full object-cover" src="{{ $product->thumbnail }}" alt="">
+                        <img class="w-full h-full object-cover" src="{{ '/' . $product->thumbnail_link }}"
+                            alt="{{ $product->thumbnail_alt }}">
                     </div>
                     <div
                         class="grid xl:grid-cols-3 sm:grid-cols-1 grid-cols-3 xl:gap-4 gap-3 xl:w-full sm:w-[20%] w-full xl:h-auto sm:h-[600px] h-auto">
                         <div class="w-full">
                             <figure
                                 class="w-full md:h-[130px] sm:h-[100px] h-[100px] xl:rounded-2xl rounded-lg overflow-hidden shadow-md ">
-                                <img class="w-full h-full object-cover" src="{{ $product->thumbnail }}" alt="">
+                                <img class="w-full h-full object-cover" src="{{ '/' . $product->thumbnail_link }}"
+                                    alt="{{ $product->thumbnail_alt }}">
                             </figure>
                             <p class="xl:text-lg sm:text-[18px] text-sm text-[#098C46] text-center font-semibold mt-3">
                                 Plant Growth
@@ -48,8 +50,8 @@
                                 Watch Video
                             </p>
                         </div>
-                        <a class="w-full group" href="/pdf/test.pdf" target="_blank"
-                            onclick="event.preventDefault(); window.open('/pdf/test.pdf');">
+                        <a class="w-full group" href="{{ asset($product->doc_link) }}" target="_blank"
+                            onclick="event.preventDefault(); window.open('{{ asset($product->doc_link) }}');">
                             <figure
                                 class="flex items-center justify-center w-full md:h-[130px] sm:h-[100px] h-[100px] xl:rounded-2xl rounded-lg bg-[#098C46] group-hover:bg-[#7AC53A] transition duration-200 overflow-hidden shadow-md cursor-pointer">
                                 <img class="w-auto sm:h-[85px] h-[50px]" src="/icons/fluent_document-pdf-32-regular.png"
@@ -62,10 +64,16 @@
                         </a>
                     </div>
                 </div>
+                @php
+                    $Plant = explode('/', $product->plant);
+                    $Fruit = explode('/', $product->fruit);
+                    $Taste = explode('/', $product->taste);
+                    $Disease = explode('/', $product->disease);
+                @endphp
                 {{-- ขวา --}}
                 <div class="w-full xl:mt-0 mt-6" data-aos="fade-left" data-aos-duration="1200">
-                    <div class="xl:text-2xl text-xl text-[#8E8E8E]">{{ $product->title }} | <span
-                            class="text-[#098C46] font-semibold">{{ $product->product_code }}</span></div>
+                    <div class="xl:text-2xl text-xl text-[#8E8E8E]">{{ $product->category_name }} | <span
+                            class="text-[#098C46] font-semibold">{{ $product->title }}</span></div>
                     <div class="flex items-start gap-6 mt-4 mb-6">
                         <figure>
                             <img class="min-w-[70px] h-[70px] drop-shadow-md" src="/icons/icon-plant.png"
@@ -73,9 +81,9 @@
                             <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">PLANT</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
-                            <li>- Good branching plant with heat setting.</li>
-                            <li>- Good leaf covering plant, and early maturity.</li>
-                            <li>- Cost management via early maturity and open field practice.</li>
+                            <li>- {{ $Plant[0] ?? 'No description available.' }}</li>
+                            <li>- {{ $Plant[1] ?? 'No description available.' }}</li>
+                            <li>- {{ $Plant[2] ?? 'No description available.' }}</li>
                         </ul>
                     </div>
                     <div class="border-b border-gray-200"></div>
@@ -86,9 +94,9 @@
                             <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">FRUIT</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
-                            <li>- The fruit weighs 100–120 grams.</li>
-                            <li>- It has a square shape.</li>
-                            <li>- It has very good transportation ability.</li>
+                            <li>- {{ $Fruit[0] ?? 'No description available.' }}</li>
+                            <li>- {{ $Fruit[1] ?? 'No description available.' }}</li>
+                            <li>- {{ $Fruit[2] ?? 'No description available.' }}</li>
                         </ul>
                     </div>
                     <div class="border-b border-gray-200"></div>
@@ -99,9 +107,8 @@
                             <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">TASTE</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
-                            <li>- Good branching plant with heat setting.</li>
-                            <li>- Good leaf covering plant, and early maturity.</li>
-                            <li>- Cost management via early maturity and open field practice.</li>
+                            <li>- {{ $Taste[0] ?? 'No description available.' }}</li>
+                            <li>- {{ $Taste[1] ?? 'No description available.' }}</li>
                         </ul>
                     </div>
                     <div class="border-b border-gray-200"></div>
@@ -112,9 +119,8 @@
                             <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">DISEASE</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px]/8 ">
-                            <li>- Good branching plant with heat setting.</li>
-                            <li>- Good leaf covering plant, and early maturity.</li>
-                            <li>- Cost management via early maturity and open field practice.</li>
+                            <li>- {{ $Disease[0] ?? 'No description available.' }}</li>
+                            <li>- {{ $Disease[1] ?? 'No description available.' }}</li>
                         </ul>
                     </div>
                     <div class="border-b border-gray-200"></div>
@@ -139,7 +145,7 @@
         const modal = document.getElementById("videoModal");
         const iframe = document.getElementById("youtubeIframe");
 
-        const youtubeUrl = "{{ $product->youtube_link ?? '' }}?autoplay=1";
+        const youtubeUrl = "{{ $product->link_youtube ?? '' }}?autoplay=1";
 
         openBtn.addEventListener("click", () => {
             iframe.src = youtubeUrl; // ตั้งค่า URL พร้อม autoplay
@@ -172,6 +178,3 @@
         document.getElementById('pdfModal').classList.add('hidden');
     }
 </script>
-
-
-

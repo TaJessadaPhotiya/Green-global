@@ -1,48 +1,8 @@
 {{-- Category --}}
-{{-- @php
-    $menu_cateB = collect([
-        (object) [
-            'id' => 1,
-            'cate_title' => 'Rice',
-            'cate_thumbnail' => '/image/m1.png',
-        ],
-        (object) [
-            'id' => 2,
-            'cate_title' => 'Corn',
-            'cate_thumbnail' => '/image/m2.png',
-        ],
-        (object) [
-            'id' => 3,
-            'cate_title' => 'Wheat',
-            'cate_thumbnail' => '/image/m3.png',
-        ],
-        (object) [
-            'id' => 4,
-            'cate_title' => 'Soybean',
-            'cate_thumbnail' => '/image/m4.png',
-        ],
-        (object) [
-            'id' => 5,
-            'cate_title' => 'Sugarcane',
-            'cate_thumbnail' => '/image/m6.png',
-        ],
-        (object) [
-            'id' => 6,
-            'cate_title' => 'Banana',
-            'cate_thumbnail' => '/image/Rectangle 409 (2).png',
-        ],
-        (object) [
-            'id' => 7,
-            'cate_title' => 'Sweet Pepper',
-            'cate_thumbnail' => '/image/Rectangle 409 (3).png',
-        ],
-        (object) [
-            'id' => 8,
-            'cate_title' => 'Melon',
-            'cate_thumbnail' => '/image/Rectangle 409 (1).png',
-        ],
-    ]);
-@endphp --}}
+@php
+    $selectedSegment = isset($_GET['segment']) ? $SegmentFiltered->firstWhere('id', $_GET['segment']) : null;
+
+@endphp
 
 <div class="relative w-full h-full ">
     <div
@@ -65,7 +25,7 @@
 
                 <div class="swiper-container swiper2 overflow-hidden" data-aos="fade-left" data-aos-duration="1200">
                     <div class="swiper-wrapper xl:h-[257px] h-[220px] ">
-                        @foreach ($MenuProductCrop as $category)
+                        @foreach ($ProductCate as $category)
                             <a href="{{ url('/' . $language . '/product?id=' . $category->id) }}"
                                 class="swiper-slide flex flex-col items-center justify-center group {{ request('id') == $category->id ? 'focus-slide' : '' }}">
                                 <div
@@ -106,7 +66,8 @@
                     <div class="relative ">
                         <button id="memberDropdownBtn"
                             class="inline-flex items-center justify-center border-2 border-[#098C46] gap-2 xl:w-[120px] w-[100px] py-0.5 xl:text-[16px] text-[14px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 rounded-md">
-                            <span id="memberDropdownLabel">ALL</span>
+                            <span
+                                id="memberDropdownLabel">{{ $selectedSegment ? $selectedSegment->title : 'ALL' }}</span>
                             <svg id="memberDropdownIcon" class="transition-transform duration-300 w-4 h-4"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -123,18 +84,15 @@
                                     class=" block px-4 py-2 text-sm text-gray-700 hover:bg-[#098C46] hover:text-white rounded-t-md transition">
                                     ALL
                                 </a>
-                                <a href="#"
-                                    class=" block px-4 py-2 text-sm text-gray-700 hover:bg-[#098C46] hover:text-white transition">DATA
-                                    1
-                                </a>
-                                <a href="#"
-                                    class=" block px-4 py-2 text-sm text-gray-700 hover:bg-[#098C46] hover:text-white transition">DATA
-                                    2
-                                </a>
-                                <a href="#"
-                                    class=" block px-4 py-2 text-sm text-gray-700 hover:bg-[#098C46] hover:text-white rounded-b-md transition">DATA
-                                    3
-                                </a>
+                                @foreach ($SegmentFiltered as $segment)
+                                    @php
+                                        $isActive = isset($_GET['segment']) && $_GET['segment'] == $segment->id;
+                                    @endphp
+                                    <a href="{{ url($language . '/product?segment=' . $segment->id) }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 transition @if ($isActive) bg-[#098C46] text-white @else hover:bg-[#098C46] hover:text-white @endif">
+                                        {{ $segment->title }}
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -327,7 +285,7 @@
         });
 
         const slidesPerView = swiper2.params.slidesPerView;
-        const categoryCount = {{ count($MenuProductCrop) }};
+        const categoryCount = {{ count($ProductCate) }};
         const prevButton = document.getElementById("prevButton-2");
 
         if (categoryCount <= slidesPerView) {
