@@ -61,10 +61,16 @@ class ProducrAgricultureController extends BaseController
             'title' => 'string|required|unique:products,title',
             'category' => 'string|required',
             'seement' => 'string|required',
-            'plant' => 'string|required',
-            'fruit' => 'string|required',
-            'taste' => 'string|required',
-            'disease' => 'string|required',
+            'plantLine1' => 'string|required',
+            'plantLine2' => 'string|required',
+            'plantLine3' => 'string|required',
+            'fruitLine1' => 'string|required',
+            'fruitLine2' => 'string|required',
+            'fruitLine3' => 'string|required',
+            'tasteLine1' => 'string|required',
+            'tasteLine2' => 'string|required',
+            'diseaseLine1' => 'string|required',
+            'diseaseLine2' => 'string|required',
             'link_youtube' => 'string|required',
 
             'display' => 'numeric|required',
@@ -84,6 +90,7 @@ class ProducrAgricultureController extends BaseController
             $newFolderFile = "pdf/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
             /* Upload Thumbnail */
             $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['ImageName']) : "";
+            $thumbnailSecond = (isset($files['ImageSecond'])) ? $this->uploadImage($newFolder, $files['ImageSecond'], "", "", $params['thumbnailSecond_name']) : "";
             $doc_pdf = (isset($files['pdf'])) ? $this->uploadImage($newFolderFile, $files['pdf'], "", "", $params['pdfName'] . time()) : "";
 
             $this->updatePriority("products", $params['priority']);
@@ -92,13 +99,22 @@ class ProducrAgricultureController extends BaseController
                 "thumbnail_link" => $thumbnail,
                 "thumbnail_title" => $params['thumbnail_title'],
                 "thumbnail_alt" => $params['thumbnail_alt'],
+                "thumbnail_second_link" => $thumbnailSecond,
+                "thumbnail_second_title" => $params['thumbnailSecond_title'],
+                "thumbnail_second_alt" => $params['thumbnailSecond_alt'],
                 "category" => $params['category'],
                 "title" => $params['title'],
                 "seement" => $params['seement'],
-                "plant" => $params['plant'],
-                "fruit" => $params['fruit'],
-                "taste" => $params['taste'],
-                "disease" => $params['disease'],
+                "plant_1" => $params['plantLine1'],
+                "plant_2" => $params['plantLine2'],
+                "plant_3" => $params['plantLine3'],
+                "fruit_1" => $params['fruitLine1'],
+                "fruit_2" => $params['fruitLine2'],
+                "fruit_3" => $params['fruitLine3'],
+                "taste_1" => $params['tasteLine1'],
+                "taste_2" => $params['tasteLine2'],
+                "disease_1" => $params['diseaseLine1'],
+                "disease_2" => $params['diseaseLine2'],
                 "link_youtube" => $params['link_youtube'],
                 "doc_link" => $doc_pdf,
 
@@ -140,10 +156,16 @@ class ProducrAgricultureController extends BaseController
             'title' => 'string|required',
             'category' => 'string|nullable',
             'seement' => 'string|required',
-            'Plant' => 'string|required',
-            'Fruit' => 'string|required',
-            'Taste' => 'string|required',
-            'Disease' => 'string|required',
+            'PlantLine1' => 'string|required',
+            'PlantLine2' => 'string|required',
+            'PlantLine3' => 'string|required',
+            'FruitLine1' => 'string|required',
+            'FruitLine2' => 'string|required',
+            'FruitLine3' => 'string|required',
+            'TasteLine1' => 'string|required',
+            'TasteLine2' => 'string|required',
+            'DiseaseLine1' => 'string|required',
+            'DiseaseLine2' => 'string|required',
             'linkYoutub' => 'string|required',
             'docLink' => 'string|required',
 
@@ -166,7 +188,8 @@ class ProducrAgricultureController extends BaseController
             $newFolderFile = "pdf/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
 
             $thumbnail = (isset($files['Image'])) ? $this->uploadImage($newFolder, $files['Image'], "", "", $params['thumbnail_link']) : $params['thumbnail_link'];
-            $doc_pdf = (isset($files['pdf'])) ? $this->uploadImage($newFolderFile, $files['pdf'], "", "", $params['docLink'] . time()) :$params['docLink'] ;
+            $thumbnailSecond = (isset($files['ImageSecond'])) ? $this->uploadImage($newFolder, $files['ImageSecond'], "", "", $params['thumbnail_second_link']) : $params['thumbnail_second_link'];
+            $doc_pdf = (isset($files['pdf'])) ? $this->uploadImage($newFolderFile, $files['pdf'], "", "", $params['docLink'] . time()) : $params['docLink'];
 
 
             $conditions = ['id' => $params['id'], 'language' => $params['language']];
@@ -174,13 +197,22 @@ class ProducrAgricultureController extends BaseController
                 "thumbnail_link" => $thumbnail,
                 "thumbnail_title" => $params['thumbnail_title'],
                 "thumbnail_alt" => $params['thumbnail_alt'],
+                "thumbnail_second_link" => $thumbnailSecond,
+                "thumbnail_second_title" => $params['thumbnail_second_title'],
+                "thumbnail_second_alt" => $params['thumbnail_second_alt'],
                 "category" => $params['category'],
                 "title" => $params['title'],
                 "seement" => $params['seement'],
-                "plant" => $params['Plant'],
-                "fruit" => $params['Fruit'],
-                "taste" => $params['Taste'],
-                "disease" => $params['Disease'],
+                "plant_1" => $params['PlantLine1'],
+                "plant_2" => $params['PlantLine2'],
+                "plant_3" => $params['PlantLine3'],
+                "fruit_1" => $params['FruitLine1'],
+                "fruit_2" => $params['FruitLine2'],
+                "fruit_3" => $params['FruitLine3'],
+                "taste_1" => $params['TasteLine1'],
+                "taste_2" => $params['TasteLine2'],
+                "disease_1" => $params['DiseaseLine1'],
+                "disease_2" => $params['DiseaseLine2'],
                 "link_youtube" => $params['linkYoutub'],
                 "doc_link" => $doc_pdf,
                 // "link_facebook" => $params['link_facebook'],

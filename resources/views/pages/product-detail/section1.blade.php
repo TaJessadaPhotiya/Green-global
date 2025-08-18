@@ -64,12 +64,6 @@
                         </a>
                     </div>
                 </div>
-                @php
-                    $Plant = explode('/', $product->plant);
-                    $Fruit = explode('/', $product->fruit);
-                    $Taste = explode('/', $product->taste);
-                    $Disease = explode('/', $product->disease);
-                @endphp
                 {{-- ขวา --}}
                 <div class="w-full xl:mt-0 mt-6" data-aos="fade-left" data-aos-duration="1200">
                     <div class="xl:text-2xl text-xl text-[#8E8E8E]">{{ $product->category_name }} | <span
@@ -81,9 +75,9 @@
                             <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">PLANT</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
-                            <li>- {{ $Plant[0] ?? 'No description available.' }}</li>
-                            <li>- {{ $Plant[1] ?? 'No description available.' }}</li>
-                            <li>- {{ $Plant[2] ?? 'No description available.' }}</li>
+                            <li>{{ $product->plant_1 ?? 'No description available.' }}</li>
+                            <li>{{ $product->plant_2 ?? 'No description available.' }}</li>
+                            <li>{{ $product->plant_3 ?? 'No description available.' }}</li>
                         </ul>
                     </div>
                     <div class="border-b border-gray-200"></div>
@@ -94,9 +88,9 @@
                             <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">FRUIT</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
-                            <li>- {{ $Fruit[0] ?? 'No description available.' }}</li>
-                            <li>- {{ $Fruit[1] ?? 'No description available.' }}</li>
-                            <li>- {{ $Fruit[2] ?? 'No description available.' }}</li>
+                            <li>{{ $product->fruit_1 ?? 'No description available.' }}</li>
+                            <li>{{ $product->fruit_2 ?? 'No description available.' }}</li>
+                            <li>{{ $product->fruit_3 ?? 'No description available.' }}</li>
                         </ul>
                     </div>
                     <div class="border-b border-gray-200"></div>
@@ -107,8 +101,8 @@
                             <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">TASTE</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
-                            <li>- {{ $Taste[0] ?? 'No description available.' }}</li>
-                            <li>- {{ $Taste[1] ?? 'No description available.' }}</li>
+                            <li>{{ $product->taste_1 ?? 'No description available.' }}</li>
+                            <li>{{ $product->taste_2 ?? 'No description available.' }}</li>
                         </ul>
                     </div>
                     <div class="border-b border-gray-200"></div>
@@ -119,8 +113,8 @@
                             <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">DISEASE</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px]/8 ">
-                            <li>- {{ $Disease[0] ?? 'No description available.' }}</li>
-                            <li>- {{ $Disease[1] ?? 'No description available.' }}</li>
+                            <li>{{ $product->disease_1 ?? 'No description available.' }}</li>
+                            <li>{{ $product->disease_2 ?? 'No description available.' }}</li>
                         </ul>
                     </div>
                     <div class="border-b border-gray-200"></div>
