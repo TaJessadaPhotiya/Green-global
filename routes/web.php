@@ -22,6 +22,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
     Route::get('/product', [ProductController::class, 'index'])->name('product');
     Route::get('/term', [TermController::class, 'index'])->name('term');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    // Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::get('/forgot', [ForgotController::class, 'index'])->name('forgot');

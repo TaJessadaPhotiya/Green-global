@@ -291,7 +291,9 @@
     <div
         class="2xl:w-[1300px] w-full h-full min-h-screen 2xl:min-h-[calc(100vh-92px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
         <div class="container mx-auto">
-            <h1 class="text-[#098C46] text-center text-3xl font-semibold animate-focusInExpand">{{ $Term->title }}</h1>
+            <h1 class="text-[#098C46] text-center text-3xl font-semibold animate-focusInExpand">
+                {{ $Term->title }}
+            </h1>
 
             {{-- CK --}}
             <div class="w-full mt-8" data-aos="fade-up" data-aos-duration="1200">

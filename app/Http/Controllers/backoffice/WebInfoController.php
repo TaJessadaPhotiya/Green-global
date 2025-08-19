@@ -104,6 +104,7 @@ class WebInfoController extends Controller
         $img['image_2'] = (isset($files['image_2'])) ? $this->uploadImage($newFolder, $files['image_2'], "2", 0) : "";
         $img['image_3'] = (isset($files['image_3'])) ? $this->uploadImage($newFolder, $files['image_3'], "3", 0) : "";
         $img['image_4'] = (isset($files['image_4'])) ? $this->uploadImage($newFolder, $files['image_4'], "4", 0) : "";
+        $img['image_5'] = (isset($files['image_5'])) ? $this->uploadImage($newFolder, $files['image_5'], "5", 0) : "";
         $img['favicon'] = (isset($files['favicon'])) ? $this->uploadImage($newFolder, $files['favicon'], "5", 0) : "";
 
         /* Set SQL Updates */
