@@ -14,11 +14,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+    {{-- Font Arabic --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Archivo:ital,wght@0,100..900;1,100..900&family=El+Messiri:wght@400..700&family=Noto+Sans+Thai:wght@100..900&display=swap"
+        rel="stylesheet">
+
     <!-- App CSS & JS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-Kanit flex flex-col min-h-screen relative ">
+<body class="{{ $language === 'ar' ? 'font-Almarai' : 'font-Kanit' }} flex flex-col min-h-screen relative">
 
     @include('layouts.loading')
 
