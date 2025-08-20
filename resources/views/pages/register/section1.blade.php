@@ -165,7 +165,7 @@
                                     <label for="occupation_other" class="text-white text-sm">Other (please
                                         specify)</label>
                                 </div>
-                                <input type="text" name="other_occupation"
+                                <input type="text" id="other_occupation"" name="other_occupation"
                                     class="rounded-md px-4 py-2 bg-white text-gray-900 w-full max-w-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     placeholder="Please specify your occupation">
                             </div>
@@ -236,7 +236,10 @@
             otherOccupation[i].addEventListener('change', function(event) {
                 console.log('Other occupation selected: ' + event.target.value);
             });
+            console.log(otherOccupation.value);
         }
+         
+  
     });
 
     document.getElementById("registerForm").addEventListener("submit", function(event) {
@@ -251,9 +254,17 @@
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
         const password_confirmation = document.getElementById('password_confirmation').value;
-        const occupationsChecked = document.querySelectorAll('input[name="occupations[]"]:checked');
-        const otherOccupation = document.getElementsByClassName('chk');
+        const occupationsOther = document.getElementById('other_occupation').value.trim();
+        const otherOccupation = document.querySelectorAll('input[name="occupations[]"]');
         const country = document.getElementById('country').value;
+
+        const selectedValues = [];
+
+         otherOccupation.forEach((checkbox) => {
+    if (checkbox.checked) {
+      selectedValues.push(checkbox.value);
+    }
+  });
 
         document.getElementById("error-telephone").innerHTML = "";
         document.getElementById("error-email").innerHTML = "";
@@ -364,7 +375,7 @@
         }
 
         // Occupations - ต้องเลือกอย่างน้อย 1 ตัว
-        if (occupationsChecked.length === 0) {
+        if (selectedValues.length === 0) {
             Swal.fire({
                 position: "top-end",
                 icon: "warning",
@@ -379,7 +390,7 @@
 
         // ถ้าเลือก Other ต้องกรอกช่องอื่น
         let otherChecked = false;
-        occupationsChecked.forEach(input => {
+        selectedValues.forEach(input => {
             if (input.value === 'Other') otherChecked = true;
         });
         if (otherChecked && otherOccupation === '') {
@@ -421,8 +432,8 @@
             email,
             password,
             password_confirmation,
-            occupationsChecked,
-            otherOccupation,
+            occupationsOther,
+            selectedValues,
             country
         }).then(function(response) {
             console.log(response.data);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MemberAccount;
+use App\Models\MemberOccupation;
 use App\Models\MemberProfiles;
 use App\Models\User;
 
@@ -26,7 +27,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
-            'occupationsChecked' => 'required|array',
+            'occupationsOther' => 'required|array',
             'otherOccupation' => 'nullable|string|max:255',
             'country' => 'required|string|max:255',
         ]);
@@ -44,9 +45,17 @@ class RegisterController extends Controller
         $memberPro->last_name = $request->input('lastname');
         $memberPro->phone_number = $request->input('telephone');
         $memberPro->email = $request->input('email');
-        $memberPro->occupation = $request->input('occupationsChecked');
+        // $memberPro->occupation = $request->input('occupationsChecked');
         $memberPro->country = $request->input('country');
         $memberPro->save();
+
+        $memberOccupation = new MemberOccupation();
+        foreach ($request->otherOccupation as $key => $val) {
+            $memberOccupation->member_id = $memberPro->id;
+            $memberOccupation->occupations = $val;
+            $memberOccupation->save();
+        }
+
 
         $memberAccounts = new MemberAccount;
         $memberAccounts->user_id = $users->id;
