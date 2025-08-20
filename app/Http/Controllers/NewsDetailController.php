@@ -45,8 +45,8 @@ class NewsDetailController extends Controller
             'content',
             DB::raw('DATE_FORMAT(updated_at, "%a %D %b %Y") AS date')
         )
-            ->where('id', (int) $id)
-            ->where('slug', 'NEWS')
+            ->where('id', $id)
+            ->where('slug', 'NEWSACTIVTY')
             ->where('language', $language)
             ->first();
 
@@ -63,11 +63,12 @@ class NewsDetailController extends Controller
                 'content',
                 DB::raw('DATE_FORMAT(updated_at, "%a %D %b %Y") AS date')
             )
-                ->where('id', (int) $id)
-                ->where('slug', 'NEWS')
+                ->where('id', $id)
+                ->where('slug', 'NEWSACTIVTY')
                 ->where('defaults', 1)
                 ->first();
         }
+        // dd($news);
 
         return view('pages.news-detail.news-detail', compact('news'));
     }

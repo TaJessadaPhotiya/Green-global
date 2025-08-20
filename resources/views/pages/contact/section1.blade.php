@@ -190,7 +190,7 @@
 
     document.getElementById("contactForm").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent form submission
-        console.log('123');
+        // console.log('123');
 
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim();
@@ -198,38 +198,81 @@
         const message = document.getElementById("message").value.trim();
 
         if (!name) {
-            alert("Name is required!");
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Name is required!",
+                showConfirmButton: false,
+                timer: 1500
+            });
             return;
         }
 
         if (!email) {
-            alert("Email is required!");
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Email is required!",
+                showConfirmButton: false,
+                timer: 1500
+            });
             return;
         }
 
         if (!email || !email.includes("@")) {
-            alert("Please enter a valid email!");
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Please enter a valid email!",
+                showConfirmButton: false,
+                timer: 1500
+            });
             return;
         }
 
         if (!phone) {
-            alert("Phone number is required!");
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Phone number is required!",
+                showConfirmButton: false,
+                timer: 1500
+            });
             return;
         }
 
         if (!message) {
-            alert("Message is required!");
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Message is required!",
+                showConfirmButton: false,
+                timer: 1500
+            });
             return;
         }
 
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Your work has been saved",
-            showConfirmButton: false,
-            timer: 1500
-        });
+        const url = '{{ $language }}';
 
-        // alert("Form submitted successfully!");
+        axios.post(`/${url}/contact/store`, {
+                name,
+                email,
+                phone,
+                message,
+                language: '{{ $language }}'
+            })
+            .then(function(response) {
+                console.log(response.data);
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Message submitted successfully!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                // alert("Form submitted successfully!");
+            });
     });
 </script>

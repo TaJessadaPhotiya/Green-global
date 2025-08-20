@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\WebInfo;
+use App\Models\LeaveMessages;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -46,10 +47,21 @@ class ContactController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'message' => 'required|string|max:1000',
+            'phone' => 'required|string|max:20',
         ]);
+
+        $messages = new LeaveMessages;
+        $messages->fullname = $request->input('name');
+        $messages->email = $request->input('email');
+        $messages->phone_number = $request->input('phone');
+        $messages->message = $request->input('message');
+        $messages->language = $request->input('language');
+        $messages->save();
 
         // Here you can handle the contact form submission, e.g., save to database or send an email
         // For now, we will just return a success message
-        return response()->json(['message' => 'Thank you for your message! We will get back to you soon.'], 200);
+        return response()->json([
+            'message' => 'Thank you for your message! We will get back to you soon.'
+        ], 200);
     }
 }

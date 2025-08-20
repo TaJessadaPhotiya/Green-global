@@ -12,76 +12,9 @@
         </button>
 
         <div class="w-[90%] md:w-[700px] max-h-[83vh] overflow-y-auto py-6 xl:px-[3rem] px-2">
-            <h2 class="text-2xl text-center font-bold mb-4 text-white">WARRANTY AND LIMITATION OF LIABILITY</h2>
+            <h2 class="text-2xl text-center font-bold mb-4 text-white">{{ $proviso->title }}</h2>
             <div class="text-sm text-gray-300 space-y-4">
-                <p>
-                    The Company warrants that the seed in this package conforms to the Company’s standard specifications
-                    and
-                    labeling.
-                    To the extent permissible under applicable law, the Company hereby disclaims all express or implied
-                    warranties,
-                    including warranties of merchantability and fitness for a particular purpose.
-                </p>
-                <p>
-                    There are no other warranties, including warranties of crop performance or freedom from disease
-                    (even if
-                    seed-borne).
-                    Weather conditions, soil, farming experience, and other variables — including new and mutated
-                    diseases
-                    and chemicals —
-                    can have a major effect on the successful farming of any seeds. Therefore, no warranty against
-                    disease,
-                    variety,
-                    or crop performance is given or implied.
-                </p>
-                <p>
-                    The Company’s total liability in relation to this seed — however such liability may arise — is
-                    limited
-                    in amount
-                    to the purchase price of the seed. The Company shall not be liable to the buyer for any direct,
-                    special,
-                    incidental,
-                    or consequential losses or damages, regardless of whether such damages are claimed in contract, tort
-                    (including negligence or breach of statutory duty), misrepresentation, or otherwise.
-                </p>
-
-                <h3 class="text-lg font-semibold mt-6">Notice of Claim</h3>
-                <p>
-                    Notice of any claim in connection with the warranty expressly made herein shall be given within a
-                    reasonable time after discovery.
-                    Notice given after the point in time at which the Company cannot physically inspect or examine the
-                    seed
-                    or the resulting crops
-                    shall be deemed not to be reasonable notice hereunder.
-                </p>
-
-                <h3 class="text-lg font-semibold mt-6">Product & Variety Disclaimer</h3>
-                <p>
-                    Weather conditions, soil, farming experience, and other variables — including new and mutated
-                    diseases
-                    and chemicals —
-                    can have a major effect on the successful farming of any seeds. Therefore, no warranty against
-                    disease,
-                    variety, or crop performance is provided. load
-                    Weather conditions, soil, farming experience, and other variables — including new and mutated
-                    diseases
-                    and chemicals —
-                    can have a major effect on the successful farming of any seeds. Therefore, no warranty against
-                    disease,
-                    variety, or crop performance is provided. load
-                    Weather conditions, soil, farming experience, and other variables — including new and mutated
-                    diseases
-                    and chemicals —
-                    can have a major effect on the successful farming of any seeds. Therefore, no warranty against
-                    disease,
-                    variety, or crop performance is provided. load
-                    Weather conditions, soil, farming experience, and other variables — including new and mutated
-                    diseases
-                    and chemicals —
-                    can have a major effect on the successful farming of any seeds. Therefore, no warranty against
-                    disease,
-                    variety, or crop performance is provided. load
-                </p>
+                {!! $proviso->content !!}
             </div>
 
             <!-- ปุ่ม Accept -->

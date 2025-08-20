@@ -50,7 +50,7 @@ class NewsController extends Controller
                 ->where('defaults', 1)
                 ->first();
         }
-        dd($NewsData);
+        // dd($NewsData);
         $ProductData = Product::leftJoin('product_category', 'products.category', '=', 'product_category.id')
             ->select(
                 'products.id',
