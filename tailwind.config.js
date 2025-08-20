@@ -13,6 +13,7 @@ export default {
             },
             fontFamily: {
                 Kanit: ["Kanit", "sans-serif"],
+                Almarai: ["Almarai", "sans-serif"],
             },
             keyframes: {
                 scaleInCenter: {
