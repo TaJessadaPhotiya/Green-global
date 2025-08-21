@@ -15,12 +15,12 @@ class MemberAccount extends Model
 
     protected $guarded = [];
 
-    public function accountMember()
+    public function MemberUser()
     {
         return $this->hasMany(User::class, 'id', 'users_id');
     }
 
-    public function detailMember()
+    public function MemberProfiles()
     {
         return $this->hasMany(MemberProfiles::class, 'id', 'profiles_id');
     }

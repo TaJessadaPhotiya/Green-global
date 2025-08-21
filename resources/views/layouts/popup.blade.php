@@ -3,14 +3,14 @@
     <div class="relative flex justify-center bg-[#283891] rounded-lg shadow-xl">
 
         <!-- ปุ่มกากบาท SVG -->
-        <button onclick="closeWarrantyPopup()"
+        <a type="button" href="{{ route('login', ['language' => $language]) }}"
             class="absolute top-3 right-3 text-white hover:text-red-500 focus:outline-none" aria-label="Close">
+
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
-        </button>
-
+        </a>
         <div class="w-[90%] md:w-[700px] max-h-[83vh] overflow-y-auto py-6 xl:px-[3rem] px-2">
             <h2 class="text-2xl text-center font-bold mb-4 text-white">{{ $proviso->title }}</h2>
             <div class="text-sm text-gray-300 space-y-4">

@@ -53,6 +53,7 @@ class MemberController extends BaseController
                 "updated_at" => date('Y-m-d H:i:s')
             ];
             MemberAccount::where('id', $params['member_id'])->update($values);
+
             DB::commit();
             return response([
                 'message' => 'ok',
@@ -95,7 +96,8 @@ class MemberController extends BaseController
         }
     }
 
-     public function destroyuser($id){
+    public function destroyuser($id)
+    {
         $user = User::where('id', $id);
         $user->delete();
 
@@ -109,18 +111,34 @@ class MemberController extends BaseController
     /* Private Function */
     private function getMemberAll()
     {
-        $data = MemberAccount::orderBy('updated_at', 'DESC')->get();
+        $data = MemberAccount::select(
+            'member_accounts.id',
+            'member_accounts.users_id',
+            'member_accounts.profiles_id',
+            'member_accounts.member_status AS status',
+            'member_accounts.member_verify_at',
+            'member_accounts.member_expire_at',
+            'users.email',
+            'member_profiles.display_name',
+            'member_profiles.first_name AS firstname',
+            'member_profiles.last_name AS lastname',
+            'member_profiles.phone_number',
+            'member_profiles.country'
+            )
+            ->join('users', 'member_accounts.users_id', '=', 'users.id')
+            ->join('member_profiles', 'member_accounts.profiles_id', '=', 'member_profiles.id')
+            ->get();
         return $data;
     }
 
     private function getMemberCheck()
     {
-        $memberWaitactive = MemberAccount::where('member_status','=', 0)->count();
+        $memberWaitactive = MemberAccount::where('member_status', '=', 0)->count();
 
         $memberExpire = MemberAccount::where(function ($query) {
             $query->where('member_expire_at', '<', NOW())
                 ->orWhere('member_expire_at', '<=', Carbon::now()->addDays(3));
         })->count();
-        return compact('memberWaitactive','memberExpire');
+        return compact('memberWaitactive', 'memberExpire');
     }
 }

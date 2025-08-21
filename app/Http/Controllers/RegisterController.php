@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Models\MemberAccount;
 use App\Models\MemberOccupation;
@@ -15,9 +16,9 @@ class RegisterController extends Controller
         return view('pages.register.register');
     }
 
-    public function store(Request $request)
+    public function store($language, Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         // Validate and store the registration data
         $request->validate([
             'username' => 'required|string|max:255',
@@ -25,13 +26,14 @@ class RegisterController extends Controller
             'lastname' => 'required|string|max:255',
             'telephone' => 'required|string|max:20',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required|string|min:8',
-            'occupationsOther' => 'required|array',
-            'otherOccupation' => 'nullable|string|max:255',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6',
+            'selectedValues' => 'required|array',
+            'occupationsOther' => 'nullable|string|max:255',
             'country' => 'required|string|max:255',
         ]);
 
+        DB::beginTransaction();
         $users = new User;
         $users->username = $request->input('username');
         $users->password = bcrypt($request->input('password'));
@@ -44,24 +46,30 @@ class RegisterController extends Controller
         $memberPro->first_name = $request->input('firstname');
         $memberPro->last_name = $request->input('lastname');
         $memberPro->phone_number = $request->input('telephone');
-        $memberPro->email = $request->input('email');
+        // $memberPro->email = $request->input('email');
         // $memberPro->occupation = $request->input('occupationsChecked');
         $memberPro->country = $request->input('country');
         $memberPro->save();
 
-        $memberOccupation = new MemberOccupation();
-        foreach ($request->otherOccupation as $key => $val) {
+        foreach ($request->selectedValues as $val) {
+            $memberOccupation = new MemberOccupation();
             $memberOccupation->member_id = $memberPro->id;
             $memberOccupation->occupations = $val;
+            if ($val === 'Other') {
+                $memberOccupation->occupations = $request->input('occupationsOther');
+            }
             $memberOccupation->save();
         }
 
-
-        $memberAccounts = new MemberAccount;
-        $memberAccounts->user_id = $users->id;
-        $memberAccounts->account_type = 'basic';
+        $memberAccounts = new MemberAccount();
+        $memberAccounts->users_id = $users->id;
+        $memberAccounts->profiles_id = $memberPro->id;
         $memberAccounts->save();
+        DB::commit();
 
-        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
+        return response()->json([
+            'success' => 'Registration successful. Please log in.',
+            'url' => $language.'/login',
+        ]);
     }
 }

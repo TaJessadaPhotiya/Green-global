@@ -216,11 +216,13 @@
                     class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                     ACCEPT
                 </button>
-                <button type="button"
-                    class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm"
-                    onclick="document.getElementById('registerForm').reset()">
-                    REJECT
-                </button>
+                <a type="button" href="{{ route('login',['language'=>$language]) }}">
+                    <button type="button"
+                        class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm"
+                    >
+                        REJECT
+                    </button>
+                </a>
             </div>
         </form>
     </div>
@@ -238,8 +240,8 @@
             });
             console.log(otherOccupation.value);
         }
-         
-  
+
+
     });
 
     document.getElementById("registerForm").addEventListener("submit", function(event) {
@@ -254,17 +256,17 @@
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
         const password_confirmation = document.getElementById('password_confirmation').value;
+        const occupation = document.querySelectorAll('input[name="occupations[]"]');
         const occupationsOther = document.getElementById('other_occupation').value.trim();
-        const otherOccupation = document.querySelectorAll('input[name="occupations[]"]');
         const country = document.getElementById('country').value;
 
         const selectedValues = [];
 
-         otherOccupation.forEach((checkbox) => {
-    if (checkbox.checked) {
-      selectedValues.push(checkbox.value);
-    }
-  });
+        occupation.forEach((checkbox) => {
+            if (checkbox.checked) {
+                selectedValues.push(checkbox.value);
+            }
+        });
 
         document.getElementById("error-telephone").innerHTML = "";
         document.getElementById("error-email").innerHTML = "";
@@ -272,6 +274,7 @@
         document.getElementById("error-password_confirmation").innerHTML = "";
         document.getElementById("error-occupation").innerHTML = "";
         document.getElementById("error-country").innerHTML = "";
+        // occupationsOther.value = "1";
 
         // Username
         if (!username) {
@@ -390,10 +393,11 @@
 
         // ถ้าเลือก Other ต้องกรอกช่องอื่น
         let otherChecked = false;
-        selectedValues.forEach(input => {
-            if (input.value === 'Other') otherChecked = true;
+        occupation.forEach(input => {
+            if (input.checked && input.value === 'Other') otherChecked = true;
         });
-        if (otherChecked && otherOccupation === '') {
+
+        if (otherChecked && occupationsOther === '') {
             Swal.fire({
                 position: "top-end",
                 icon: "warning",
@@ -437,16 +441,10 @@
             country
         }).then(function(response) {
             console.log(response.data);
+            const url = response.data.url;
+            //perform your redirection to other routes.
+            window.location.href = `/${url}`;
 
-            // Swal.fire({
-            //     position: "top-end",
-            //     icon: "success",
-            //     title: "Message submitted successfully!",
-            //     showConfirmButton: false,
-            //     timer: 1500
-            // });
-
-            // alert("Form submitted successfully!");
         });
     });
 
