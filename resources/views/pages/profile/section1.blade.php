@@ -122,12 +122,33 @@
     document.getElementById("profileForm").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent form submission
 
-        console.log('123');
-        Swal.fire({
-            title: "Good job!",
-            text: "You clicked the button!",
-            icon: "success"
-        });
+        const username = document.getElementById('username').value.trim();
+        const firstname = document.getElementById('firstname').value.trim();
+        const lastname = document.getElementById('lastname').value.trim();
+        const telephone = document.getElementById('telephone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const = document.getElementById('password').value;
+        const password_confirmation = document.getElementById('password_confirmation').value;
+        
+        const url = '{{ $language }}';
+        axios.posr(`$url/profile/update`, {
+                username: username,
+                firstname: firstname,
+                lastname: lastname,
+                telephone: telephone,
+                email: email,
+                password: password,
+                password_confirmation: password_confirmation
+            })
+            .then(function(response) {
+                // handle success
+                console.log(response);
+            })
+            .catch(function(error) {
+                // handle error
+                console.log(error);
+            })
+
     });
 
     function togglePassword(id, btn) {
