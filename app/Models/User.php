@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function memberAccount()
+    {
+        // User มี MemberAccount เพียงหนึ่งเดียว โดยใช้ 'id' ของ User และ 'users_id' ใน MemberAccount
+        return $this->hasOne(MemberAccount::class, 'users_id', 'id');
+    }
 }

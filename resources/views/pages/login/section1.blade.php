@@ -93,15 +93,21 @@
         axios.post(`/${url}/authenticate`, {
                 username: userName,
                 password: passWord
-            })
-            .then(response => {
+            }).then(function(response) {
                 // Handle success response
-                console.log('Login successful:', response.data);
+                console.log('Login successful:' + response);
+                // console.log('Login successful:' + response);
                 // Redirect or show success message
+                if (response.data.status === '200') {
+                    // Redirect to dashboard or show success message
+
+                    window.location.href = '/' + response.data.url;
+                }
             })
-            .catch(error => {
+            .catch(function(error) {
                 // Handle error response
-                console.error('Login failed:', error);
+                 console.log(error.response);
+                // console.error('Login failed:' + error);
                 // Show error message to user
             });
 

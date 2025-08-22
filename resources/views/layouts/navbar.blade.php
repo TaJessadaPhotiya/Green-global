@@ -25,7 +25,13 @@
 
 {{-- เช็คสถาณ Login --}}
 @php
-    $status = 0;
+    use App\Models\MemberAccount;
+    use Carbon\Carbon;
+    // $status = 0;
+    if (Auth::check()) {
+        $check = MemberAccount::where('users_id', Auth::user()->id)->first();
+        $daysDiff = Carbon::parse($check->member_expire_at)->addDays(1)->diffInDays(Carbon::now());
+    }
 @endphp
 
 <nav class="sticky top-0 z-20 bg-[#E9C713] ">
@@ -51,7 +57,7 @@
                 data-aos-duration="1200">
                 @foreach ($mainMenu as $menu)
                     <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent
-                    {{ Request::is($language.$menu->cate_url) ? 'border-yellow-500 font-[700]' : '' }}"
+                    {{ Request::is($language . $menu->cate_url) ? 'border-yellow-500 font-[700]' : '' }}"
                         href={{ $menu->cate_redirect }}>{{ $menu->cate_title }}</a>
                 @endforeach
                 @if ($menuChildren)
@@ -73,12 +79,21 @@
                             <div id="dropdownMenu"
                                 class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <div>
-                                    <a href="/{{ $language }}/profile"
+                                    {{-- <a href="/{{ $language }}/profile"
                                         class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
-                                        {{ $menuChildren['member'][0]->childrenData->cate_title }}</a>
+                                        {{ $menuChildren['member']->childrenData->cate_title }}</a>
                                     <a href="#"
                                         class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
-                                        Sign out</a>
+                                        Sign out</a> --}}
+                                    <div
+                                        class="block px-6 py-2 text-sm text-[#3E8000] hover:bg-[#3E8000] hover:text-white">
+                                        {{ __('EXP:' . ' ' . $daysDiff . ' ' . 'Days') }}
+                                    </div>
+                                    @foreach ($menuChildren['member']->childrenData as $children)
+                                        <a href={{ '/' . $children->cate_redirect }}
+                                            class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
+                                            {{ $children->cate_title }}</a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -88,16 +103,16 @@
                             <button id="dropdownBtn"
                                 class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
                                 onclick="toggleDropdown()">
-                               {{ $menuChildren['register']->cate_title }}
+                                {{ $menuChildren['register']->cate_title }}
                             </button>
 
                             <div id="dropdownMenu"
                                 class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <div>
                                     @foreach ($menuChildren['register']->childrenData as $children)
-                                    <a href={{ $children->cate_redirect }}
-                                        class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
-                                        {{ $children->cate_title }}</a>
+                                        <a href={{ $children->cate_redirect }}
+                                            class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
+                                            {{ $children->cate_title }}</a>
                                     @endforeach
 
                                     {{-- <a href="/{{ $language }}/register"

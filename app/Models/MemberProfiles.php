@@ -14,4 +14,9 @@ class MemberProfiles extends Model
     protected $primaryKey = "id";
 
     protected $guarded = [];
+
+    public function memberProfiles()
+    {
+        return $this->belongsTo(MemberProfiles::class, 'profiles_id', 'id');
+    }
 }

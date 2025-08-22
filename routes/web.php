@@ -27,6 +27,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
     Route::post('/register/store', [RegisterController::class, 'store'])->name('register.store');
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('login.post');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/forgot', [ForgotController::class, 'index'])->name('forgot');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/product-detail/{id}', [ProductDetailController::class, 'index'])->name('product-detail');
