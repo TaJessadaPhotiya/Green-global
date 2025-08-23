@@ -6,6 +6,7 @@ use App\Models\MemberProfiles;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -19,18 +20,29 @@ class ProfileController extends Controller
 
     public function update($language, Request $request)
     {
-        $request->validate([
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'telephone' => 'required|string|max:20',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'password_confirmation' => 'required|string|min:6',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:6|confirmed',
+            'password_confirmation' => 'nullable|string|min:6',
         ]);
 
-        $user = Auth::user()->memberAccount;
-        $profile = MemberProfiles::find($user->profiles_id);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid params',
+                'errorMessage' => $validator->errors()
+            ], 422);
+        }
+
+        $user = Auth::user();
+        $profile = MemberProfiles::find(Auth::user()->memberAccount->profiles_id);
+
+        // dd($profile);
         // ตรวจสอบและอัปเดต email หากมีการเปลี่ยนแปลง
         if ($request->filled('email') && $request->email !== $user->email) {
             $user->email = $request->email;
@@ -54,6 +66,7 @@ class ProfileController extends Controller
         $profile->last_name = $request->input('lastname');
         $profile->phone_number = $request->input('telephone');
         $profile->save();
+
         return response()->json([
             'success' => 'Profile updated successful.',
             // 'url' => $language . '/login',

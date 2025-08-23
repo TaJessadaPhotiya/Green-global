@@ -216,10 +216,9 @@
                     class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                     ACCEPT
                 </button>
-                <a type="button" href="{{ route('login',['language'=>$language]) }}">
+                <a type="button" href="{{ route('login', ['language' => $language]) }}">
                     <button type="button"
-                        class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm"
-                    >
+                        class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                         REJECT
                     </button>
                 </a>
@@ -230,19 +229,19 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const otherOccupation = document.getElementsByClassName('chk');
-        console.log(otherOccupation.value);
-        // const countrySelect = document.getElementById('country');
-        for (let i = 0; i < otherOccupation.length; i++) {
-            otherOccupation[i].addEventListener('change', function(event) {
-                console.log('Other occupation selected: ' + event.target.value);
-            });
-            console.log(otherOccupation.value);
-        }
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     const otherOccupation = document.getElementsByClassName('chk');
+    //     console.log(otherOccupation.value);
+    //     // const countrySelect = document.getElementById('country');
+    //     for (let i = 0; i < otherOccupation.length; i++) {
+    //         otherOccupation[i].addEventListener('change', function(event) {
+    //             console.log('Other occupation selected: ' + event.target.value);
+    //         });
+    //         console.log(otherOccupation.value);
+    //     }
 
 
-    });
+    // });
 
     document.getElementById("registerForm").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent form submission
@@ -445,7 +444,26 @@
             //perform your redirection to other routes.
             window.location.href = `/${url}`;
 
+        }).catch(function(error) {
+            // handle error
+            console.log(error.response.data);
+            const {
+                errorCode,
+                errorsMessage
+            } = error.response.data;
+            if (errorCode == 1062) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "warning",
+                    title: `${errorsMessage}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                document.getElementById("error-email").innerHTML = `${errorsMessage}`;
+            }
+
         });
+
     });
 
     // ฟังก์ชัน togglePassword เหมือนเดิม

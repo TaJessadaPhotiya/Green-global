@@ -271,7 +271,7 @@
                     showConfirmButton: false,
                     timer: 1500
                 });
-
+                location.reload(true);
                 // alert("Form submitted successfully!");
             });
     });

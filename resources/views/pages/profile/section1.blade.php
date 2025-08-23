@@ -61,7 +61,7 @@
                         <div>
                             <label for="password" class="text-white">*Password</label>
                             <div class="relative mt-2">
-                                <input id="password" name="password" type="password" required
+                                <input id="password" name="password" type="password"
                                     class=" rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     placeholder="••••••••" />
                                 <button type="button" onclick="togglePassword('password', this)"
@@ -82,7 +82,7 @@
                         <div>
                             <label for="password_confirmation" class="text-white">*Confirm Password</label>
                             <div class="relative mt-2">
-                                <input id="password_confirmation" name="password_confirmation" type="password" required
+                                <input id="password_confirmation" name="password_confirmation" type="password"
                                     class="rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     placeholder="••••••••" />
                                 <button type="button" onclick="togglePassword('password_confirmation', this)"
@@ -107,11 +107,13 @@
                     class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                     SAVE
                 </button>
+                <a href="javascript:history.back()">
                 <button type="button"
                     class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm"
-                    onclick="document.getElementById('registerForm').reset()">
+                    >
                     CANCEL
                 </button>
+                </a>
             </div>
         </form>
         {{-- End Form --}}
@@ -121,17 +123,18 @@
 <script>
     document.getElementById("profileForm").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent form submission
+console.log('123');
 
         const username = document.getElementById('username').value.trim();
         const firstname = document.getElementById('firstname').value.trim();
         const lastname = document.getElementById('lastname').value.trim();
         const telephone = document.getElementById('telephone').value.trim();
         const email = document.getElementById('email').value.trim();
-        const = document.getElementById('password').value;
+        const password = document.getElementById('password').value;
         const password_confirmation = document.getElementById('password_confirmation').value;
-        
+
         const url = '{{ $language }}';
-        axios.posr(`$url/profile/update`, {
+        axios.post(`/${url}/profile/update`, {
                 username: username,
                 firstname: firstname,
                 lastname: lastname,
@@ -142,7 +145,7 @@
             })
             .then(function(response) {
                 // handle success
-                console.log(response);
+                console.log(response.response);
             })
             .catch(function(error) {
                 // handle error

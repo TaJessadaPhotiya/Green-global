@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backoffice;
 
 use App\Http\Controllers\Controller;
 use App\Models\MemberAccount;
+use App\Models\MemberProfiles;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -74,12 +75,16 @@ class MemberController extends BaseController
     public function destroymember($id)
     {
         $this->getAuthUser();
+        // dd($id);
         try {
-            $user = User::where('id', $id);
+            $Account = MemberAccount::findOrFail($id);
+            $user = User::where('id', $Account->users_id);
             $user->delete();
 
-            $userMember = MemberAccount::where('account_id', $id);
-            $userMember->delete();
+            $Member = MemberProfiles::where('id', $Account->profiles_id);
+            $Member->delete();
+
+            $Account->delete();
 
             return response([
                 'message' => 'ok',

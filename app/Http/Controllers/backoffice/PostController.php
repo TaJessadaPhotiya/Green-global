@@ -19,6 +19,9 @@ class PostController extends BaseController
         try {
             $data = $this->getPostData($req->language);
             $menuPage = Category::where('language', $req->language)->get();
+            if ($menuPage->isEmpty()) {
+                $menuPage = Category::where('defaults', 1)->get();
+            }
             return response([
                 'message' => 'ok',
                 'data' => $data,
@@ -281,17 +284,21 @@ class PostController extends BaseController
     private function getPostData($language)
     {
 
-        return Post::with([
-            'imagesOpsts' => function ($query) use ($language) {
-                $query->where('language', $language)
-                    ->orWhere('defaults', 1)
-                    ->orderBy('defaults', 'asc');
-            }
-        ])
+        $datePost = Post::with(['imagesOpsts'])
             ->where('language', $language)
-            ->orWhere('defaults', 1)
+            ->where('status_display', 1)
             ->orderBy('updated_at', 'desc')
             ->get();
+
+        if ($datePost->isEmpty()) {
+            $datePost = Post::with(['imagesOpsts'])
+                ->where('defaults', 1)
+                ->where('status_display', 1)
+                ->orderBy('updated_at', 'desc')
+                ->get();
+        }
+
+        return $datePost;
     }
 
     private function priorityPostUpdate($current, $new, $language, $column)

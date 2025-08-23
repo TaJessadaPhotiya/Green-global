@@ -103,8 +103,8 @@
             <div class="grid xl:grid-cols-4 md:grid-cols-3 iPad-mini:grid-cols-3 sm:grid-cols-3 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[3rem] w-full xl:mt-12 sm:mt-[3rem] size-mini:mt-[2.6rem] mt-[1.7rem] xl:pb-12 pb-8 "
                 data-aos="fade-up" data-aos-duration="1200">
                 @foreach ($filtered_products as $product)
-                    <a class="w-full cursor-pointer group xl:hover:scale-105 transition duration-300 "
-                        href="{{ url('/' . $language . '/product-detail/' . $product->id) }}">
+                    <a class="w-full @if (Auth::check()) cursor-pointer group @endif xl:hover:scale-105 transition duration-300 "
+                        @if (Auth::check()) href="{{ url('/' . $language . '/product-detail/' . $product->id) }}" @endif>
                         {{-- ส่วนรูป --}}
                         <div class=" relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl ">
                             <!-- ป้าย NEW -->
@@ -145,11 +145,11 @@
                                 class="h-[24px] sm:text-[16px] text-[14px] text-center font-normal text-[#848484] line-clamp-1">
                                 {{ $product->c_title }}
                             </p>
-                            <button
+                            <div
                                 class="relative w-full text-white sm:text-[16px] text-sm font-medium text-center py-2
                                         bg-gradient-to-r from-[#19703D] to-[#1a7a43]
                                         group-hover:from-[#EEC90E] group-hover:to-[#f7d73e]
-                                        rounded-md shadow-md group-hover:shadow-xl mt-2 overflow-hidden group transition-all duration-500">
+                                        rounded-md shadow-md group-hover:shadow-xl mt-2 overflow-hidden transition-all duration-500">
 
                                 <!-- ข้อความเดิม -->
                                 <span
@@ -163,7 +163,7 @@
                                             transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                                     DETAIL <span class="inline-block ml-1 group-hover:animate-arrowWiggle">➤</span>
                                 </span>
-                            </button>
+                            </div>
                         </div>
                     </a>
                 @endforeach

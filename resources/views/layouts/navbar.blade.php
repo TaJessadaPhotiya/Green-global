@@ -68,7 +68,8 @@
                                 class="inline-flex items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
                                 onclick="toggleDropdown()">
                                 <img class="w-3.5 h-3.5 mr-1.5" src="/icons/Vector.png" alt="">
-                                {{ $menuChildren['member']->cate_title }}
+                                {{ Auth::user()->username }}
+                                {{-- {{ $menuChildren['member']->cate_title }} --}}
                                 <svg id="memberIcon" class="ml-1 transition-transform duration-300"
                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                     viewBox="0 0 24 24">

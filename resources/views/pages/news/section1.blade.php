@@ -342,8 +342,8 @@
                         <div class="w-full rounded-xl shadow-md overflow-hidden mt-4">
                             <div class="w-full xl:h-[360px] sm:h-[260px] h-[250px] bg-[#FFFAE8] py-4 xl:px-[3rem] px-4">
                                 <figure class="w-full h-full rounded-xl overflow-hidden">
-                                    <img class="w-full h-full object-cover" src={{ '/'.$ProductData->thumbnail_link }}
-                                        alt={{ '/'.$ProductData->thumbnail_alt }}>
+                                    <img class="w-full h-full object-cover" src={{ '/' . $ProductData->thumbnail_link }}
+                                        alt={{ '/' . $ProductData->thumbnail_alt }}>
                                 </figure>
                             </div>
                             <div class="flex flex-col w-full">
@@ -360,10 +360,17 @@
                                     </p>
                                 </div>
                                 <div class="flex items-center justify-end px-6 py-4">
-                                    <a href="{{ url('/' . $ProductData->short_url) }}"
-                                        class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm block">
-                                        Detail
-                                    </a>
+                                    @if (Auth::check())
+                                        <a href="{{ url('/' . $ProductData->short_url) }}"
+                                            class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm block">
+                                            Detail
+                                        </a>
+                                    @else
+                                        <div
+                                            class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D]  transition duration-200 rounded-md shadow-md drop-shadow-sm block">
+                                            Detail
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
