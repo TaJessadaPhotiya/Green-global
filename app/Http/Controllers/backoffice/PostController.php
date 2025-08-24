@@ -283,22 +283,31 @@ class PostController extends BaseController
     /* Private function  */
     private function getPostData($language)
     {
-
-        $datePost = Post::with(['imagesOpsts'])
-            ->where('language', $language)
-            ->where('status_display', 1)
+        $posts = Post::with([
+            'imagesOpsts' => function ($query) use ($language) {
+                $query->where(function ($q) use ($language) {
+                    $q->where('language', $language)
+                        ->orWhere('defaults', 1);
+                })->orderBy('defaults', 'asc');
+            }
+        ])
+            ->where(function ($q) use ($language) {
+                $q->where('language', $language)
+                    ->orWhere('defaults', 1);
+            })
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        if ($datePost->isEmpty()) {
-            $datePost = Post::with(['imagesOpsts'])
-                ->where('defaults', 1)
-                ->where('status_display', 1)
-                ->orderBy('updated_at', 'desc')
-                ->get();
-        }
-
-        return $datePost;
+        // ✅ รวมผลลัพธ์
+        return $posts
+            ->groupBy('slug')   // group ตาม rootId
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
     }
 
     private function priorityPostUpdate($current, $new, $language, $column)
