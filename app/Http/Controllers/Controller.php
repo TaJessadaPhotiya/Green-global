@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -153,6 +154,7 @@ class Controller extends BaseController
         $result = DB::select($sql, [":lang" => $language]);
 
         return $this->categoryConvertGroup($result);
+
     }
 
     private function categoryConvertGroup($query)
@@ -160,16 +162,11 @@ class Controller extends BaseController
         $resultData = [];
         if (!empty($query)) {
             foreach ($query as $val) {
-                $checked = (isset($resultData[$val->id])) ? true : false;
-                $val->hasChildren = ($checked) ? 1 : 0;
-                $val->childrenData = ($checked) ? $resultData[$val->id] : [];
-                if ($val->cateLevel > 0) {
-                    $resultData[$val->parentId][] = $val;
-                } else {
-                    $resultData[$val->parentId][] = $val;
-                }
+                $val->hasChildren = isset($resultData[$val->id]);
+                $val->childrenData = $resultData[$val->id] ?? [];
+                $resultData[$val->parentId][] = $val;
             }
         }
-        return ($resultData) ? $resultData[0] : null;
+        return $resultData[0] ?? null;
     }
 }

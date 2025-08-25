@@ -181,8 +181,8 @@ class ProducrAgricultureController extends BaseController
 
         try {
             DB::beginTransaction();
-
             $productUpdate = Product::where('id', $id)->where('language', $params['language'])->first();
+
             /* Upload Thumbnail */
             $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
             $newFolderFile = "pdf/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
@@ -193,7 +193,9 @@ class ProducrAgricultureController extends BaseController
 
 
             $conditions = ['id' => $params['id'], 'language' => $params['language']];
+
             $values = [
+                "id" => $params['id'],
                 "thumbnail_link" => $thumbnail,
                 "thumbnail_title" => $params['thumbnail_title'],
                 "thumbnail_alt" => $params['thumbnail_alt'],
@@ -217,7 +219,8 @@ class ProducrAgricultureController extends BaseController
                 "doc_link" => $doc_pdf,
                 // "link_facebook" => $params['link_facebook'],
                 // "link_twitter" => $params['link_twitter'],
-
+                "language" => $params['language'],
+                "priority" => $params['priority'],
                 "pin" => $params['pNew'],
                 "display" => $params['display'],
                 "updated_at" => date('Y-m-d H:i:s')
@@ -225,8 +228,10 @@ class ProducrAgricultureController extends BaseController
 
             DB::table('products')->updateOrInsert($conditions, $values);
 
-            if ($productUpdate->priority != $params['priority']) {
-                $this->updatePriority("products", $params['priority']);
+            if ($productUpdate != null) {
+                if ($productUpdate->priority != $params['priority']) {
+                    $this->updatePriority("products", $params['priority']);
+                }
             }
 
             DB::table('products')
@@ -280,6 +285,13 @@ class ProducrAgricultureController extends BaseController
             ->orderBy('updated_at', 'DESC')
             ->get();
 
-        return $data;
+        return $data->groupBy('id')   // group ตาม rootId
+        ->map(function ($items) use ($language) {
+            // หาตัวที่ตรงกับ language
+            $match = $items->firstWhere('language', $language);
+            // ถ้าไม่มีให้ใช้ defaults
+            return $match ?? $items->firstWhere('defaults', 1);
+        })
+        ->values();  // reset index
     }
 }

@@ -18,10 +18,11 @@ class PostController extends BaseController
     {
         try {
             $data = $this->getPostData($req->language);
-            $menuPage = Category::where('language', $req->language)->get();
-            if ($menuPage->isEmpty()) {
-                $menuPage = Category::where('defaults', 1)->get();
-            }
+            $menuPage = $this->getMenuPage($req->language);
+            // $menuPage = Category::where('language', $req->language)->get();
+            // if ($menuPage->isEmpty()) {
+            //     $menuPage = Category::where('defaults', 1)->get();
+            // }
             return response([
                 'message' => 'ok',
                 'data' => $data,
@@ -196,6 +197,7 @@ class PostController extends BaseController
 
             $conditions = ['id' => $params['id'], 'language' => $params['language']];
             $values = [
+                "id" => $params['id'],
                 "thumbnail_link" => $thumbnail,
                 "thumbnail_title" => $params['ThumbnailTitle'],
                 "thumbnail_alt" => $params['ThumbnailAlt'],
@@ -308,6 +310,44 @@ class PostController extends BaseController
                 return $match ?? $items->firstWhere('defaults', 1);
             })
             ->values();  // reset index
+    }
+
+    private function getMenuPage($language)
+    {
+        $sql = Category::with(['childrenData'])
+            ->select(
+                'id',
+                'cate_title as title',
+                'cate_url as slug',
+                'cate_parent_id as parentId',
+                'cate_root_id as rootId',
+                'cate_level as cateLevel',
+                'cate_priority as priority',
+                'language',
+                'is_menu as isMenu',
+                'is_leftside as leftSide',
+                'is_topside as topSide',
+                'is_rightside as rightSide',
+                'is_bottomside as bottomSide',
+                'defaults'
+            )
+            ->where(function ($q) use ($language) {
+                $q->where('language', $language)
+                    ->orWhere('defaults', 1);
+            })
+            ->where(['cate_parent_id' => 0, 'cate_status_display' => 1])
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return $sql->groupBy('id')   // group ตาม rootId
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
+        // dd($sql);
     }
 
     private function priorityPostUpdate($current, $new, $language, $column)

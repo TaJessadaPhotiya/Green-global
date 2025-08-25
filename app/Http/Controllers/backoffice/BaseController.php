@@ -79,15 +79,21 @@ class BaseController extends Controller
 
     public function getProductCate($language)
     {
-        $data = ProductCate::where(function ($query) use (&$language) {
+        $data = ProductCate::where(function ($query) use ($language) {
             $query->where('language', $language)
                 ->orWhere('defaults', 1);
         })
             ->where('display', 1)
-            // ->groupBy('id','language')
             ->orderBy('updated_at', 'DESC')
             ->get();
 
-        return $data;
+        return $data->groupBy('id')   // group ตาม rootId
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
     }
 }
