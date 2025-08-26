@@ -34,3 +34,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
     Route::get('/product-detail/{id}', [ProductDetailController::class, 'index'])->name('product-detail');
     Route::get('/news-detail/{id}', [NewsDetailController::class, 'index'])->name('news-detail');
 });
+
+// Route::get('/email/test', function () {
+//     return  view('mail.confirm_member');
+// });

@@ -18,9 +18,10 @@ class ConfirmMember extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private $users, protected $webInfo)
+    public function __construct(private $memberPro, protected $webInfo)
     {
         $this->webInfo = $webInfo;
+        $this->memberPro = $memberPro;
     }
 
     /**
@@ -33,8 +34,8 @@ class ConfirmMember extends Mailable
         // );
 
         return new Envelope(
-            from: new Address('wynnsoft0@gmail.com', 'theone bbgun'),
-            subject: 'ยืนยันสมาชิกคุณ',
+            from: new Address('wynnsoft0@gmail.com', 'green global'),
+            subject: 'Confirm Member You.',
         );
     }
 
@@ -46,10 +47,10 @@ class ConfirmMember extends Mailable
         return new Content(
             markdown: 'mail.confirm_member',
             with: ([
-                'data' => $this->users,
+                'data' => $this->memberPro,
                 'web_info' => $this->webInfo,
-                'url' => env('APP_URL', 'http://localhost:8000') .'/login',
-                    ]),
+                'url' => env('APP_URL', 'http://localhost:8000') . '/login',
+            ]),
 
         );
     }

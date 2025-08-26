@@ -10,6 +10,9 @@ use App\Models\MemberProfiles;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmMember;
+use App\Mail\MailableNewMember;
 
 class RegisterController extends Controller
 {
@@ -76,6 +79,14 @@ class RegisterController extends Controller
             $memberAccounts->users_id = $users->id;
             $memberAccounts->profiles_id = $memberPro->id;
             $memberAccounts->save();
+
+
+
+            $infos = $this->getWebInfo('', );
+            $webInfo = $this->infoSetting($infos);
+            Mail::to($request->input('email'))->send(new ConfirmMember($memberPro, $webInfo));
+            // Mail::to($webInfo->contact->email->value)->send(new MailableNewMember($memberPro, $webInfo));
+
             DB::commit();
 
             return response()->json([

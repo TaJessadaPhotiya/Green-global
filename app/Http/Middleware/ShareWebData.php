@@ -22,7 +22,13 @@ class ShareWebData
         $language = $request->route('language');
 
         $getMenu = function ($position, $keyword = null, $single = false) use ($language) {
-            $query = Category::with(['childrenData'])
+            $query = Category::with(relations: [
+                'childrenData' => function ($query) use ($language) {
+                    $query->where(function ($q) use ($language) {
+                        $q->where('language', $language);
+                    })->orderBy('defaults', 'asc');
+                }
+            ])
                 ->where(['is_menu' => 1, 'is_main_page' => 1, 'cate_level' => 0, 'cate_status_display' => 1, 'cate_position' => $position])
                 ->where('language', $language)  // เฉพาะภาษาที่ต้องการ
                 ->orderBy('cate_priority', 'asc');
@@ -35,7 +41,13 @@ class ShareWebData
 
             // หากไม่พบข้อมูล ให้ fallback ไปใช้ภาษาเริ่มต้น
             if (($single && !$result) || (!$single && $result->isEmpty())) {
-                $query = Category::with(['childrenData'])
+                $query = Category::with(relations: [
+                'childrenData' => function ($query) use ($language) {
+                    $query->where(function ($q) use ($language) {
+                        $q->where('defaults', 1);
+                    })->orderBy('defaults', 'asc');
+                }
+            ])
                     ->where(['is_menu' => 1, 'is_main_page' => 1, 'cate_level' => 0, 'cate_status_display' => 1, 'cate_position' => $position])
                     ->where('defaults', 1)
                     ->orderBy('cate_priority', 'asc');

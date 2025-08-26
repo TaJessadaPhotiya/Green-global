@@ -11,11 +11,12 @@ class TermController extends Controller
     {
         $Term = Post::where('slug', 'TERM')
             ->where('language', $language)->first();
-            
+
         if (!$Term) {
             $Term = Post::where('slug', 'TERM')
                 ->where('defaults', 1)->first();
         }
+
         return view('pages.term.term', compact('Term'));
     }
 }
