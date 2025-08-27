@@ -18,7 +18,7 @@ class SendMailResetPasswordMember extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(protected User $user, private $user_account, private $reset_token, private $webinfo)
+    public function __construct(protected User $user, private $user_account, private $reset_token, private $webinfo, private $language)
     {
         //
     }
@@ -29,7 +29,7 @@ class SendMailResetPasswordMember extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('wynnsoft0@gmail.com', 'theone bbgun'),
+            from: new Address('wynnsoft0@gmail.com', 'green global'),
             subject: 'Reset Password'. date('Y-m-d H:i:s'),
         );
     }
@@ -46,7 +46,7 @@ class SendMailResetPasswordMember extends Mailable
                 'reset_token' => $this->reset_token,
                 'user_account' => $this->user_account,
                 'web_info' => $this->webinfo,
-                'linkReset' => env('APP_FRONTEND_URL','') . '/confirm-password/' . $this->reset_token->token
+                'linkReset' => env('APP_FRONTEND_URL','') . '/' . $this->language . '/confirm-password/' . $this->reset_token->token
                 ]),
         );
     }

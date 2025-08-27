@@ -93,6 +93,7 @@ class RegisterController extends Controller
                 'success' => 'Registration successful. Please log in.',
                 'url' => $language . '/login',
             ]);
+
         } catch (QueryException $e) {
             $errorCode = $e->errorInfo[1];
             // dd($errorCode);

@@ -10,7 +10,7 @@
             </div>
 
             {{-- Form --}}
-            <form method="POST" action="" class="space-y-6" id="registerForm" onsubmit="return validateForm()">
+            <form class="space-y-6" id="forgotPasswordForm">
                 @csrf
                 <div class="w-full mx-auto max-w-md">
                     {{-- Username --}}
@@ -25,10 +25,30 @@
         </div>
 
         <div class="w-full flex justify-center gap-5 mt-8">
-            <button type="submit" form="registerForm"
+            <button type="submit" form="forgotPasswordForm"
                 class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                 CONFIRM
             </button>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("forgotPasswordForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+        // console.log('123');
+        const email = document.getElementById("username").value.trim();
+
+         const url = '{{ $language }}';
+
+        axios.post(`/${url}/forgot-password`, {
+            email: email
+        }).then(function(response) {
+            // Handle success
+            console.log(response.data);
+        }).catch(function(error) {
+            // Handle error
+            console.error(error);
+        });
+    });
+</script>
