@@ -78,7 +78,7 @@
 
                         <!-- dropdown อยู่ด้านล่างเสมอ -->
                         <div id="memberDropdownMenu"
-                            class="hidden absolute right-0 top-full mt-2 w-[120px] origin-top-right rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 z-20 transition-all duration-200 ease-out">
+                            class="hidden absolute right-0 top-full mt-2 w-[120px] h-[250px] origin-top-right rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 z-20 transition-all duration-200 ease-out overflow-y-auto overflow-hidden">
                             <div>
                                 <a href="{{ url($language . '/product') }}"
                                     class=" block px-4 py-2 text-sm text-gray-700 hover:bg-[#098C46] hover:text-white rounded-t-md transition">
@@ -89,7 +89,8 @@
                                         $isActive = isset($_GET['segment']) && $_GET['segment'] == $segment->id;
                                     @endphp
                                     <a href="{{ url($language . '/product?segment=' . $segment->id) }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 transition @if ($isActive) bg-[#098C46] text-white @else hover:bg-[#098C46] hover:text-white @endif">
+                                        class="block px-4 py-2 text-sm text-gray-700 transition
+                                            {{ $isActive ? 'bg-[#098C46] text-white' : 'hover:bg-[#098C46] hover:text-white' }}">
                                         {{ $segment->title }}
                                     </a>
                                 @endforeach

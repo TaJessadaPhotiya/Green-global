@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2025 at 12:37 PM
+-- Generation Time: Aug 28, 2025 at 11:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -112,6 +112,15 @@ CREATE TABLE `ad_slides` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ad_slides`
+--
+
+INSERT INTO `ad_slides` (`id`, `page_id`, `ad_image`, `ad_image_alt`, `ad_image_title`, `ad_title`, `ad_description`, `ad_type`, `ad_position_id`, `ad_priority`, `ad_link`, `ad_redirect`, `ad_h1`, `ad_h2`, `ad_status_display`, `ad_date_display`, `ad_date_hidden`, `language`, `defaults`, `created_at`, `updated_at`) VALUES
+(1, 0, 'upload/2025/08/28/Rectangle 2.png', 'slide1', NULL, 'slide1', NULL, 1, 1, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, 'th', '1', '2025-08-28 01:42:46', '2025-08-28 01:42:46'),
+(2, 0, 'upload/2025/08/28/grasshopper-7575278_1280.jpg', 'slide2', NULL, 'slide2', NULL, 1, 1, 2, NULL, NULL, NULL, NULL, 1, NULL, NULL, 'th', '1', '2025-08-28 01:52:26', '2025-08-28 01:52:26'),
+(3, 0, 'upload/2025/08/28/flower-4700969_1280.jpg', 'slide3', NULL, 'slide3', NULL, 1, 1, 3, NULL, NULL, NULL, NULL, 1, NULL, NULL, 'th', '1', '2025-08-28 01:52:42', '2025-08-28 01:52:42');
 
 -- --------------------------------------------------------
 
@@ -243,25 +252,28 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `cate_name`, `cate_title`, `cate_keyword`, `cate_description`, `cate_thumbnail`, `cate_thumbnail_title`, `cate_thumbnail_alt`, `cate_url`, `cate_h1`, `cate_h2`, `meta_title`, `meta_description`, `meta_keyword`, `cate_topic`, `cate_freetag`, `cate_attr`, `cate_redirect`, `cate_parent_id`, `cate_root_id`, `cate_level`, `cate_status_display`, `is_menu`, `is_topside`, `is_leftside`, `is_rightside`, `is_bottomside`, `cate_priority`, `cate_position`, `on_product`, `is_main_page`, `is_product_cate`, `cate_date_display`, `cate_date_hidden`, `language`, `defaults`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Home', 'HOME', NULL, NULL, NULL, NULL, 'home', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en', 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-13 04:44:02', '2025-08-13 00:08:55'),
-(1, NULL, 'หน้าหลัก', 'HOME', NULL, NULL, NULL, NULL, '/', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th', 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 03:20:13', '2025-08-13 01:00:47'),
-(2, NULL, 'VISION', 'VISION', NULL, NULL, NULL, NULL, 'vision', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/vision', 0, 2, 0, 1, 1, 1, 0, 0, 0, 2, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 03:22:35', '2025-08-13 06:55:23'),
+(1, NULL, 'Home', 'HOME', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en', 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-13 04:44:02', '2025-08-13 00:08:55'),
+(1, NULL, 'หน้าหลัก', 'HOME', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th', 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 03:20:13', '2025-08-13 01:00:47'),
+(2, NULL, 'VISION', 'VISION', NULL, NULL, NULL, NULL, '/vision', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/vision', 0, 2, 0, 1, 1, 1, 0, 0, 0, 2, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 03:22:35', '2025-08-13 06:55:23'),
 (2, NULL, 'วิสัยทัศน์', 'VISION', NULL, NULL, NULL, NULL, '/vision', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th/vision', 0, 2, 0, 1, 1, 1, 0, 0, 0, 2, 1, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 03:22:37', '2025-08-13 01:01:28'),
-(3, NULL, 'PRODUCT', 'PRODUCT', NULL, NULL, NULL, NULL, 'product', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/product', 0, 3, 0, 1, 1, 1, 0, 0, 0, 4, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 03:30:59', '2025-08-13 00:01:29'),
+(3, NULL, 'PRODUCT', 'PRODUCT', NULL, NULL, NULL, NULL, '/product', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/product', 0, 3, 0, 1, 1, 1, 0, 0, 0, 4, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 03:30:59', '2025-08-13 00:01:29'),
 (3, NULL, 'ผลิตภัณฑ์', 'PRODUCT', NULL, NULL, NULL, NULL, '/product', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th/product', 0, 3, 0, 1, 1, 1, 0, 0, 0, 4, 1, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 03:31:00', '2025-08-13 01:01:48'),
-(4, NULL, 'NEWS', 'NEWS', NULL, NULL, NULL, NULL, 'news', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/news', 0, 4, 0, 1, 1, 1, 0, 0, 0, 3, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 03:32:02', '2025-08-13 00:01:09'),
+(4, NULL, 'NEWS', 'NEWS', NULL, NULL, NULL, NULL, '/news', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/news', 0, 4, 0, 1, 1, 1, 0, 0, 0, 3, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 03:32:02', '2025-08-13 00:01:09'),
 (4, NULL, 'ข่าว', 'NEWS', NULL, NULL, NULL, NULL, '/news', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th/news', 0, 4, 0, 1, 1, 1, 0, 0, 0, 3, 1, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 03:32:03', '2025-08-13 01:01:34'),
-(5, NULL, 'TERM&CONDITION', 'TERM&CONDITION', NULL, NULL, NULL, NULL, 'terms', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/terms', 0, 5, 0, 1, 1, 1, 0, 0, 0, 5, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 04:03:58', '2025-08-12 23:59:16'),
+(5, NULL, 'TERM&CONDITION', 'TERM&CONDITION', NULL, NULL, NULL, NULL, '/term', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/term', 0, 5, 0, 1, 1, 1, 0, 0, 0, 5, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 04:03:58', '2025-08-12 23:59:16'),
 (5, NULL, 'ข้อกำหนด/เงื่อนไข', 'TERM&CONDITION', NULL, NULL, NULL, NULL, '/term', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th/term', 0, 5, 0, 1, 1, 1, 0, 0, 0, 5, 1, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 04:03:59', '2025-08-13 01:02:23'),
-(6, NULL, 'CONTACT US', 'CONTACT US', NULL, NULL, NULL, NULL, 'contact', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/contact', 0, 6, 0, 1, 1, 1, 0, 0, 0, 6, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 04:04:20', '2025-08-13 00:02:05'),
+(6, NULL, 'CONTACT US', 'CONTACT US', NULL, NULL, NULL, NULL, '/contact', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/contact', 0, 6, 0, 1, 1, 1, 0, 0, 0, 6, 1, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 04:04:20', '2025-08-13 00:02:05'),
 (6, NULL, 'ติดต่อเรา', 'CONTACT US', NULL, NULL, NULL, NULL, '/contact', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th/contact', 0, 6, 0, 1, 1, 1, 0, 0, 0, 6, 1, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 04:04:12', '2025-08-13 01:02:31'),
-(7, NULL, 'MEMBER', 'MEMBER', NULL, NULL, NULL, NULL, 'member', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 7, 0, 1, 1, 1, 0, 0, 0, 7, 2, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 04:07:50', '2025-08-13 00:02:19'),
-(7, NULL, 'สมาชิก', 'MEMBER', NULL, NULL, NULL, NULL, 'member', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 7, 0, 1, 1, 1, 0, 0, 0, 7, 2, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 04:07:49', '2025-08-13 01:02:48'),
+(7, NULL, 'MEMBER', 'MEMBER', NULL, NULL, NULL, NULL, 'member', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 7, 0, 0, 1, 1, 0, 0, 0, 7, 2, 0, 1, 0, NULL, NULL, 'en', 0, '2025-08-14 04:07:50', '2025-08-13 00:02:19'),
+(7, NULL, 'สมาชิก', 'MEMBER', NULL, NULL, NULL, NULL, 'member', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 7, 0, 0, 1, 1, 0, 0, 0, 7, 2, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-14 04:07:49', '2025-08-13 01:02:48'),
+(8, NULL, 'Register', 'REGISTER', NULL, NULL, NULL, NULL, 'register', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 8, 0, 1, 1, 1, 0, 0, 0, 8, 2, 0, 1, 0, NULL, NULL, 'en', 0, NULL, '2025-08-25 00:15:47'),
 (8, NULL, 'ลงทะเบียน', 'REGISTER', NULL, '', NULL, NULL, 'register', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', 0, 8, 0, 1, 1, 1, 0, 0, 0, 8, 2, 0, 1, 0, NULL, NULL, 'th', 1, '2025-08-11 03:18:30', '2025-08-13 01:08:30'),
+(9, NULL, 'SignIn', 'Sign In', NULL, NULL, NULL, NULL, 'register/sign in', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th/login', 8, 8, 1, 1, 1, 1, 0, 0, 0, 9, 1, 0, 0, 0, NULL, NULL, 'en', 0, NULL, '2025-08-25 00:50:27'),
 (9, NULL, 'เข้าสู่ระบบ', 'Sign In', NULL, '', NULL, NULL, 'register/sign in', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th/login', 8, 8, 1, 1, 1, 1, 0, 0, 0, 9, 2, 0, 0, 0, NULL, NULL, 'th', 1, '2025-08-11 03:19:17', '2025-08-13 00:26:22'),
+(12, NULL, 'Register', 'Register', NULL, NULL, NULL, NULL, 'register/register', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/en/register', 8, 8, 1, 1, 1, 1, 0, 0, 0, 10, 1, 0, 0, 0, NULL, NULL, 'en', 0, NULL, '2025-08-26 03:19:56'),
 (12, NULL, 'ลงทะเบียน', 'Register', NULL, '', NULL, NULL, 'register/register', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/th/register', 8, 8, 1, 1, 1, 1, 0, 0, 0, 10, 2, 0, 0, 0, NULL, NULL, 'th', 1, '2025-08-11 03:20:23', '2025-08-13 01:08:39'),
 (13, NULL, 'โปรไฟล์', 'Profile', NULL, '', NULL, NULL, 'member/Profile', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'th/profile', 7, 7, 1, 1, 1, 1, 0, 0, 0, 11, 2, 0, 0, 0, NULL, NULL, 'th', 1, '2025-08-13 02:53:37', '2025-08-13 02:55:28'),
-(14, NULL, 'ออกจากระบบ', 'Sign out', NULL, '', NULL, NULL, 'member/sign out', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'th/#', 7, 7, 1, 1, 1, 1, 0, 0, 0, 12, 2, 0, 0, 0, NULL, NULL, 'th', 1, '2025-08-13 02:54:50', '2025-08-13 02:57:54');
+(14, NULL, 'ออกจากระบบ', 'Sign out', NULL, '', NULL, NULL, 'member/sign out', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'th/logout', 7, 7, 1, 1, 1, 1, 0, 0, 0, 12, 2, 0, 0, 0, NULL, NULL, 'th', 1, '2025-08-13 02:54:50', '2025-08-13 02:57:54');
 
 -- --------------------------------------------------------
 
@@ -342,6 +354,15 @@ CREATE TABLE `leave_messages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `leave_messages`
+--
+
+INSERT INTO `leave_messages` (`id`, `fullname`, `email`, `phone_number`, `topic`, `message`, `status`, `favorite`, `language`, `defaults`, `created_at`, `updated_at`) VALUES
+(1, 'จาตุรนต์', 'parklovepark112@gmail.com', '0988465760', NULL, 'xxzzz', 'new', 0, 'th', 1, '2025-08-19 20:58:52', '2025-08-19 20:58:52'),
+(2, 'จาตุรนต์', 'parklovepark112@gmail.com', '0988465760', NULL, 'ggg', 'new', 0, 'th', 1, '2025-08-23 01:56:03', '2025-08-23 01:56:03'),
+(3, 'จาตุรนต์', 'parklovepark112@gmail.com', '0988465760', NULL, 'daqq', 'new', 0, 'th', 1, '2025-08-23 02:11:45', '2025-08-23 02:11:45');
+
 -- --------------------------------------------------------
 
 --
@@ -352,17 +373,31 @@ CREATE TABLE `member_accounts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `users_id` int(11) NOT NULL,
   `profiles_id` int(11) DEFAULT NULL,
+  `member_status` tinyint(1) NOT NULL DEFAULT 0,
+  `member_verify_at` datetime DEFAULT NULL,
+  `member_expire_at` datetime DEFAULT NULL,
+  `member_note` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `facebook_id` varchar(255) DEFAULT NULL,
   `google_id` varchar(255) DEFAULT NULL,
   `line_id` varchar(255) DEFAULT NULL,
-  `apple_id` varchar(255) DEFAULT NULL,
-  `member_status` tinyint(1) NOT NULL DEFAULT 1,
-  `member_note` varchar(255) DEFAULT NULL,
-  `member_verify_at` datetime DEFAULT NULL,
-  `member_expire_at` datetime DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `apple_id` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `member_accounts`
+--
+
+INSERT INTO `member_accounts` (`id`, `users_id`, `profiles_id`, `member_status`, `member_verify_at`, `member_expire_at`, `member_note`, `created_at`, `updated_at`, `facebook_id`, `google_id`, `line_id`, `apple_id`) VALUES
+(2, 14, 4, 1, '2025-08-21 07:49:14', '2025-08-22 07:49:14', 'inactive', '2025-08-20 21:30:48', '2025-08-21 00:49:14', NULL, NULL, NULL, NULL),
+(3, 16, 5, 1, '2025-08-21 08:03:25', '2025-08-31 08:03:25', 'active', '2025-08-20 21:38:06', '2025-08-21 01:03:25', NULL, NULL, NULL, NULL),
+(4, 17, 6, 0, NULL, NULL, NULL, '2025-08-20 21:54:58', '2025-08-20 21:54:58', NULL, NULL, NULL, NULL),
+(5, 18, 7, 0, NULL, NULL, NULL, '2025-08-20 23:13:21', '2025-08-20 23:13:21', NULL, NULL, NULL, NULL),
+(6, 19, 8, 0, NULL, NULL, NULL, '2025-08-20 23:33:50', '2025-08-20 23:33:50', NULL, NULL, NULL, NULL),
+(7, 20, 9, 1, '2025-08-22 07:17:05', '2025-11-30 07:17:05', 'active', '2025-08-22 00:16:33', '2025-08-22 00:17:05', NULL, NULL, NULL, NULL),
+(8, 21, 10, 0, NULL, NULL, NULL, '2025-08-22 23:20:05', '2025-08-22 23:20:05', NULL, NULL, NULL, NULL),
+(9, 36, 11, 0, NULL, NULL, NULL, '2025-08-25 21:57:02', '2025-08-25 21:57:02', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -381,6 +416,48 @@ CREATE TABLE `member_favors` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `member_occupations`
+--
+
+CREATE TABLE `member_occupations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `occupations` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `member_occupations`
+--
+
+INSERT INTO `member_occupations` (`id`, `member_id`, `occupations`, `created_at`, `updated_at`) VALUES
+(3, 3, 'Seedling nursery', '2025-08-20 21:24:03', '2025-08-20 21:24:03'),
+(4, 4, 'Seedling nursery', '2025-08-20 21:30:48', '2025-08-20 21:30:48'),
+(5, 5, 'Farmer', '2025-08-20 21:38:06', '2025-08-20 21:38:06'),
+(6, 5, 'Seed Company', '2025-08-20 21:38:06', '2025-08-20 21:38:06'),
+(7, 5, 'Seed Distributor', '2025-08-20 21:38:06', '2025-08-20 21:38:06'),
+(8, 6, 'Seed Distributor', '2025-08-20 21:54:58', '2025-08-20 21:54:58'),
+(9, 6, 'Chemical or fertilizer', '2025-08-20 21:54:58', '2025-08-20 21:54:58'),
+(10, 6, 'zxx', '2025-08-20 21:54:58', '2025-08-20 21:54:58'),
+(11, 7, 'Seed Company', '2025-08-20 23:13:21', '2025-08-20 23:13:21'),
+(12, 7, 'Seed Distributor', '2025-08-20 23:13:21', '2025-08-20 23:13:21'),
+(13, 7, 'Chemical or fertilizer', '2025-08-20 23:13:21', '2025-08-20 23:13:21'),
+(14, 8, 'Farmer', '2025-08-20 23:33:50', '2025-08-20 23:33:50'),
+(15, 8, 'Seed Company', '2025-08-20 23:33:50', '2025-08-20 23:33:50'),
+(16, 8, 'Seed Distributor', '2025-08-20 23:33:50', '2025-08-20 23:33:50'),
+(17, 8, 'Chemical or fertilizer', '2025-08-20 23:33:50', '2025-08-20 23:33:50'),
+(18, 9, 'Farmer', '2025-08-22 00:16:33', '2025-08-22 00:16:33'),
+(19, 9, 'Agriculture-related business', '2025-08-22 00:16:33', '2025-08-22 00:16:33'),
+(20, 9, 'Seed Distributor', '2025-08-22 00:16:33', '2025-08-22 00:16:33'),
+(21, 10, 'Seed Company', '2025-08-22 23:20:05', '2025-08-22 23:20:05'),
+(22, 10, 'Seed Distributor', '2025-08-22 23:20:05', '2025-08-22 23:20:05'),
+(23, 11, 'Farmer', '2025-08-25 21:57:02', '2025-08-25 21:57:02'),
+(24, 11, 'Seed Company', '2025-08-25 21:57:02', '2025-08-25 21:57:02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `member_profiles`
 --
 
@@ -391,16 +468,30 @@ CREATE TABLE `member_profiles` (
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `district` varchar(255) DEFAULT NULL,
+  `occupation` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `subdistrict` varchar(255) DEFAULT NULL,
   `province` varchar(255) DEFAULT NULL,
   `zipcode` varchar(255) DEFAULT NULL,
   `coin` int(11) NOT NULL DEFAULT 0,
-  `note` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `note` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `member_profiles`
+--
+
+INSERT INTO `member_profiles` (`id`, `profiles_image`, `display_name`, `first_name`, `last_name`, `phone_number`, `occupation`, `country`, `created_at`, `updated_at`, `subdistrict`, `province`, `zipcode`, `coin`, `note`) VALUES
+(4, NULL, 'park2', 'parl', 'love', '123-876-5432', NULL, 'thailand', '2025-08-20 21:30:48', '2025-08-20 21:30:48', NULL, NULL, NULL, 0, NULL),
+(5, NULL, 'park3', 'parl', 'love', '123-876-5432', NULL, 'thailand', '2025-08-20 21:38:06', '2025-08-20 21:38:06', NULL, NULL, NULL, 0, NULL),
+(6, NULL, 'park4', 'parl', 'love', '123-876-5432', NULL, 'thailand', '2025-08-20 21:54:58', '2025-08-20 21:54:58', NULL, NULL, NULL, 0, NULL),
+(7, NULL, 'park5', 'parl', 'love', '123-876-5432', NULL, 'thailand', '2025-08-20 23:13:21', '2025-08-20 23:13:21', NULL, NULL, NULL, 0, NULL),
+(8, NULL, 'park6', 'parl', 'love', '123-876-5432', NULL, 'thailand', '2025-08-20 23:33:50', '2025-08-20 23:33:50', NULL, NULL, NULL, 0, NULL),
+(9, NULL, 'parktest1', 'test11', 'test1', '083-876-5432', NULL, 'thailand', '2025-08-22 00:16:33', '2025-08-22 21:53:41', NULL, NULL, NULL, 0, NULL),
+(10, NULL, 'parkemailtest', 'parktest2', 'lovelove', '065-346-6760', NULL, 'laos', '2025-08-22 23:20:05', '2025-08-22 23:20:05', NULL, NULL, NULL, 0, NULL),
+(11, NULL, 'parksetemailtest', 'parktest2', 'lovelove', '065-346-6760', NULL, 'brunei', '2025-08-25 21:57:02', '2025-08-25 21:57:02', NULL, NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -452,7 +543,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (94, '2025_07_29_071705_create_product_cates_table', 2),
 (95, '2025_07_30_071536_create_language_configs_table', 3),
 (96, '2024_10_09_090501_create_products_table', 4),
-(97, '2025_08_02_083343_create_segments_table', 5);
+(97, '2025_08_02_083343_create_segments_table', 5),
+(98, '2025_08_20_164546_create_member_occupations_table', 6);
 
 -- --------------------------------------------------------
 
@@ -730,12 +822,16 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `slug`, `title`, `keyword`, `description`, `freetag`, `h1`, `h2`, `short_url`, `thumbnail_title`, `thumbnail_link`, `thumbnail_size`, `thumbnail_alt`, `topic`, `content`, `iframe`, `category`, `tags`, `redirect`, `link_facebook`, `link_twitter`, `link_instagram`, `link_youtube`, `link_line`, `status_display`, `pin`, `defaults`, `post_view`, `priority`, `meta_tag`, `meta_title`, `meta_description`, `allow_delete`, `is_maincontent`, `language`, `date_begin_display`, `date_end_display`, `created_at`, `updated_at`) VALUES
+(1, 'HOME', '“Premium seed for high yield and good taste”', NULL, 'Since 2013', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<p>Global population increasing special for emerging&nbsp;markets, but food will short in coming year due to climate change and global warming make grower difficult and yield lower than before. Green Global seeds company with business partnership development hybrids and market for wide adaptability variety for climate change and meet demand of provisional grower, food collectors, super market, new generation of consumer for healthy and good taste. Green global seeds company focus delivery innovation product seeds to food by &ldquo;Premium seed for high yield and good taste&rdquo; since 2013.</p>', NULL, ',1,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 0, 0, 1, NULL, NULL, NULL, 0, 1, 'en', NULL, NULL, '2025-08-09 02:19:13', '2025-08-13 19:53:40'),
 (1, 'HOME', '“Premium seed for high yield and good taste”', NULL, 'Since 2013', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<p><span style=\"font-size:18px\"><span style=\"color:#098c46\">Global population increasing special for emerging&nbsp;markets, but food will short in coming year due to climate change and global warming make grower difficult and yield lower than before. Green Global seeds company with business partnership development hybrids and market for wide adaptability variety for climate change and meet demand of provisional grower, food collectors, super market, new generation of consumer for healthy and good taste. Green global seeds company focus delivery innovation product seeds to food by &ldquo;Premium seed for high yield and good taste&rdquo; since 2013.</span></span></p>', NULL, ',1,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 0, 1, NULL, NULL, NULL, 0, 1, 'th', NULL, NULL, '2025-08-09 02:19:13', '2025-08-13 23:47:09'),
-(2, 'HOME', '“Premium seed for high yield and good taste”', NULL, 'Since 2013', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<p>Global population increasing special for emerging&nbsp;markets, but food will short in coming year due to climate change and global warming make grower difficult and yield lower than before. Green Global seeds company with business partnership development hybrids and market for wide adaptability variety for climate change and meet demand of provisional grower, food collectors, super market, new generation of consumer for healthy and good taste. Green global seeds company focus delivery innovation product seeds to food by &ldquo;Premium seed for high yield and good taste&rdquo; since 2013.</p>', NULL, ',1,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 0, 0, 1, NULL, NULL, NULL, 0, 1, 'en', NULL, NULL, '2025-08-09 02:19:13', '2025-08-13 19:53:40'),
+(3, 'VISION', 'Our Company', NULL, '“Premium seed for high yield and good taste” \r\n</br>\r\n Since 2013', NULL, NULL, NULL, NULL, NULL, 'upload/2025/08/14/Rectangle 156 (1)(1).png', NULL, NULL, NULL, '<p><span style=\"font-size:18px\"><span style=\"color:#2ecc71\">Global population increasing special for emerging markets,&nbsp; but food will short in coming year done climate change&nbsp; and global warming make grower difficult and yield lower than before&nbsp; ,Green&nbsp; Global seeds company with business partnership development hybrids and market for wide adaptability variety for climate change&nbsp; and meet demand&nbsp; of provisional&nbsp; grower&nbsp; , food collectors , supper market , new generation of consumer&nbsp; for healthy and good taste . Green global seeds &nbsp; company focus delivery innovation product seeds to food by &ldquo;Premium seed for&nbsp; high yield and good taste &rdquo; since 2013 climate change&nbsp; and global warming make grower difficult and yield lower than before&nbsp; ,Green&nbsp; Global seeds company with business partnership development hybrids and market for wide adaptability variety for climate change&nbsp; and meet demand&nbsp; of provisional&nbsp; grower&nbsp; , food collectors , supper market , new generation of consumer&nbsp; for healthy and good taste . Green global seeds &nbsp; company focus delivery innovation product seeds to food by &ldquo;Premium seed for&nbsp; high yield and good taste &rdquo; since 2013</span></span></p>', NULL, ',2,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 0, 0, 1, NULL, NULL, NULL, 0, 1, 'en', NULL, NULL, NULL, '2025-08-25 00:08:49'),
 (3, 'VISION', 'Our Company', NULL, '“Premium seed for high yield and good taste” \r\n</br>\r\n Since 2013', NULL, NULL, NULL, NULL, NULL, 'upload/2025/08/14/Rectangle 156 (1)(1).png', NULL, NULL, NULL, '<p><span style=\"font-size:18px\"><span style=\"color:#2ecc71\">Global population increasing special for emerging markets,&nbsp; but food will short in coming year done climate change&nbsp; and global warming make grower difficult and yield lower than before&nbsp; ,Green&nbsp; Global seeds company with business partnership development hybrids and market for wide adaptability variety for climate change&nbsp; and meet demand&nbsp; of provisional&nbsp; grower&nbsp; , food collectors , supper market , new generation of consumer&nbsp; for healthy and good taste . Green global seeds &nbsp; company focus delivery innovation product seeds to food by &ldquo;Premium seed for&nbsp; high yield and good taste &rdquo; since 2013 climate change&nbsp; and global warming make grower difficult and yield lower than before&nbsp; ,Green&nbsp; Global seeds company with business partnership development hybrids and market for wide adaptability variety for climate change&nbsp; and meet demand&nbsp; of provisional&nbsp; grower&nbsp; , food collectors , supper market , new generation of consumer&nbsp; for healthy and good taste . Green global seeds &nbsp; company focus delivery innovation product seeds to food by &ldquo;Premium seed for&nbsp; high yield and good taste &rdquo; since 2013</span></span></p>', NULL, ',2,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 0, 2, NULL, NULL, NULL, 0, 1, 'th', NULL, NULL, '2025-08-14 00:24:36', '2025-08-14 00:46:42'),
+(4, 'NEWSACTIVTY', 'Children\'s Day activities 2024', NULL, 'The company participated in the Children\'s Day activity and gave away many prizes.', NULL, NULL, NULL, NULL, NULL, 'upload/2025/08/14/Rectangle169.png', NULL, NULL, NULL, '<p><span style=\"color:#2ecc71\"><span style=\"font-size:18px\">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim nihil quis harum animi? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim nihil quis harum animi? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim</span></span></p>', 'en/news-detail/4', ',4,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 0, 1, NULL, NULL, NULL, 0, 1, 'en', NULL, NULL, NULL, '2025-08-25 00:51:54'),
 (4, 'NEWSACTIVTY', 'กิจกรรมวันเด็ก ปี 2567', NULL, 'บริษัทร่วมกิจกรรมสร้างความสุขในวันเด็กแจกของรางวัลมากมาย', NULL, NULL, NULL, NULL, NULL, 'upload/2025/08/14/Rectangle169.png', NULL, NULL, NULL, '<p><span style=\"color:#2ecc71\"><span style=\"font-size:18px\">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim nihil quis harum animi? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim nihil quis harum animi? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse ipsum beatae natus quasi aperiam accusamus. Voluptates doloremque aperiam minima architecto velit. Aliquid, et. Neque magni, enim</span></span></p>', 'th/news-detail/4', ',4,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 3, NULL, NULL, NULL, 0, 1, 'th', NULL, NULL, '2025-08-14 01:39:21', '2025-08-15 01:11:25'),
+(5, 'NEWSPRODUCT', 'Product news', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'en/news-detail/5', ',4,', NULL, 'th/product-detail/1', NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 0, 1, NULL, NULL, NULL, 0, 1, 'en', NULL, NULL, NULL, '2025-08-25 00:18:02'),
 (5, 'NEWSPRODUCT', 'ข่าวสินค้า', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'th/news-detail/5', ',4,', NULL, 'th/product-detail/1', NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 4, NULL, NULL, NULL, 0, 1, 'th', NULL, NULL, '2025-08-15 00:50:52', '2025-08-15 00:55:25'),
-(6, 'TERM', 'TERMS OF CONDITIONS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, quidem cumque! Necessitatibus</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quidem laudantium aperiam, illo natus qui impedit ex laborum dignissimos perferendis in quisquam error</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nobis veritatis veniam officiis!</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, quidem cumque! Necessitatibus</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quidem laudantium aperiam, illo natus qui impedit ex laborum dignissimos perferendis in quisquam error</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nobis veritatis veniam officiis!</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, quidem cumque! Necessitatibus</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quidem laudantium aperiam, illo natus qui impedit ex laborum dignissimos perferendis in quisquam error</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nobis veritatis veniam officiis!</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, quidem cumque! Necessitatibus</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quidem laudantium aperiam, illo natus qui impedit ex laborum dignissimos perferendis in quisquam error</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nobis veritatis veniam officiis!</span></span></p>', NULL, ',5,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 0, 5, NULL, NULL, NULL, 0, 1, 'th', NULL, NULL, '2025-08-18 03:11:54', '2025-08-18 03:13:46');
+(6, 'TERM', 'TERMS OF CONDITIONS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, quidem cumque! Necessitatibus</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quidem laudantium aperiam, illo natus qui impedit ex laborum dignissimos perferendis in quisquam error</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nobis veritatis veniam officiis!</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, quidem cumque! Necessitatibus</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quidem laudantium aperiam, illo natus qui impedit ex laborum dignissimos perferendis in quisquam error</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nobis veritatis veniam officiis!</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, quidem cumque! Necessitatibus</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quidem laudantium aperiam, illo natus qui impedit ex laborum dignissimos perferendis in quisquam error</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nobis veritatis veniam officiis!</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, quidem cumque! Necessitatibus</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; quidem laudantium aperiam, illo natus qui impedit ex laborum dignissimos perferendis in quisquam error</span></span></p>\r\n\r\n<p><span style=\"color:#098c46\"><span style=\"font-size:18px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nobis veritatis veniam officiis!</span></span></p>', NULL, ',5,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 0, 5, NULL, NULL, NULL, 0, 1, 'th', NULL, NULL, '2025-08-18 03:11:54', '2025-08-18 03:13:46'),
+(7, 'REGISTER', 'การรับประกันและการจำกัดความรับผิดชอบ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '<p><span style=\"color:#d1d5dc\"><span style=\"font-size:14px\">&nbsp;</span><span style=\"font-size:18px\">The Company warrants that the seed in this package conforms to the Company&rsquo;s standard specifications</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; and</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; labeling.</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; To the extent permissible under applicable law, the Company hereby disclaims all express or implied</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; warranties,</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; including warranties of merchantability and fitness for a particular purpose.</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">There are no other warranties, including warranties of crop performance or freedom from disease</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (even if</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; seed-borne).</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Weather conditions, soil, farming experience, and other variables &mdash; including new and mutated</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; diseases</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; and chemicals &mdash;</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; can have a major effect on the successful farming of any seeds. Therefore, no warranty against</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; disease,</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; variety,</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; or crop performance is given or implied.</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp;The Company&rsquo;s total liability in relation to this seed &mdash; however such liability may arise &mdash; is</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; limited</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; in amount</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; to the purchase price of the seed. The Company shall not be liable to the buyer for any direct,</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; special,</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; incidental,</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; or consequential losses or damages, regardless of whether such damages are claimed in contract, tort</span></span></p>\r\n\r\n<p><span style=\"font-size:18px\"><span style=\"color:#d1d5dc\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (including negligence or breach of statutory duty), misrepresentation, or otherwise.</span></span></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#d1d5dc\"><strong>Notice of Claim</strong></span></span></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><span style=\"color:#d1d5dc\"><span style=\"font-size:14px\">Notice of any claim in connection with the warranty expressly made herein shall be given within a reasonable time after discovery. Notice given after the point in time at which the Company cannot physically inspect or examine the seed or the resulting crops shall be deemed not to be reasonable notice hereunder.</span></span></p>\r\n\r\n<h3><span style=\"font-size:16px\"><span style=\"color:#d1d5dc\"><strong>Product &amp; Variety Disclaimer</strong></span></span></h3>\r\n\r\n<p><span style=\"color:#d1d5dc\"><span style=\"font-size:14px\">Weather conditions, soil, farming experience, and other variables &mdash; including new and mutated diseases and chemicals &mdash; can have a major effect on the successful farming of any seeds. Therefore, no warranty against disease, variety, or crop performance is provided. load Weather conditions, soil, farming experience, and other variables &mdash; including new and mutated diseases and chemicals &mdash; can have a major effect on the successful farming of any seeds. Therefore, no warranty against disease, variety, or crop performance is provided. load Weather conditions, soil, farming experience, and other variables &mdash; including new and mutated diseases and chemicals &mdash; can have a major effect on the successful farming of any seeds. Therefore, no warranty against disease, variety, or crop performance is provided. load Weather conditions, soil, farming experience, and other variables &mdash; including new and mutated diseases and chemicals &mdash; can have a major effect on the successful farming of any seeds. Therefore, no warranty against disease, variety, or crop performance is provided. load</span></span></p>', NULL, ',5,', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 0, 6, NULL, NULL, NULL, 0, 0, 'th', NULL, NULL, '2025-08-19 21:44:06', '2025-08-19 23:19:14');
 
 -- --------------------------------------------------------
 
@@ -821,7 +917,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `short_url`, `thumbnail_link`, `thumbnail_title`, `thumbnail_alt`, `thumbnail_size`, `thumbnail_second_link`, `thumbnail_second_title`, `thumbnail_second_alt`, `thumbnail_second_size`, `seement`, `plant_1`, `plant_2`, `plant_3`, `fruit_1`, `fruit_2`, `fruit_3`, `taste_1`, `taste_2`, `disease_1`, `disease_2`, `category`, `redirect`, `link_youtube`, `doc_link`, `display`, `pin`, `priority`, `language`, `defaults`, `created_at`, `updated_at`, `slug`, `keyword`, `description`, `freetag`, `h1`, `h2`, `tags`, `link_facebook`, `link_twitter`, `link_instagram`, `link_line`, `post_view`, `meta_tag`, `meta_title`, `meta_description`, `last_update_by`) VALUES
-(1, 'RLL 001', 'th/product-detail/1', 'upload/2025/08/18/402ccbf6eb7da72e00ecda8313a91b96(1).jpg', NULL, NULL, NULL, 'upload/2025/08/18/96632777b703aa6c16f43d1e58aca6bb(1).jpg', NULL, NULL, NULL, '19', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '- Cost management via early maturity and open field practice.', '- The fruit weighs 100–120 grams.', '- It has a square shape.', '- It has very good transportation ability.', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '9', NULL, 'https://www.youtube.com/embed/em-RtqAwuj8', 'pdf/docs/2025/08/18/chap4th1755501556.pdf', 1, 1, '1', 'th', 1, '2025-08-18 00:19:16', '2025-08-18 00:19:16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL);
+(1, 'RLL 001 AR', 'ar/product-detail/1', 'upload/2025/08/18/402ccbf6eb7da72e00ecda8313a91b96(1).jpg', NULL, NULL, NULL, 'upload/2025/08/18/96632777b703aa6c16f43d1e58aca6bb(1).jpg', NULL, NULL, NULL, '19', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '- Cost management via early maturity and open field practice.', '- The fruit weighs 100–120 grams.', '- It has a square shape.', '- It has very good transportation ability.', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '9', NULL, 'https://www.youtube.com/embed/em-RtqAwuj8', 'pdf/docs/2025/08/18/chap4th1755501556.pdf', 1, 1, '1', 'ar', 0, NULL, '2025-08-25 02:49:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
+(1, 'RLL 001 EN', 'en/product-detail/1', 'upload/2025/08/18/402ccbf6eb7da72e00ecda8313a91b96(1).jpg', NULL, NULL, NULL, 'upload/2025/08/18/96632777b703aa6c16f43d1e58aca6bb(1).jpg', NULL, NULL, NULL, '19', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '- Cost management via early maturity and open field practice.', '- The fruit weighs 100–120 grams.', '- It has a square shape.', '- It has very good transportation ability.', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '9', NULL, 'https://www.youtube.com/embed/em-RtqAwuj8', 'pdf/docs/2025/08/18/chap4th1755501556.pdf', 1, 1, '1', 'en', 0, NULL, '2025-08-25 02:48:41', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
+(1, 'RLL 001 TH', 'th/product-detail/1', 'upload/2025/08/18/402ccbf6eb7da72e00ecda8313a91b96(1).jpg', NULL, NULL, NULL, 'upload/2025/08/18/96632777b703aa6c16f43d1e58aca6bb(1).jpg', NULL, NULL, NULL, '19', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '- Cost management via early maturity and open field practice.', '- The fruit weighs 100–120 grams.', '- It has a square shape.', '- It has very good transportation ability.', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '- Good branching plant with heat setting.', '- Good leaf covering plant, and early maturity.', '9', NULL, 'https://www.youtube.com/embed/em-RtqAwuj8', 'pdf/docs/2025/08/18/chap4th1755501556.pdf', 1, 1, '1', 'th', 1, '2025-08-18 00:19:16', '2025-08-25 01:50:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
+(2, 'ARM 001 TH', 'th/product-detail/2', 'upload/2025/08/25/3b2f255753a3c96a7254304b2d69dce6.jpg', NULL, NULL, NULL, 'upload/2025/08/25/6c7b568ceaa09859f004c6a176a49637.jpg', NULL, NULL, NULL, '1', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '- Good branching plant with heat setting.', '8', NULL, 'https://www.youtube.com/embed/9m81GlfA1BE', 'pdf/docs/2025/08/25/Tomatoes_PDFth1756116382.pdf', 1, 0, '2', 'th', 1, '2025-08-25 03:06:22', '2025-08-25 03:06:22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -871,6 +970,7 @@ CREATE TABLE `product_category` (
 INSERT INTO `product_category` (`id`, `title`, `details`, `description`, `segment_id`, `thumbnail_link`, `thumbnail_title`, `thumbnail_alt`, `details_content`, `priority`, `pin`, `display`, `defaults`, `language`, `created_at`, `updated_at`) VALUES
 (7, 'ข้าวโพด', 'null', 'null', '13,3,', 'upload/2025/08/04/521767fd2d86f27cd2c1781eb161ac9a.jpg', 'null', 'null', NULL, 1, 0, 1, 1, 'th', '2025-08-03 23:45:21', '2025-08-04 19:12:44'),
 (8, 'มะเขือเทศ', 'null', 'null', '1,', 'upload/2025/08/04/มะเขียเทสเดินเล่น(3).png', 'null', 'null', NULL, 2, 0, 1, 1, 'th', '2025-08-04 00:51:24', '2025-08-14 21:34:28'),
+(9, 'rice', 'null', 'null', '19,', 'upload/2025/08/15/97aaf347be8722733b292088d765bb4e.jpg', 'null', 'null', NULL, 3, 0, 1, 0, 'en', NULL, '2025-08-25 00:11:24'),
 (9, 'ข้าว', 'null', 'null', '19,', 'upload/2025/08/15/97aaf347be8722733b292088d765bb4e.jpg', 'null', 'null', NULL, 3, 0, 1, 1, 'th', '2025-08-14 21:39:39', '2025-08-14 21:53:24'),
 (10, 'ข้าวสาลี', 'null', 'null', '18,', 'upload/2025/08/15/96632777b703aa6c16f43d1e58aca6bb.jpg', 'null', 'null', NULL, 4, 0, 1, 1, 'th', '2025-08-14 21:40:28', '2025-08-14 21:53:14'),
 (11, 'ถั่วเหลือง', 'null', 'null', '17,', 'upload/2025/08/15/dd8048585e316b170db7dd68b82d1e02.jpg', 'null', 'null', NULL, 5, 0, 1, 1, 'th', '2025-08-14 21:40:48', '2025-08-14 21:53:01'),
@@ -953,7 +1053,15 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `account_role`, `ema
 (1, 'admin@example.com', '$2y$10$s15yQn3lPYMKX03FjQor9.8Lah4FBHlJ6tSyQx9fZitwpaMaUtmm.', 'admin@example.com', 'backoffice', NULL, NULL, NULL, NULL),
 (2, 'papap@gmail.com', '$2y$12$VkMASWZU1giR9seGU0C9ZeB18WwP98ibvKCRGsenb4fKQy8cxyFry', 'papap@gmail.com', 'backoffice', NULL, NULL, '2025-07-24 23:26:27', '2025-07-24 23:26:27'),
 (7, 'papsap2@gmail.com', '$2y$12$IFucwmYLFkXHBMJO.fWcXu6Igjxd6IzJN8//HFc/jUTy12kVFyN62', 'papsap2@gmail.com', 'backoffice', NULL, NULL, '2025-07-25 02:59:45', '2025-07-25 02:59:45'),
-(9, 'papsap3@gmail.com', '$2y$12$8SMggMHwUa8qCuMzVzaEjeHHR1YZkyGx45WXAbVdWzKufCRLCDFYq', 'papsap3@gmail.com', 'backoffice', NULL, NULL, '2025-07-30 19:23:57', '2025-07-30 19:23:57');
+(9, 'papsap3@gmail.com', '$2y$12$8SMggMHwUa8qCuMzVzaEjeHHR1YZkyGx45WXAbVdWzKufCRLCDFYq', 'papsap3@gmail.com', 'backoffice', NULL, NULL, '2025-07-30 19:23:57', '2025-07-30 19:23:57'),
+(14, 'park2', '$2y$12$8GEUtH2Oi9sB6lpPSmSkSeHWVDb7gl/G2HwYqg7.doDpxVXsYyxHy', '123q@321.ddd', 'member', NULL, NULL, '2025-08-20 21:30:48', '2025-08-20 21:30:48'),
+(16, 'park3', '$2y$12$oXa2faZPAG1ThJAAO3XtJO2L/GfFxHjeIv1lVkSRhThm3kNUynami', '12e3q@321.ddd', 'member', NULL, NULL, '2025-08-20 21:38:06', '2025-08-20 21:38:06'),
+(17, 'park4', '$2y$12$5Rea8KTNPumHCMR/Tv3E5.d34l9sM611nN.S5PxKIrlUlDgLu7XpS', '1qr23q@321.ddd', 'member', NULL, NULL, '2025-08-20 21:54:58', '2025-08-20 21:54:58'),
+(18, 'park5', '$2y$12$VVcIH6hqkU/tVh4p4Tu/6.jPtPKDkZTz0YUgJ/qEz0U1nUiCnQ5My', 's1qr23q@321.ddd', 'member', NULL, NULL, '2025-08-20 23:13:21', '2025-08-20 23:13:21'),
+(19, 'park6', '$2y$12$3vp7u1JMktIczPbz/FkpEOZSCpfUCifgxNl7XGqhdDUVEoF.5q8/W', 'xxr23q@321.ddd', 'member', NULL, NULL, '2025-08-20 23:33:50', '2025-08-20 23:33:50'),
+(20, 'parktest1', '$2y$12$l34nDd729p4ak39VxFgUf.nasQS6ls8Hn0li8G4GPGuL5UYweP4We', 'xxr23q@321.com', 'member', NULL, NULL, '2025-08-22 00:16:33', '2025-08-22 00:16:33'),
+(21, 'parkemailtest', '$2y$12$bg1GRRpr5EGwMMJo8mFX7uc0uO8vYtH7176gDXbA3OkbqLloGV9Xi', 'papap@gmail.com', 'member', NULL, NULL, '2025-08-22 23:20:05', '2025-08-22 23:20:05'),
+(36, 'parksetemailtest', '$2y$12$4XK9mEU8tQ4XQVNC8NLW8uwpOCf80DaPyL7Gt/6whfEkgNc6I/j3W', 'jaturon.boonla@gmail.com', 'member', NULL, NULL, '2025-08-25 21:57:02', '2025-08-27 21:06:24');
 
 -- --------------------------------------------------------
 
@@ -984,7 +1092,7 @@ CREATE TABLE `web_infos` (
 --
 
 INSERT INTO `web_infos` (`info_id`, `info_type`, `info_param`, `info_title`, `info_value`, `info_link`, `info_iframe`, `info_attribute`, `info_priority`, `info_display`, `admin_level`, `language`, `defaults`, `created_at`, `updated_at`) VALUES
-(1, '1', 'webname', 'ชื่อเว็บไซต์ #1', 'Agro Star Seeds', NULL, '', '', 1, 1, 3, 'th', 1, '2025-07-25 05:03:44', '2025-07-25 05:03:44'),
+(1, '1', 'webname', 'ชื่อเว็บไซต์ #1', 'Green Global', NULL, '', '', 1, 1, 3, 'th', 1, '2025-07-25 05:03:44', '2025-07-25 05:03:44'),
 (2, '1', 'companyname', 'ชื่อบริษัท / ชื่อร้านค้า', NULL, NULL, '', '', 3, 1, 3, 'th', 1, '2025-07-25 05:03:44', '2025-07-25 05:03:44'),
 (3, '1', 'image_1', 'Image #1 (Logo)', NULL, 'image\\catering-img3.png', '', '', 3, 1, 3, 'th', 1, '2025-07-25 05:03:44', '2025-07-25 05:03:44'),
 (4, '1', 'favicon', 'Image favicon (Primary)', NULL, 'image\\logo-GGS.png 1.png', '', '', 6, 1, 3, 'th', 1, '2025-07-25 05:03:44', '2025-07-25 05:03:44'),
@@ -993,9 +1101,17 @@ INSERT INTO `web_infos` (`info_id`, `info_type`, `info_param`, `info_title`, `in
 (7, '1', 'image_3', 'Image #3 (#1)', NULL, 'upload/2025/08/19/317555799570.png', NULL, NULL, 4, 1, 3, 'th', 1, '2025-08-01 03:42:32', '2025-08-01 03:42:32'),
 (8, '1', 'image_4', 'Image #4 (#2)', NULL, 'upload/2025/08/19/417555799570.png', NULL, NULL, 4, 1, 3, 'th', 1, '2025-08-01 03:42:32', '2025-08-01 03:42:32'),
 (9, '1', 'image_5', 'Image #5 (#3)', NULL, 'upload/2025/08/19/517555863240.png', NULL, NULL, 4, 1, 3, 'th', 1, '2025-08-01 03:42:32', '2025-08-01 03:42:32'),
-(10, '2', 'email', 'อีเมล', 'ggs.web@greenglobalseeds.com', NULL, NULL, NULL, 3, 1, 3, 'th', 1, '2025-08-19 07:13:03', '2025-08-19 00:14:51'),
+(10, '2', 'email', 'Email', 'parklovepark112@gmail.com', NULL, NULL, NULL, 3, 1, 3, 'ar', 0, '2025-08-19 07:13:03', '2025-08-19 00:14:51'),
+(10, '2', 'email', 'Email', 'parklovepark112@gmail.com', NULL, NULL, NULL, 3, 1, 3, 'en', 0, '2025-08-19 07:13:03', '2025-08-19 00:14:51'),
+(10, '2', 'email', 'อีเมล', 'parklovepark112@gmail.com', NULL, NULL, NULL, 3, 1, 3, 'th', 1, '2025-08-19 07:13:03', '2025-08-19 00:14:51'),
+(11, '2', 'phone', 'Phone', '0933365675', NULL, NULL, NULL, 1, 1, 3, 'ar', 0, '2025-08-19 00:14:22', '2025-08-19 00:14:42'),
+(11, '2', 'phone', 'Phone', '0933365675', NULL, NULL, NULL, 1, 1, 3, 'en', 0, '2025-08-19 00:14:22', '2025-08-19 00:14:42'),
 (11, '2', 'phone', 'เบอร์โทรศัพท์', '0933365675', NULL, NULL, NULL, 1, 1, 3, 'th', 1, '2025-08-19 00:14:22', '2025-08-19 00:14:42'),
+(12, '2', 'website', 'Website', 'WWW.REENGLOBLSEEDS.COM', NULL, NULL, NULL, 2, 1, 3, 'ar', 0, '2025-08-19 00:15:35', '2025-08-19 00:29:13'),
+(12, '2', 'website', 'Website', 'WWW.REENGLOBLSEEDS.COM', NULL, NULL, NULL, 2, 1, 3, 'en', 0, '2025-08-19 00:15:35', '2025-08-19 00:29:13'),
 (12, '2', 'website', 'เว็บไซต์', 'WWW.REENGLOBLSEEDS.COM', NULL, NULL, NULL, 2, 1, 3, 'th', 1, '2025-08-19 00:15:35', '2025-08-19 00:29:13'),
+(13, '2', 'address', 'Address', 'GREEN GLOBAL SEEDS COMPANY 199/376, Moo 4, Rangsit Sub-district, Thanyaburi District, Pathum Thani 12110. Thailand', NULL, NULL, NULL, 4, 1, 3, 'ar', 0, '2025-08-19 00:18:42', '2025-08-19 00:18:42'),
+(13, '2', 'address', 'Address', 'GREEN GLOBAL SEEDS COMPANY 199/376, Moo 4, Rangsit Sub-district, Thanyaburi District, Pathum Thani 12110. Thailand', NULL, NULL, NULL, 4, 1, 3, 'en', 0, '2025-08-19 00:18:42', '2025-08-19 00:18:42'),
 (13, '2', 'address', 'ที่อยู่', 'GREEN GLOBAL SEEDS COMPANY 199/376, Moo 4, Rangsit Sub-district, Thanyaburi District, Pathum Thani 12110. Thailand', NULL, NULL, NULL, 4, 1, 3, 'th', 1, '2025-08-19 00:18:42', '2025-08-19 00:18:42'),
 (22, '4', 'copy_right', 'copy right', '© 2023 by Tamarind Thai Restaurant.com', '', '', '', 1, 1, 3, 'th', 1, '2025-07-25 05:03:44', '2025-07-25 05:03:44');
 
@@ -1115,6 +1231,12 @@ ALTER TABLE `member_accounts`
 -- Indexes for table `member_favors`
 --
 ALTER TABLE `member_favors`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `member_occupations`
+--
+ALTER TABLE `member_occupations`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1238,7 +1360,7 @@ ALTER TABLE `shipping_rates`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_username_unique` (`username`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`,`account_role`) USING BTREE;
 
 --
 -- Indexes for table `web_infos`
@@ -1273,7 +1395,7 @@ ALTER TABLE `admin_roles`
 -- AUTO_INCREMENT for table `ad_slides`
 --
 ALTER TABLE `ad_slides`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ad_slide_positions`
@@ -1327,13 +1449,13 @@ ALTER TABLE `language_configs`
 -- AUTO_INCREMENT for table `leave_messages`
 --
 ALTER TABLE `leave_messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `member_accounts`
 --
 ALTER TABLE `member_accounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `member_favors`
@@ -1342,16 +1464,22 @@ ALTER TABLE `member_favors`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `member_occupations`
+--
+ALTER TABLE `member_occupations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT for table `member_profiles`
 --
 ALTER TABLE `member_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -1387,7 +1515,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `post_images`
@@ -1399,7 +1527,7 @@ ALTER TABLE `post_images`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products_images`
@@ -1429,7 +1557,7 @@ ALTER TABLE `shipping_rates`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `web_infos`

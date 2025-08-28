@@ -108,12 +108,13 @@
                             </button>
 
                             <div id="dropdownMenu"
-                                class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                class="hidden absolute right-0 z-10 mt-4 w-[96px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden">
                                 <div>
                                     @foreach ($menuChildren['register']->childrenData as $children)
                                         <a href={{ $children->cate_redirect }}
-                                            class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
-                                            {{ $children->cate_title }}</a>
+                                            class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46]  transition duration-200">
+                                            {{ $children->cate_title }}
+                                        </a>
                                     @endforeach
 
                                     {{-- <a href="/{{ $language }}/register"
