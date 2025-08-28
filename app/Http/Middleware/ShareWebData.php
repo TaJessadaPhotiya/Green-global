@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\AdSlide;
 use App\Models\Category;
 use App\Models\Post;
 use Closure;
@@ -42,12 +43,12 @@ class ShareWebData
             // หากไม่พบข้อมูล ให้ fallback ไปใช้ภาษาเริ่มต้น
             if (($single && !$result) || (!$single && $result->isEmpty())) {
                 $query = Category::with(relations: [
-                'childrenData' => function ($query) use ($language) {
-                    $query->where(function ($q) use ($language) {
-                        $q->where('defaults', 1);
-                    })->orderBy('defaults', 'asc');
-                }
-            ])
+                    'childrenData' => function ($query) use ($language) {
+                        $query->where(function ($q) use ($language) {
+                            $q->where('defaults', 1);
+                        })->orderBy('defaults', 'asc');
+                    }
+                ])
                     ->where(['is_menu' => 1, 'is_main_page' => 1, 'cate_level' => 0, 'cate_status_display' => 1, 'cate_position' => $position])
                     ->where('defaults', 1)
                     ->orderBy('cate_priority', 'asc');
@@ -80,7 +81,13 @@ class ShareWebData
                 ->first();
         }
 
-        // dd($getMenu(1)->toArray());
+        $slides = AdSlide::where(['language' => $language, 'ad_status_display' => 1])
+            ->get();
+        if (!$slides) {
+            $slides = AdSlide::where(['defaults' => 1, 'ad_status_display' => 1])
+                ->get();
+        }
+        // dd($slides->toArray());
         // Share global data with all views
         view::share('language', $language);
         View::share('appName', config('app.name'));
@@ -88,6 +95,7 @@ class ShareWebData
         View::share('mainMenu', $getMenu(1));
         View::share('menuChildren', ['register' => $getMenu(2, 'REGISTER', true), 'member' => $getMenu(2, 'MEMBER', true)]);
         View::share('proviso', $proviso);
+        View::share('slides', $slides);
 
         return $next($request);
     }

@@ -94,10 +94,10 @@
                 token: token
             }).then(function(response) {
                 // Handle success response
-                console.log('Login successful:' + response);
+                console.log( response );
                 // console.log('Login successful:' + response);
                 // Redirect or show success message
-                if (response.data.status === '200') {
+                if (response.status === 200) {
                     // Redirect to dashboard or show success message
                     Swal.fire({
                         position: "top-end",

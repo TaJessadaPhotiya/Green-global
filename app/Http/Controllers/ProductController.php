@@ -20,21 +20,37 @@ class ProductController extends Controller
             'thumbnail_title',
             'thumbnail_alt',
             'title',
-            'segment_id'
+            'segment_id',
+            'defaults',
+            'language'
         ];
         $Segment = Segment::select('id', 'title')->orderBy('title', 'ASC')->get();
 
         // First, try to get categories for the specified language.
         $MenuProductCrop = ProductCate::select($selectedColumns)
-            ->where('language', $language)
-            ->get();
+            ->where(function ($q) use ($language) {
+                $q->where('language', $language)
+                    ->orWhere('defaults', 1);
+            })
+            ->where('display', 1)
+            ->orderBy('updated_at', 'desc')
+            ->get()
+            ->groupBy('id')   // group ตาม id
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
 
+        // dd($MenuProductCrop);
         // If no categories are found for the language, get the default ones.
-        if ($MenuProductCrop->isEmpty()) {
-            $MenuProductCrop = ProductCate::select($selectedColumns)
-                ->where('defaults', 1)
-                ->get();
-        }
+        // if ($MenuProductCrop->isEmpty()) {
+        //     $MenuProductCrop = ProductCate::select($selectedColumns)
+        //         ->where('defaults', 1)
+        //         ->get();
+        // }
 
         $ProductCate = collect($MenuProductCrop)->map(function ($cate) use ($Segment) {
             $segmentIds = explode(',', rtrim($cate->segment_id, ','));
@@ -45,18 +61,29 @@ class ProductController extends Controller
             return $cate;
         });
 
-        $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
-            ->select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
-            ->where('products.display', 1)
-            ->where('products.language', $language)
-            ->get();
-        if ($ProductLists->isEmpty()) {
-            $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
-                ->select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
-                ->where('products.display', 1)
-                ->where('products.defaults', 1)
-                ->get();
-        }
+        $ProductLists = Product::select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
+            ->leftJoin('product_category', 'product_category.id', '=', 'products.category')
+            ->where(['products.language' => $language, 'products.display' => 1])
+            ->orWhere('products.defaults', 1)
+            ->get()
+            ->groupBy('id')   // group ตาม id
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
+
+        // dd($ProductLists);
+
+        // if ($ProductLists->isEmpty()) {
+        //     $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
+        //         ->select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
+        //         ->where('products.display', 1)
+        //         ->where('products.defaults', 1)
+        //         ->get();
+        // }
 
         $cate_id = $request->query('id');
         $segment_id = $request->query('segment');

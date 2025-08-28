@@ -39,13 +39,21 @@
         // console.log('123');
         const email = document.getElementById("username").value.trim();
 
-         const url = '{{ $language }}';
+        const url = '{{ $language }}';
 
         axios.post(`/${url}/forgot-password`, {
             email: email
         }).then(function(response) {
             // Handle success
             console.log(response.data);
+            document.getElementById("username").value = "";
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${response.data.description}`,
+                showConfirmButton: false,
+                timer: 1500
+            });
         }).catch(function(error) {
             // Handle error
             console.error(error);

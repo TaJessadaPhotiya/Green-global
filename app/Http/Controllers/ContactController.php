@@ -15,19 +15,20 @@ class ContactController extends Controller
             ->where('language', $language)
             ->orderBy('info_priority', 'ASC')
             ->get()
+
             ->toArray();
 
         $rqCode = WebInfo::where('info_param', 'image_2')
-            ->where('language', $language)
+            ->where('defaults', 1)
             ->first();
         $image1 = WebInfo::where('info_param', 'image_3')
-            ->where('language', $language)
+            ->where('defaults', 1)
             ->first();
         $image2 = WebInfo::where('info_param', 'image_4')
-            ->where('language', $language)
+            ->where('defaults', 1)
             ->first();
         $image3 = WebInfo::where('info_param', 'image_5')
-            ->where('language', $language)
+            ->where('defaults', 1)
             ->first();
 
         $contactImage = collect([

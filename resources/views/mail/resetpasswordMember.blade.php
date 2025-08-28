@@ -124,11 +124,11 @@
             <div class="h1">Reset Password</div>
         </div>
         <div class="email-body">
-            <h1>Hello you {{' $user_account->first_name' }} {{ '$user_account->last_name' }},</h1>
+            <h1>Hello you {{ $user_account->first_name }} {{ $user_account->last_name }},</h1>
             <p>You have requested a password reset for your THE Green Global account recently.</p>
             <p>If you did not request a password reset, please ignore this email
                 or reply to let us know. This password reset was created when
-                {{ date('H:i d/m/Y', strtotime('$reset_token->created_at')) }}.
+                {{ date('H:i d/m/Y', strtotime($reset_token->created_at)) }}.
             </p>
             <h3>With respect</h3>
             <p><strong>{{ $web_info->detail->webname->value }}</strong></p>

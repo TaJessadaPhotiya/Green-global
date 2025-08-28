@@ -1,26 +1,3 @@
-@php
-    $slides = [
-        (object) [
-            'ad_image' => 'image/Rectangle 2.png',
-            'ad_title' => 'Enjoy a luxury experience',
-            'ad_description' => 'Hotel resort & spa',
-            'ad_link' => 'https://example.com/slide1',
-        ],
-        (object) [
-            'ad_image' => 'image/Rectangle2.png',
-            'ad_title' => 'Enjoy a luxury experience',
-            'ad_description' => 'Hotel resort & spa',
-            'ad_link' => 'https://example.com/slide1',
-        ],
-        (object) [
-            'ad_image' => 'image/Rectangle2.png',
-            'ad_title' => 'Enjoy a luxury experience',
-            'ad_description' => 'Hotel resort & spa',
-            'ad_link' => 'https://example.com/slide1',
-        ],
-    ];
-@endphp
-
 
 <div class="relative w-full xl:h-[500px] lg:h-[400px] md:h-[300px] iPad-mini:h-[300px] h-[180px]  overflow-hidden">
     <div id="mySwiper" class="swiper-container relative w-full h-full">
@@ -28,7 +5,7 @@
             @foreach ($slides as $slide)
                 <div class="swiper-slide relative">
                     <img class="w-full h-full object-cover" src="/{{ $slide->ad_image }}"
-                        alt="{{ $slide->ad_description }}">
+                        alt="{{ $slide->ad_image_alt }}">
                     <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/10"></div>
                 </div>
             @endforeach
