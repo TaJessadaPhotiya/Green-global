@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('type_name');
             $table->string('title');
+            $table->boolean('display')->default(true);
             $table->string('language');
             $table->boolean('defaults')->default(false);
             $table->timestamp('created_at')->useCurrent();

@@ -18,9 +18,9 @@ class ConfigController extends BaseController
     {
         $this->getAuthUser(1);
         $bannerType = AdSlidePosition::orderBy('name', 'ASC')->get();
-        $languageAvailable = LanguageAvailable::orderBy('defaults', 'DESC')->get();
+        $languageAvailable = LanguageAvailable::get();
         $infoType = $this->webInfoType($request->language);
-
+        // dd( $infoType);
         #BANNER
         $bannerTypeArr = [];
         foreach ($bannerType as $val) {
@@ -45,7 +45,7 @@ class ConfigController extends BaseController
                 'language' => $val->abbv_name,
                 'flag' => $val->flag,
                 'defaults' => $val->defaults,
-                'updatedDate' =>  date('Y-m-d H:i:s', strtotime($val->updated_at)),
+                'updatedDate' => date('Y-m-d H:i:s', strtotime($val->updated_at)),
                 'active' => false,
             ]);
         }
@@ -58,7 +58,7 @@ class ConfigController extends BaseController
                 'token' => base64_encode($val->id),
                 'title' => $val->title,
                 'typeName' => $val->typeName,
-                'updatedDate' =>  date('Y-m-d H:i:s', strtotime($val->updated_at)),
+                'updatedDate' => date('Y-m-d H:i:s', strtotime($val->updated_at)),
             ]);
         }
 
@@ -97,7 +97,7 @@ class ConfigController extends BaseController
             ]);
 
             AdminAccount::where('account_id', $auth->account_id)->update([
-                "language" => $auth->language . "," .  $params['language']
+                "language" => $auth->language . "," . $params['language']
             ]);
 
             return response()->json([
@@ -116,7 +116,7 @@ class ConfigController extends BaseController
     public function deleteConfigLanguage($token)
     {
         $this->getAuthUser(1);
-        $id = (int)(base64_decode($token));
+        $id = (int) (base64_decode($token));
         $find = LanguageAvailable::find($id);
         if (!$find) {
             return response()->json([
@@ -182,7 +182,7 @@ class ConfigController extends BaseController
     public function deleteConfigDataType($token)
     {
         $this->getAuthUser(1);
-        $id = (int)(base64_decode($token));
+        $id = (int) (base64_decode($token));
         $find = WebInfoType::find($id);
         if (!$find) {
             return response()->json([
@@ -283,7 +283,7 @@ class ConfigController extends BaseController
     public function deleteConfigAdType($token)
     {
         $this->getAuthUser(1);
-        $id = (int)(base64_decode($token));
+        $id = (int) (base64_decode($token));
         $find = AdSlidePosition::find($id);
         if (!$find) {
             return response()->json([
@@ -309,8 +309,30 @@ class ConfigController extends BaseController
     /* Function */
     private function webInfoType($language)
     {
-        $sql = "SELECT id, type_name as typeName, title, updated_at  FROM web_info_types WHERE language = :lang OR defaults = 1 GROUP BY id ORDER BY defaults ASC, id ASC";
-        return DB::select($sql, [":lang" => $language]);
+        // $sql = "SELECT id,
+        // type_name as typeName,
+        // title, updated_at
+        // FROM web_info_types
+        // WHERE language = :lang OR defaults = 1
+        // GROUP BY id
+        // ORDER BY defaults ASC, id ASC";
+        // return DB::select($sql, [":lang" => $language]);
+        $sql = WebInfoType::select('id', 'type_name as typeName', 'title', 'language', 'defaults', 'updated_at')
+            ->where(function ($q) use ($language) {
+                $q->where('language', $language)
+                    ->orWhere('defaults', 1);
+            })
+            ->orderBy('id', 'ASC')
+            ->get();
+
+        return $sql->groupBy('id')   // group ตาม rootId
+        ->map(function ($items) use ($language) {
+            // หาตัวที่ตรงกับ language
+            $match = $items->firstWhere('language', $language);
+            // ถ้าไม่มีให้ใช้ defaults
+            return $match ?? $items->firstWhere('defaults', 1);
+        })
+        ->values();  // reset index;
     }
 
     public function uploadManual(Request $request)
@@ -323,7 +345,7 @@ class ConfigController extends BaseController
             $fileName = "manual";
             $newFolder = "upload/manual/";
             $filePathName = $newFolder . $fileName . '.pdf';
-            if(file_exists($filePathName)){
+            if (file_exists($filePathName)) {
                 unlink($filePathName);
             }
             $imgSrc = $this->uploadImage($newFolder, $files['upload'], "", "", $fileName);
@@ -331,14 +353,14 @@ class ConfigController extends BaseController
             return response([
                 "uploaded" => 1,
                 "fileName" => $fileName,
-                "url" => config('app.url') . "/" .  $imgSrc
+                "url" => config('app.url') . "/" . $imgSrc
             ], 201);
         } catch (Exception $e) {
             return response([
                 "message" => "error",
-                "uploaded" =>  0,
-                "error" =>  [
-                    "message" =>  $e->getMessage()
+                "uploaded" => 0,
+                "error" => [
+                    "message" => $e->getMessage()
                 ]
             ], 501);
         }

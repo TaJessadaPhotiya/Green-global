@@ -55,7 +55,7 @@ class WebInfoController extends Controller
 
             $webSiteLanguages = LanguageAvailable::select('abbv_name', 'name')->orderBy('defaults', 'DESC')->get()->all();
             $setDetails = $this->infoSetting($infoDetail);
-// dd($infoList);
+            // dd($infoList);
             return response()->json([
                 'data' => [
                     'details' => $setDetails->detail,
@@ -448,12 +448,15 @@ class WebInfoController extends Controller
         // $sql = "SELECT id, type_name as typeName, title
         // FROM web_info_types
         // WHERE language = :lang OR defaults = 1 GROUP BY id ORDER BY defaults ASC, id ASC";
+
         $sql = WebInfoType::select('id', 'type_name as typeName', 'title')
-        ->where('language', $language)
-        ->orWhere('defaults', 1)
-        ->orderBy('defaults', 'ASC')
-        ->orderBy('id', 'ASC')
-        ->get();
+            ->where('language', $language)
+            ->where(function ($q) use ($language) {
+                $q->where('language', $language)
+                    ->orWhere('defaults', 1);
+            })
+            ->orderBy('id', 'ASC')
+            ->get();
         return $sql;
     }
 }

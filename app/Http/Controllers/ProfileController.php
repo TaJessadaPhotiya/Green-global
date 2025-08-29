@@ -46,7 +46,6 @@ class ProfileController extends Controller
         // ตรวจสอบและอัปเดต email หากมีการเปลี่ยนแปลง
         if ($request->filled('email') && $request->email !== $user->email) {
             $user->email = $request->email;
-            $user->username = $request->email;
         }
 
         // ตรวจสอบและอัปเดต password หากมีการกรอกค่าใหม่
@@ -64,7 +63,7 @@ class ProfileController extends Controller
         $profile->display_name = $request->input('username');
         $profile->first_name = $request->input('firstname');
         $profile->last_name = $request->input('lastname');
-        $profile->phone_number = $request->input('telephone');
+        $profile->phone_number = $request->input(key: 'telephone');
         $profile->save();
 
         return response()->json([

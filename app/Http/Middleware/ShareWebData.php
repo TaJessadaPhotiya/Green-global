@@ -27,7 +27,7 @@ class ShareWebData
                 'childrenData' => function ($query) use ($language) {
                     $query->where(function ($q) use ($language) {
                         $q->where('language', $language);
-                    })->orderBy('defaults', 'asc');
+                    })->orderBy('cate_priority', 'asc');
                 }
             ])
                 ->where(['is_menu' => 1, 'is_main_page' => 1, 'cate_level' => 0, 'cate_status_display' => 1, 'cate_position' => $position])
@@ -43,10 +43,8 @@ class ShareWebData
             // หากไม่พบข้อมูล ให้ fallback ไปใช้ภาษาเริ่มต้น
             if (($single && !$result) || (!$single && $result->isEmpty())) {
                 $query = Category::with(relations: [
-                    'childrenData' => function ($query) use ($language) {
-                        $query->where(function ($q) use ($language) {
-                            $q->where('defaults', 1);
-                        })->orderBy('defaults', 'asc');
+                    'childrenData' => function ($query)  {
+                        $query->where('defaults', 1)->orderBy('cate_priority', 'asc');
                     }
                 ])
                     ->where(['is_menu' => 1, 'is_main_page' => 1, 'cate_level' => 0, 'cate_status_display' => 1, 'cate_position' => $position])
@@ -87,7 +85,14 @@ class ShareWebData
             $slides = AdSlide::where(['defaults' => 1, 'ad_status_display' => 1])
                 ->get();
         }
-        // dd($slides->toArray());
+
+        $A = Category::with(relations: ['childrenData'])
+        ->where(['is_menu' => 1, 'is_main_page' => 1, 'cate_level' => 0, 'cate_status_display' => 1, 'cate_position' => 2])
+        ->where('language', $language)
+        ->orderBy('cate_priority', 'asc')
+        ->get();
+
+        // dd($getMenu(2, 'MEMBER', true) );
         // Share global data with all views
         view::share('language', $language);
         View::share('appName', config('app.name'));
