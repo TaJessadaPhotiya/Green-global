@@ -72,7 +72,7 @@
             <div class="w-full flex justify-center gap-5 mt-8">
                 <button type="submit" form="formConfirmation"
                     class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
-                    Confirmation
+                    Confirm
                 </button>
             </div>
         </form>
@@ -81,55 +81,56 @@
 
 <script>
     document.getElementById("formConfirmation").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault(); 
 
         const password = document.getElementById('password').value;
         const password_confirmation = document.getElementById('password_confirmation').value;
         const token = '{{ $token }}';
 
         const url = '{{ $language }}';
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            customClass: {
+                popup: 'mt-[6.4rem]'
+            },
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+
         axios.post(`/${url}/reset-password`, {
-                password: password,
-                password_confirmation: password_confirmation,
-                token: token
-            }).then(function(response) {
-                // Handle success response
-                console.log( response );
-                // console.log('Login successful:' + response);
-                // Redirect or show success message
-                if (response.status === 200) {
-                    // Redirect to dashboard or show success message
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: `${response.data.description}`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+            password: password,
+            password_confirmation: password_confirmation,
+            token: token
+        }).then(function(response) {
+            console.log(response);
+
+            if (response.status === 200) {
+                Toast.fire({
+                    icon: "success",
+                    title: `${response.data.description}`
+                }).then(() => {
                     window.location.href = '/' + response.data.url;
-                }
-            })
-            .catch(function(error) {
-                // Handle error response
-                console.log(error.response);
-                // console.error('Login failed:' + error);
-                // Show error message to user
+                });
+            }
+        }).catch(function(error) {
+            console.log(error.response);
+
+            let message = 'Something went wrong';
+            if (error.response && error.response.data && error.response.data.message) {
+                message = error.response.data.message;
+            }
+
+            Toast.fire({
+                icon: 'error',
+                title: message
             });
-
+        });
     });
-
-    function togglePassword(id, btn) {
-        const input = document.getElementById(id);
-        const icon = btn.querySelector("svg");
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.remove("text-gray-700");
-            icon.classList.add("text-gray-400");
-        } else {
-            input.type = "password";
-            icon.classList.remove("text-gray-400");
-            icon.classList.add("text-gray-700");
-        }
-    }
 </script>

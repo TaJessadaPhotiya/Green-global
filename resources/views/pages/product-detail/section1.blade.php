@@ -7,8 +7,9 @@
                 &times;
             </button>
 
-            <iframe id="youtubeIframe" class="w-full h-full rounded-lg" src="https://www.youtube.com/embed/Xx7sxWI9FNI?si=3tMOYYSTbFaG2NkT"
-                title="YouTube video player" frameborder="0"
+            <iframe id="youtubeIframe" class="w-full h-full rounded-lg"
+                src="https://www.youtube.com/embed/Xx7sxWI9FNI?si=3tMOYYSTbFaG2NkT" title="YouTube video player"
+                frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
             </iframe>
@@ -24,7 +25,7 @@
                     data-aos-duration="1200">
                     <div
                         class="xl:w-full sm:w-[80%] w-full xl:h-[460px] h-auto rounded-tl-[50px] overflow-hidden drop-shadow-md">
-                        <img class="w-full h-full object-cover" src="{{ '/' . $product->thumbnail_link }}"
+                        <img class="w-full h-full object-contain" src="{{ '/' . $product->thumbnail_link }}"
                             alt="{{ $product->thumbnail_alt }}">
                     </div>
                     <div

@@ -265,14 +265,30 @@
                 console.log(response.data);
 
                 Swal.fire({
+                    toast: true,
                     position: "top-end",
                     icon: "success",
-                    title: "Message submitted successfully!",
+                    title: "Message successfully!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1000,
+                    timerProgressBar: true,
+                    customClass: {
+                        popup: 'mt-[6.4rem]'
+                    }
+                }).then(() => {
+                    // reload หลังจาก alert หาย
+                    location.reload(true);
                 });
-                location.reload(true);
-                // alert("Form submitted successfully!");
+
+            })
+            .catch(function(error) {
+                console.error(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!"
+                });
             });
+
     });
 </script>

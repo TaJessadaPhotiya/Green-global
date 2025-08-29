@@ -41,3 +41,4 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
 Route::get('/email/test', function () {
     return  view('mail.resetpasswordMember');
 });
+

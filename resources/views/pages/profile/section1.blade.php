@@ -103,16 +103,22 @@
             </div>
 
             <div class="w-full flex justify-center gap-5 mt-8">
-                <button type="submit" form="profileForm"
-                    class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
-                    SAVE
+                <button type="submit" form="profileForm" id="profileBtn"
+                    class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm flex justify-center items-center">
+                    <span id="btnText">SAVE</span>
+                    <svg id="btnSpinner" class="hidden animate-spin h-4 w-4 ml-2 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M12 2a10 10 0 0110 10h-4a6 6 0 00-6-6V2z">
+                        </path>
+                    </svg>
                 </button>
                 <a href="javascript:history.back()">
-                <button type="button"
-                    class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm"
-                    >
-                    CANCEL
-                </button>
+                    <button type="button"
+                        class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
+                        CANCEL
+                    </button>
                 </a>
             </div>
         </form>
@@ -122,8 +128,14 @@
 
 <script>
     document.getElementById("profileForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
-console.log('123');
+        event.preventDefault();
+
+        const btn = document.getElementById("profileBtn");
+        const btnText = document.getElementById("btnText");
+        const btnSpinner = document.getElementById("btnSpinner");
+
+        btnText.textContent = "Loading...";
+        btnSpinner.classList.remove("hidden");
 
         const username = document.getElementById('username').value.trim();
         const firstname = document.getElementById('firstname').value.trim();
@@ -132,40 +144,50 @@ console.log('123');
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
         const password_confirmation = document.getElementById('password_confirmation').value;
-
         const url = '{{ $language }}';
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            customClass: {
+                popup: 'mt-[6.4rem]'
+            },
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+
         axios.post(`/${url}/profile/update`, {
-                username: username,
-                firstname: firstname,
-                lastname: lastname,
-                telephone: telephone,
-                email: email,
-                password: password,
-                password_confirmation: password_confirmation
+                username,
+                firstname,
+                lastname,
+                telephone,
+                email,
+                password,
+                password_confirmation
             })
             .then(function(response) {
-                // handle success
-                console.log(response.data);
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Profile updated successfully'
+                }).then(() => {
+                    window.location.href = `/${response.data.url || url}`;
+                });
             })
             .catch(function(error) {
-                // handle error
-                console.log(error);
+                let message = error.response?.data?.message || 'Something went wrong';
+                Toast.fire({
+                    icon: 'error',
+                    title: message
+                });
             })
-
+            .finally(() => {
+                btnText.textContent = "SAVE";
+                btnSpinner.classList.add("hidden");
+            });
     });
-
-    function togglePassword(id, btn) {
-        const input = document.getElementById(id);
-        const icon = btn.querySelector("svg");
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.remove("text-gray-700");
-            icon.classList.add("text-gray-400");
-        } else {
-            input.type = "password";
-            icon.classList.remove("text-gray-400");
-            icon.classList.add("text-gray-700");
-        }
-    }
 </script>

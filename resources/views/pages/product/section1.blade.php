@@ -65,7 +65,7 @@
                     <p class="sm:text-[16px] text-[14px] font-semibold text-[#098C46]">SEGMENT :</p>
                     <div class="relative ">
                         <button id="memberDropdownBtn"
-                            class="inline-flex items-center justify-center border-2 border-[#098C46] gap-2 xl:w-[120px] w-[100px] py-0.5 xl:text-[16px] text-[14px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 rounded-md">
+                            class="inline-flex items-center justify-center border-2 border-[#098C46] gap-4 xl:w-[120px] w-[100px] py-0.5 xl:text-[16px] text-[14px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 rounded-md">
                             <span
                                 id="memberDropdownLabel">{{ $selectedSegment ? $selectedSegment->title : 'ALL' }}</span>
                             <svg id="memberDropdownIcon" class="transition-transform duration-300 w-4 h-4"
@@ -78,7 +78,7 @@
 
                         <!-- dropdown อยู่ด้านล่างเสมอ -->
                         <div id="memberDropdownMenu"
-                            class="hidden absolute right-0 top-full mt-2 w-[120px] origin-top-right rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 z-20 transition-all duration-200 ease-out">
+                            class="hidden absolute right-0 top-full mt-2 w-[120px] max-h-[250px] origin-top-right rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 z-20 transition-all duration-200 ease-out overflow-y-auto">
                             <div>
                                 <a href="{{ url($language . '/product') }}"
                                     class=" block px-4 py-2 text-sm text-gray-700 hover:bg-[#098C46] hover:text-white rounded-t-md transition">
@@ -89,12 +89,14 @@
                                         $isActive = isset($_GET['segment']) && $_GET['segment'] == $segment->id;
                                     @endphp
                                     <a href="{{ url($language . '/product?segment=' . $segment->id) }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 transition @if ($isActive) bg-[#098C46] text-white @else hover:bg-[#098C46] hover:text-white @endif">
+                                        class="block px-4 py-2 text-sm text-gray-700 transition
+                                        {{ $isActive ? 'bg-[#098C46] text-white' : 'hover:bg-[#098C46] hover:text-white' }}">
                                         {{ $segment->title }}
                                     </a>
                                 @endforeach
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -103,8 +105,8 @@
             <div class="grid xl:grid-cols-4 md:grid-cols-3 iPad-mini:grid-cols-3 sm:grid-cols-3 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[3rem] w-full xl:mt-12 sm:mt-[3rem] size-mini:mt-[2.6rem] mt-[1.7rem] xl:pb-12 pb-8 "
                 data-aos="fade-up" data-aos-duration="1200">
                 @foreach ($filtered_products as $product)
-                    <a class="w-full @if (Auth::check()) cursor-pointer group @endif xl:hover:scale-105 transition duration-300 "
-                        @if (Auth::check()) href="{{ url('/' . $language . '/product-detail/' . $product->id) }}" @endif>
+                    <a class="w-full xl:hover:scale-105 transition duration-300"
+                        href="{{ Auth::check() ? url('/' . $language . '/product-detail/' . $product->id) : url('/' . $language . '/login') }}">
                         {{-- ส่วนรูป --}}
                         <div class=" relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl ">
                             <!-- ป้าย NEW -->
