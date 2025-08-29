@@ -78,7 +78,7 @@
                             </button>
 
                             <div id="dropdownMenu"
-                                class="hidden absolute right-0 z-10 mt-4 w-[90px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                class="hidden absolute right-0 z-10 mt-4 w-[120px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden">
                                 <div>
                                     {{-- <a href="/{{ $language }}/profile"
                                         class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
@@ -87,13 +87,14 @@
                                         class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
                                         Sign out</a> --}}
                                     <div
-                                        class="block px-6 py-2 text-sm text-[#3E8000] hover:bg-[#3E8000] hover:text-white">
-                                        {{ __('EXP:' . ' ' . $daysDiff . ' ' . 'Days') }}
+                                        class="flex items-center justify-center px-2 py-2 text-sm text-[#3E8000] hover:bg-[#3E8000] hover:text-white">
+                                        {{ __('EXP:' . ' ' . $daysDiff) }} Days
                                     </div>
-                                    @foreach ($menuChildren['member']->childrenData as $children)
-                                        <a href={{ '/' . $children->cate_redirect }}
-                                            class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
-                                            {{ $children->cate_title }}</a>
+                                    @foreach (optional($menuChildren['member'])->childrenData ?? [] as $children)
+                                        <a href="{{ '/' . $children->cate_redirect }}"
+                                            class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white text-center hover:bg-[#008C46] transition duration-200">
+                                            {{ $children->cate_title }}
+                                        </a>
                                     @endforeach
                                 </div>
                             </div>
@@ -125,7 +126,6 @@
                         </div>
                     @endif
                 @endif
-
 
                 <div class="relative inline-block" id="languageDropdown">
                     <button id="dropdownBtn2" class="flex justify-center w-full rounded-md ">

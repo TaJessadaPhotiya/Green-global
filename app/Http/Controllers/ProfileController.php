@@ -46,7 +46,7 @@ class ProfileController extends Controller
         // ตรวจสอบและอัปเดต email หากมีการเปลี่ยนแปลง
         if ($request->filled('email') && $request->email !== $user->email) {
             $user->email = $request->email;
-            $user->username = $request->email;
+            // $user->username = $request->email;
         }
 
         // ตรวจสอบและอัปเดต password หากมีการกรอกค่าใหม่

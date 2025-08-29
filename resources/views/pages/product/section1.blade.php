@@ -65,7 +65,7 @@
                     <p class="sm:text-[16px] text-[14px] font-semibold text-[#098C46]">SEGMENT :</p>
                     <div class="relative ">
                         <button id="memberDropdownBtn"
-                            class="inline-flex items-center justify-center border-2 border-[#098C46] gap-2 xl:w-[120px] w-[100px] py-0.5 xl:text-[16px] text-[14px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 rounded-md">
+                            class="inline-flex items-center justify-center border-2 border-[#098C46] gap-4 xl:w-[120px] w-[100px] py-0.5 xl:text-[16px] text-[14px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 rounded-md">
                             <span
                                 id="memberDropdownLabel">{{ $selectedSegment ? $selectedSegment->title : 'ALL' }}</span>
                             <svg id="memberDropdownIcon" class="transition-transform duration-300 w-4 h-4"
@@ -78,7 +78,7 @@
 
                         <!-- dropdown อยู่ด้านล่างเสมอ -->
                         <div id="memberDropdownMenu"
-                            class="hidden absolute right-0 top-full mt-2 w-[120px] h-[250px] origin-top-right rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 z-20 transition-all duration-200 ease-out overflow-y-auto overflow-hidden">
+                            class="hidden absolute right-0 top-full mt-2 w-[120px] max-h-[250px] origin-top-right rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 z-20 transition-all duration-200 ease-out overflow-y-auto">
                             <div>
                                 <a href="{{ url($language . '/product') }}"
                                     class=" block px-4 py-2 text-sm text-gray-700 hover:bg-[#098C46] hover:text-white rounded-t-md transition">
@@ -90,12 +90,13 @@
                                     @endphp
                                     <a href="{{ url($language . '/product?segment=' . $segment->id) }}"
                                         class="block px-4 py-2 text-sm text-gray-700 transition
-                                            {{ $isActive ? 'bg-[#098C46] text-white' : 'hover:bg-[#098C46] hover:text-white' }}">
+                                        {{ $isActive ? 'bg-[#098C46] text-white' : 'hover:bg-[#098C46] hover:text-white' }}">
                                         {{ $segment->title }}
                                     </a>
                                 @endforeach
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -20,3 +20,4 @@ class Category extends Model
         return $this->hasMany(Category::class, 'cate_parent_id', 'id');
     }
 }
+

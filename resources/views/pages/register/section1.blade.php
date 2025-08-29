@@ -212,10 +212,22 @@
             </div>
 
             <div class="w-full flex justify-center gap-5 mt-8">
-                <button type="submit" form="registerForm"
-                    class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
-                    ACCEPT
+                <!-- ปุ่ม loading -->
+                <button type="submit" form="registerForm" id="registerBtn"
+                    class="w-[95px] flex items-center justify-center text-sm text-white py-2 
+                            bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 
+                            hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
+                    <span id="btnText">ACCEPT</span>
+                    <!-- Spinner สวย -->
+                    <svg id="btnSpinner" class="hidden animate-spin ml-2 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M12 2a10 10 0 0110 10h-4a6 6 0 00-6-6V2z">
+                        </path>
+                    </svg>
                 </button>
+
                 <a type="button" href="{{ route('login', ['language' => $language]) }}">
                     <button type="button"
                         class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
@@ -229,23 +241,17 @@
 
 
 <script>
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     const otherOccupation = document.getElementsByClassName('chk');
-    //     console.log(otherOccupation.value);
-    //     // const countrySelect = document.getElementById('country');
-    //     for (let i = 0; i < otherOccupation.length; i++) {
-    //         otherOccupation[i].addEventListener('change', function(event) {
-    //             console.log('Other occupation selected: ' + event.target.value);
-    //         });
-    //         console.log(otherOccupation.value);
-    //     }
-
-
-    // });
-
     document.getElementById("registerForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
-        // console.log('123');
+        event.preventDefault();
+
+        const btn = document.getElementById("registerBtn");
+        const btnText = document.getElementById("btnText");
+        const btnSpinner = document.getElementById("btnSpinner");
+
+        // กดปุ่มแล้ว → โชว์ loading
+        btn.disabled = true;
+        btnText.classList.add("hidden");
+        btnSpinner.classList.remove("hidden");
 
         // ดึงค่าจากฟอร์ม
         const username = document.getElementById('username').value.trim();
@@ -441,12 +447,39 @@
         }).then(function(response) {
             console.log(response.data);
             const url = response.data.url;
-            //perform your redirection to other routes.
-            window.location.href = `/${url}`;
+
+            // ✅ Toast แจ้งเตือนสำเร็จ
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'mt-[6.4rem]'
+                },
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "success",
+                title: "Registration successful!"
+            }).then(() => {
+                // redirect หลัง Toast แสดงผลเสร็จ
+                window.location.href = `/${url}`;
+            });
 
         }).catch(function(error) {
             // handle error
             console.log(error.response.data);
+
+            // 🔄 คืนปุ่มกลับเป็นปกติ
+            btn.disabled = false;
+            btnText.classList.remove("hidden");
+            btnSpinner.classList.add("hidden");
             const {
                 errorCode,
                 errorsMessage
@@ -457,11 +490,10 @@
                     icon: "warning",
                     title: `${errorsMessage}`,
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1000
                 });
                 document.getElementById("error-email").innerHTML = `${errorsMessage}`;
             }
-
         });
 
     });

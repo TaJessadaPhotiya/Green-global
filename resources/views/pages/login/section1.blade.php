@@ -73,9 +73,16 @@
             </div>
 
             <div class="w-full flex justify-center gap-5 mt-8">
-                <button type="submit" form="loginForm"
-                    class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
-                    SING IN
+                <button type="submit" form="loginForm" id="loginBtn"
+                    class="w-[110px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm flex justify-center items-center">
+                    <span id="btnText">SIGN IN</span>
+                    <svg id="btnSpinner" class="hidden animate-spin h-4 w-4 ml-2 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M12 2a10 10 0 0110 10h-4a6 6 0 00-6-6V2z">
+                        </path>
+                    </svg>
                 </button>
             </div>
         </form>
@@ -84,35 +91,68 @@
 
 <script>
     document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault();
 
         const userName = document.getElementById('username').value;
         const passWord = document.getElementById('password').value;
-
         const url = '{{ $language }}';
+
+        const btn = document.getElementById("loginBtn");
+        const btnText = document.getElementById("btnText");
+        const btnSpinner = document.getElementById("btnSpinner");
+
+        // 🔄 แสดง Loading
+        btn.disabled = true;
+        btnText.textContent = "Loading...";
+        btnSpinner.classList.remove("hidden");
+
         axios.post(`/${url}/authenticate`, {
-                username: userName,
-                password: passWord
-            }).then(function(response) {
-                // Handle success response
-                console.log('Login successful:' + response);
-                // console.log('Login successful:' + response);
-                // Redirect or show success message
-                if (response.data.status === '200') {
-                    // Redirect to dashboard or show success message
+            username: userName,
+            password: passWord
+        }).then(function(response) {
+            if (response.data.status === '200') {
+                const redirectUrl = response.data.url;
 
-                    window.location.href = '/' + response.data.url;
-                }
-            })
-            .catch(function(error) {
-                // Handle error response
-                 console.log(error.response);
-                // console.error('Login failed:' + error);
-                // Show error message to user
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                    customClass: {
+                        popup: 'mt-[6.4rem]'
+                    },
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+
+                Toast.fire({
+                    icon: "success",
+                    title: "Login successful!"
+                }).then(() => {
+                    window.location.href = `/${redirectUrl}`;
+                });
+            }
+        }).catch(function(error) {
+            console.log(error.response);
+
+            // ❌ reset ปุ่มเมื่อ error
+            btn.disabled = false;
+            btnText.textContent = "SIGN IN";
+            btnSpinner.classList.add("hidden");
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Login failed!',
+                text: error.response?.data?.message || 'Please check your credentials',
+                showConfirmButton: true
             });
-
+        });
     });
 
+    // toggle password
     function togglePassword(id, btn) {
         const input = document.getElementById(id);
         const icon = btn.querySelector("svg");
