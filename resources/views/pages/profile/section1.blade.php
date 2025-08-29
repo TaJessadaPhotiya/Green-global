@@ -134,7 +134,6 @@
         const btnText = document.getElementById("btnText");
         const btnSpinner = document.getElementById("btnSpinner");
 
-        // แสดง Loading
         btnText.textContent = "Loading...";
         btnSpinner.classList.remove("hidden");
 
@@ -176,7 +175,6 @@
                     icon: 'success',
                     title: 'Profile updated successfully'
                 }).then(() => {
-                    // redirect หลัง Toast
                     window.location.href = `/${response.data.url || url}`;
                 });
             })
@@ -188,7 +186,6 @@
                 });
             })
             .finally(() => {
-                // ซ่อน spinner กลับเป็นปกติ
                 btnText.textContent = "SAVE";
                 btnSpinner.classList.add("hidden");
             });

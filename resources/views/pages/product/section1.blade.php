@@ -105,8 +105,8 @@
             <div class="grid xl:grid-cols-4 md:grid-cols-3 iPad-mini:grid-cols-3 sm:grid-cols-3 grid-cols-2 xl:gap-x-5 sm:gap-x-4 gap-x-3 sm:gap-y-[3.3rem] gap-y-[3rem] w-full xl:mt-12 sm:mt-[3rem] size-mini:mt-[2.6rem] mt-[1.7rem] xl:pb-12 pb-8 "
                 data-aos="fade-up" data-aos-duration="1200">
                 @foreach ($filtered_products as $product)
-                    <a class="w-full @if (Auth::check()) cursor-pointer group @endif xl:hover:scale-105 transition duration-300 "
-                        @if (Auth::check()) href="{{ url('/' . $language . '/product-detail/' . $product->id) }}" @endif>
+                    <a class="w-full xl:hover:scale-105 transition duration-300"
+                        href="{{ Auth::check() ? url('/' . $language . '/product-detail/' . $product->id) : url('/' . $language . '/login') }}">
                         {{-- ส่วนรูป --}}
                         <div class=" relative w-full xl:h-[280px] lg:h-[240px] sm:h-[220px] h-[150px] shadow-xl ">
                             <!-- ป้าย NEW -->

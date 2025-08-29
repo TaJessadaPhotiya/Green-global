@@ -81,7 +81,7 @@
 
 <script>
     document.getElementById("formConfirmation").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault(); 
 
         const password = document.getElementById('password').value;
         const password_confirmation = document.getElementById('password_confirmation').value;
@@ -89,7 +89,6 @@
 
         const url = '{{ $language }}';
 
-        // สร้าง Toast
         const Toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -113,19 +112,16 @@
             console.log(response);
 
             if (response.status === 200) {
-                // ✅ แสดง Toast แทน Swal.fire ปกติ
                 Toast.fire({
                     icon: "success",
                     title: `${response.data.description}`
                 }).then(() => {
-                    // redirect หลัง Toast แสดงเสร็จ
                     window.location.href = '/' + response.data.url;
                 });
             }
         }).catch(function(error) {
             console.log(error.response);
 
-            // กรณี error ใช้ Toast แบบเดียวกัน
             let message = 'Something went wrong';
             if (error.response && error.response.data && error.response.data.message) {
                 message = error.response.data.message;

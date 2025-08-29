@@ -41,7 +41,7 @@
 
 <script>
     document.getElementById("forgotPasswordForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault(); 
 
         const email = document.getElementById("username").value.trim();
         const url = '{{ $language }}';

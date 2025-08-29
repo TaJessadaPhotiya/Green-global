@@ -101,7 +101,6 @@
         const btnText = document.getElementById("btnText");
         const btnSpinner = document.getElementById("btnSpinner");
 
-        // 🔄 แสดง Loading
         btn.disabled = true;
         btnText.textContent = "Loading...";
         btnSpinner.classList.remove("hidden");
@@ -138,7 +137,6 @@
         }).catch(function(error) {
             console.log(error.response);
 
-            // ❌ reset ปุ่มเมื่อ error
             btn.disabled = false;
             btnText.textContent = "SIGN IN";
             btnSpinner.classList.add("hidden");
@@ -152,7 +150,6 @@
         });
     });
 
-    // toggle password
     function togglePassword(id, btn) {
         const input = document.getElementById(id);
         const icon = btn.querySelector("svg");

@@ -248,12 +248,10 @@
         const btnText = document.getElementById("btnText");
         const btnSpinner = document.getElementById("btnSpinner");
 
-        // กดปุ่มแล้ว → โชว์ loading
         btn.disabled = true;
         btnText.classList.add("hidden");
         btnSpinner.classList.remove("hidden");
 
-        // ดึงค่าจากฟอร์ม
         const username = document.getElementById('username').value.trim();
         const firstname = document.getElementById('firstname').value.trim();
         const lastname = document.getElementById('lastname').value.trim();
@@ -290,7 +288,6 @@
                 showConfirmButton: false,
                 timer: 1500
             });
-            // alert('Please enter a username.');
             return false;
         }
 
@@ -303,7 +300,6 @@
                 showConfirmButton: false,
                 timer: 1500
             });
-            // alert('Please enter your first name.');
             return false;
         }
         if (!lastname) {
@@ -337,11 +333,9 @@
                 timer: 1500
             });
             document.getElementById("error-email").innerHTML = "*Please enter a valid email address.";
-            // alert('Please enter a valid email address.');
             return false;
         }
 
-        // Password & Confirm password
         if (!password) {
             Swal.fire({
                 position: "top-end",
@@ -351,7 +345,6 @@
                 timer: 1500
             });
             document.getElementById("error-password").innerHTML = "*Please enter a password.";
-            // alert('Please enter a password.');
             return false;
         }
 
@@ -364,7 +357,6 @@
                 timer: 1500
             });
             document.getElementById("error-password_confirmation").innerHTML = "*Passwords do not match.";
-            // alert('Passwords do not match.');
             return false;
         }
         if (password.length < 6) {
@@ -378,7 +370,6 @@
             document.getElementById("error-password").innerHTML = "*Password should be at least 6 characters.";
             document.getElementById("error-password_confirmation").innerHTML =
                 "*Password should be at least 6 characters.";
-            // alert('Password should be at least 6 characters.');
             return false;
         }
 
@@ -392,7 +383,6 @@
                 timer: 1500
             });
             document.getElementById("error-occupation").innerHTML = "*Please select at least one occupation.";
-            // alert('Please select at least one occupation.');
             return false;
         }
 
@@ -412,11 +402,9 @@
             });
             document.getElementById("error-occupation").innerHTML =
                 "*Please specify your occupation in the Other field.";
-            // alert('Please specify your occupation in the Other field.');
             return false;
         }
 
-        // Country - ต้องเลือก
         if (country === "") {
             Swal.fire({
                 position: "top-end",
@@ -426,7 +414,6 @@
                 timer: 1500
             });
             document.getElementById("error-country").innerHTML = "*Please select your country.";
-            // alert('Please select your country.');
             return false;
         }
 
@@ -448,7 +435,6 @@
             console.log(response.data);
             const url = response.data.url;
 
-            // ✅ Toast แจ้งเตือนสำเร็จ
             const Toast = Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -468,12 +454,10 @@
                 icon: "success",
                 title: "Registration successful!"
             }).then(() => {
-                // redirect หลัง Toast แสดงผลเสร็จ
                 window.location.href = `/${url}`;
             });
 
         }).catch(function(error) {
-            // handle error
             console.log(error.response.data);
 
             // 🔄 คืนปุ่มกลับเป็นปกติ
