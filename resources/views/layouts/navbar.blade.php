@@ -69,7 +69,6 @@
                                 onclick="toggleDropdown()">
                                 <img class="w-3.5 h-3.5 mr-1.5" src="/icons/Vector.png" alt="">
                                 {{ Auth::user()->username }}
-                                {{-- {{ $menuChildren['member']->cate_title }} --}}
                                 <svg id="memberIcon" class="ml-1 transition-transform duration-300"
                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                     viewBox="0 0 24 24">
@@ -80,12 +79,6 @@
                             <div id="dropdownMenu"
                                 class="hidden absolute right-0 z-10 mt-4 w-[120px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden">
                                 <div>
-                                    {{-- <a href="/{{ $language }}/profile"
-                                        class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-t-md transition duration-200">
-                                        {{ $menuChildren['member']->childrenData->cate_title }}</a>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-[#008C46] rounded-b-md transition duration-200">
-                                        Sign out</a> --}}
                                     <div
                                         class="flex items-center justify-center px-2 py-2 text-sm text-[#3E8000] hover:bg-[#3E8000] hover:text-white">
                                         {{ __('EXP:' . ' ' . $daysDiff) }} Days
