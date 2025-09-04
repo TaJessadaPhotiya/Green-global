@@ -72,6 +72,39 @@ class ProductCateController extends BaseController
         }
     }
 
+    public function createSegment(Request $request)
+    {
+        $this->getAuthUser();
+        $params = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'string|required|unique:segments,title',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendErrorValidators('Invalid params', $validator->errors());
+        }
+
+        try {
+            $segment = Segment::create([
+                'title' => $params['title'],
+            ]);
+
+            return response([
+                'message' => 'ok',
+                'status' => true,
+                'description' => 'Segment has been created successfully',
+                'segment' => $segment,
+            ], 200);
+        } catch (Exception $e) {
+            return response([
+                'message' => 'server error',
+                'description' => 'Something went wrong.',
+                'errorsMessage' => $e->getMessage()
+            ], 501);
+        }
+    }
+
     public function createProductcate(Request $request)
     {
         $this->getAuthUser();

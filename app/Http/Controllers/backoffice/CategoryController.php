@@ -18,7 +18,7 @@ class CategoryController extends BaseController
 
         $cateData = $this->getCategory($req->language);
 
-        dd($cateData);
+        // dd($cateData);
 
         try {
             return response([
