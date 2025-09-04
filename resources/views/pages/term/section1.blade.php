@@ -296,7 +296,7 @@
             </h1>
 
             {{-- CK --}}
-            <div class="w-full mt-8" data-aos="fade-up" data-aos-duration="1200">
+            <div class="ck-ui-li py-4 w-full mt-8" data-aos="fade-up" data-aos-duration="1200">
                 {!! $Term->content !!}
             </div>
         </div>

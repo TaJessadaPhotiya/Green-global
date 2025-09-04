@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base {
+    .ck-ui-li ul {
+        @apply list-disc ml-8 p-2;
+    }
+    .ck-ui-li iframe {
+        @apply w-full sm:w-[660px] sm:h-[415px] h-[300px] py-4;
+    }
+}
+
+/* ck เงื่อนไขนโยบาย */
+#boxTermContent ul{
+    margin-left: 1.5em;
+    list-style: unset;
+}
+
+#boxTermContent ol{
+    margin-left: 1.5em;
+    list-style: unset;
+}
+#boxTermContent {
+    word-break: break-word;
+}
