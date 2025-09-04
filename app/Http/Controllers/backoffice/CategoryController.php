@@ -15,8 +15,10 @@ class CategoryController extends BaseController
     public function index(Request $req)
     {
         $menuList = $this->categoryCreateList($req->language);
-        // dd($menuList);
+
         $cateData = $this->getCategory($req->language);
+
+        dd($cateData);
 
         try {
             return response([
@@ -302,12 +304,26 @@ class CategoryController extends BaseController
     /* Private function */
     private function getCategory($language)
     {
-        $sql = "SELECT * FROM (
-            SELECT * FROM `categories`
-            WHERE language = :lang OR defaults = 1
-            ORDER BY defaults ASC
-        ) as cate GROUP BY id ORDER BY cate_priority ASC";
-        return DB::select($sql, [':lang' => $language]);
+        // $sql = "SELECT * FROM (
+        //     SELECT * FROM `categories`
+        //     WHERE language = :lang OR defaults = 1
+        //     ORDER BY defaults ASC
+        // ) as cate GROUP BY id ORDER BY cate_priority ASC";
+        // return DB::select($sql, [':lang' => $language]);
+
+         $sql = Category::where('language', $language)
+        ->orWhere('defaults', 1)
+        ->orderBy('cate_priority', 'ASC')
+        ->get();
+
+        return $sql ->groupBy('id')
+        ->map(function ($items) use ($language) {
+            // หาตัวที่ตรงกับ language
+            $match = $items->firstWhere('language', $language);
+            // ถ้าไม่มีให้ใช้ defaults
+            return $match ?? $items->firstWhere('defaults', 1);
+        })
+        ->values();  // reset index
     }
 
     private function priorityCategoryUpdate($current, $new, $language, $column)

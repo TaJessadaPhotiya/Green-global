@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsDetailController;
 use App\Http\Controllers\ProductDetailController;
 
+Route::redirect('/', '/th');
 Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/vision', [VisionController::class, 'index'])->name('vision');
@@ -38,7 +39,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
     Route::get('/news-detail/{id}', [NewsDetailController::class, 'index'])->name('news-detail');
 });
 
-Route::get('/email/test', function () {
-    return  view('mail.resetpasswordMember');
-});
+// Route::get('/email/test', function () {
+//     return  view('mail.resetpasswordMember');
+// });
 

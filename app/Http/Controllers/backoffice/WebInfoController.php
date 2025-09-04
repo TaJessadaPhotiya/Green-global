@@ -8,6 +8,7 @@ use App\Models\LanguageAvailable;
 use App\Models\WebInfo;
 use App\Models\WebInfoType;
 use Exception;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,7 @@ class WebInfoController extends Controller
         $infoList = [];
         $infoDetail = [];
         $webInfos = $this->webInfoList($request->language);
+        // dd($webInfos);
         $infoTypeArr = $this->webInfoType($request->language);
         // $adminLevel = AdminAccount::where('account_id', Auth::user()->id)->first();
 
@@ -416,31 +418,59 @@ class WebInfoController extends Controller
     private function webInfoList($language)
     {
         /* custom select by infoTypeId */
-        $sql = "SELECT * FROM (
-            SELECT
-                i.info_id as id,
-                i.admin_level,
-                i.created_at,
-                i.defaults,
-                i.info_attribute as attribute,
-                i.info_display as display,
-                i.info_link as link,
-                i.info_iframe as iframe,
-                i.info_param as param,
-                i.info_priority as priority,
-                i.info_title as description,
-                i.info_value as value,
-                i.language as language,
-                i.updated_at,
-                i.info_type as infoTypeId,
-                t.type_name as infoTypeName,
-                t.title as infoTypeTitle
-            FROM `web_infos` as i
-            INNER JOIN web_info_types as t ON i.info_type = t.id
-            WHERE i.language = :lang OR i.defaults = 1
-            order by i.defaults ASC
-        ) as webinfo GROUP BY id ";
-        return DB::select($sql, [':lang' => $language]);
+        // $sql = "SELECT * FROM (
+        //     SELECT
+        //         i.info_id as id,
+        //         i.admin_level,
+        //         i.created_at,
+        //         i.defaults,
+        //         i.info_attribute as attribute,
+        //         i.info_display as display,
+        //         i.info_link as link,
+        //         i.info_iframe as iframe,
+        //         i.info_param as param,
+        //         i.info_priority as priority,
+        //         i.info_title as description,
+        //         i.info_value as value,
+        //         i.language as language,
+        //         i.updated_at,
+        //         i.info_type as infoTypeId,
+        //         t.type_name as infoTypeName,
+        //         t.title as infoTypeTitle
+        //     FROM `web_infos` as i
+        //     INNER JOIN web_info_types as t ON i.info_type = t.id
+        //     WHERE i.language = :lang OR i.defaults = 1
+        //     order by i.defaults ASC
+        // ) as webinfo GROUP BY id ";
+        // return DB::select($sql, [':lang' => $language]);
+
+          $sql = WebInfo::select(
+            'web_infos.info_id as id',
+            'web_infos.admin_level',
+            'web_infos.created_at',
+            'web_infos.defaults',
+            'web_infos.info_attribute as attribute',
+            'web_infos.info_link as link',
+            'web_infos.info_iframe as iframe',
+            'web_infos.info_param as param',
+            'web_infos.info_priority as priority',
+            'web_infos.info_title as description',
+            'web_infos.info_value as value',
+            'web_infos.language as language',
+            'web_infos.updated_at',
+            'web_infos.info_type as infoTypeId',
+            't.type_name as infoTypeName',
+            't.title as infoTypeTitle'
+        )
+            ->join('web_info_types as t', function (JoinClause $join) use ($language) {
+                $join->on('web_infos.info_type', '=', 't.id')
+                 ->where('t.language', $language);
+            })
+            ->where('web_infos.language', $language)
+            ->orWhere('web_infos.defaults', 1)
+            ->get();
+
+        return $sql;
     }
 
     private function webInfoType($language)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -127,33 +128,62 @@ class Controller extends BaseController
         /* ถ้าอยากได้ ROOT ให้เพิ่ม `rootCategory` subquery ลงไป
          *  (SELECT GROUP_CONCAT(id) FROM categories as cg WHERE cg.cate_root_id = categories.cate_root_id GROUP BY cate_root_id ) as `rootCategory`
          * */
-        $sql = "SELECT
-                    c.id,
-                    c.cate_title as title,
-                    c.cate_url as slug,
-                    c.cate_parent_id as parentId,
-                    c.cate_root_id as rootId,
-                    c.cate_level as cateLevel,
-                    c.cate_priority as priority,
-                    c.language,
-                    c.is_menu as isMenu,
-                    c.is_leftside as leftSide,
-                    c.is_topside as topSide,
-                    c.is_rightside as rightSide,
-                    c.is_bottomside as bottomSide,
-                    c.defaults
-                FROM categories as c
-                INNER JOIN (
-                    SELECT id as cateId, language as cateLang
-                    FROM categories as g
-                    WHERE g.language = :lang OR g.defaults = 1
-                    GROUP BY g.id, g.language
-                ) as cate ON cate.cateId = c.id AND cate.cateLang = c.language
-                WHERE c.is_menu = 1
-                ORDER BY cateLevel DESC ,  priority ASC";
-        $result = DB::select($sql, [":lang" => $language]);
+        // $sql = "SELECT
+        //             c.id,
+        //             c.cate_title as title,
+        //             c.cate_url as slug,
+        //             c.cate_parent_id as parentId,
+        //             c.cate_root_id as rootId,
+        //             c.cate_level as cateLevel,
+        //             c.cate_priority as priority,
+        //             c.language,
+        //             c.is_menu as isMenu,
+        //             c.is_leftside as leftSide,
+        //             c.is_topside as topSide,
+        //             c.is_rightside as rightSide,
+        //             c.is_bottomside as bottomSide,
+        //             c.defaults
+        //         FROM categories as c
+        //         INNER JOIN (
+        //             SELECT id as cateId, language as cateLang
+        //             FROM categories as g
+        //             WHERE g.language = :lang OR g.defaults = 1
+        //             GROUP BY g.id, g.language
+        //         ) as cate ON cate.cateId = c.id AND cate.cateLang = c.language
+        //         WHERE c.is_menu = 1
+        //         ORDER BY cateLevel DESC ,  priority ASC";
+
+        $result = Category::with([
+            'childrenData' => function ($query) use ($language) {
+                $query->where('language', $language)
+                    ->orWhere('defaults', 1);
+            }
+        ])
+            ->select(
+                'id',
+                'cate_title as title',
+                'cate_url as slug',
+                'cate_parent_id as parentId',
+                'cate_root_id as rootId',
+                'cate_level as cateLevel',
+                'cate_priority as priority',
+                'language',
+                'is_menu as isMenu',
+                'is_leftside as leftSide',
+                'is_topside as topSide',
+                'is_rightside as rightSide',
+                'is_bottomside as bottomSide',
+                'defaults'
+            )
+            ->where(['is_menu' => 1, 'language' => $language])
+            ->orWhere('defaults', 1)
+            ->orderBy('cateLevel', 'DESC')
+            ->orderBy('priority', 'ASC')
+            ->get();
+
 
         return $this->categoryConvertGroup($result);
+        // return $result;
 
     }
 
