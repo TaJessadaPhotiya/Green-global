@@ -7,7 +7,7 @@
                 {{ $homeContent->description }}
             </h1>
             <div>
-              {!! $homeContent->content !!}
+                {!! $homeContent->content !!}
             </div>
         </div>
     </div>

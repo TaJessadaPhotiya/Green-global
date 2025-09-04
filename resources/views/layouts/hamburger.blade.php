@@ -138,53 +138,65 @@
             </a>
         </div>
 
-        @if ($status == 1)
-            {{-- Member --}}
-            <div class="relative border-b py-4">
-                <button id="myMemberDropdownBtn1"
-                    class=" items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[14px] font-medium "
-                    onclick="toggleMemberDropdown1()">
-                    MEMBER
-                </button>
+        @if ($menuChildren)
+            @if (Auth::check())
+                {{-- Member --}}
+                <div class="relative w-full mx-auto border-b py-3">
+                    <button id="dropdownBtn1"
+                        class="inline-flex items-center justify-center gap-1 w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[18px] font-medium"
+                        onclick="toggleDropdown1()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1.5" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 2a6 6 0 100 12 6 6 0 000-12zm-9 18a9 9 0 1118 0H3z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        {{ Auth::user()->username }}
+                        <svg id="memberIcon" class="ml-1 transition-transform duration-300"
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
 
-                <div id="myMemberDropdownMenu1"
-                    class="hidden absolute top-full left-0 z-30 w-full mx-auto bg-white shadow-lg">
-                    <div class="flex flex-col items-center justify-center w-full">
-                        <a href="/{{ $language }}/profile"
-                            class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200 border-b border-t">
-                            Profile
-                        </a>
-                        <a href="#"
-                            class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200">
-                            Sign out
-                        </a>
+                    <div id="dropdownMenu1"
+                        class="hidden absolute top-full left-1/2 transform -translate-x-1/2 z-10 w-full shadow-md bg-white text-center ring-black ring-opacity-5 focus:outline-none overflow-hidden">
+                        <div class="flex items-center w-full justify-center py-2 text-sm text-[#008C46] border-b">
+                            {{ __('EXP:' . ' ' . $daysDiff) }} Days
+                        </div>
+                        @foreach (optional($menuChildren['member'])->childrenData ?? [] as $children)
+                            <a href="{{ '/' . $children->cate_redirect }}"
+                                class="flex justify-center w-full py-2 text-sm border-b font-medium text-gray-700 hover:text-white hover:bg-[#008C46] transition duration-200">
+                                {{ $children->cate_title }}
+                            </a>
+                        @endforeach
                     </div>
                 </div>
-            </div>
-        @else
-            {{-- Register --}}
-            <div class="relative border-b py-4 ">
-                <button id="myMemberDropdownBtn1"
-                    class=" items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[14px] font-medium "
-                    onclick="toggleMemberDropdown1()">
-                    REGISTER
-                </button>
+            @else
+                {{-- Register --}}
+                <div class="relative border-b py-4">
+                    <button id="myMemberDropdownBtn1"
+                        class="items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[14px] font-medium"
+                        onclick="toggleMemberDropdown1()">
+                        REGISTER
+                    </button>
 
-                <div id="myMemberDropdownMenu1"
-                    class="hidden absolute top-full left-0 z-30 w-full mx-auto bg-white shadow-lg">
-                    <div class="flex flex-col items-center justify-center w-full">
-                        <a href="/{{ $language }}/login"
-                            class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200 border-b border-t">
-                            Sign In
-                        </a>
-                        <a href="/{{ $language }}/register"
-                            class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200">
-                            Register
-                        </a>
+                    <div id="myMemberDropdownMenu1"
+                        class="hidden absolute top-full left-0 z-30 w-full mx-auto bg-white shadow-lg">
+                        <div class="flex flex-col items-center justify-center w-full">
+                            <a href="/{{ $language }}/login"
+                                class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200 border-b border-t">
+                                Sign In
+                            </a>
+                            <a href="/{{ $language }}/register"
+                                class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200">
+                                Register
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         @endif
+
 
         <!-- Language Dropdown อยู่ตรงกลางแนวนอน -->
         <div class="relative mx-auto mt-6 w-fit" id="myLangDropdown">
@@ -253,6 +265,7 @@
 </script>
 
 <script>
+    // Register dropdown
     function toggleMemberDropdown1() {
         const menu = document.getElementById("myMemberDropdownMenu1");
         menu.classList.toggle("hidden");
@@ -262,7 +275,22 @@
         const btn = document.getElementById("myMemberDropdownBtn1");
         const menu = document.getElementById("myMemberDropdownMenu1");
 
-        if (!btn.contains(event.target) && !menu.contains(event.target)) {
+        if (btn && menu && !btn.contains(event.target) && !menu.contains(event.target)) {
+            menu.classList.add("hidden");
+        }
+    });
+
+    // Member dropdown
+    function toggleDropdown1() {
+        const menu = document.getElementById("dropdownMenu1");
+        menu.classList.toggle("hidden");
+    }
+
+    document.addEventListener("click", function(event) {
+        const btn = document.getElementById("dropdownBtn1");
+        const menu = document.getElementById("dropdownMenu1");
+
+        if (btn && menu && !btn.contains(event.target) && !menu.contains(event.target)) {
             menu.classList.add("hidden");
         }
     });
