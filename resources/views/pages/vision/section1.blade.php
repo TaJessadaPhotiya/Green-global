@@ -10,10 +10,10 @@
             </h1>
 
             {{-- ck --}}
-            <div class="xl:mt-6 mt-4">
+            <div class="ck-ui-li xl:mt-6 mt-4">
                 {!! $visionContent->content !!}
             </div>
-            <h1 class="text-[#098C46] lg:text-2xl text-xl font-semibold text-center italic mt-6">
+            <h1 class="ck-ui-li text-[#098C46] lg:text-2xl text-xl font-semibold text-center italic mt-6">
                 {!! $visionContent->description !!}
             </h1>
         </div>
