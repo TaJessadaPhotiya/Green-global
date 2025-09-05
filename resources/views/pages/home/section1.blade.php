@@ -6,7 +6,7 @@
                 {{ $homeContent->title }}<br />
                 {{ $homeContent->description }}
             </h1>
-            <div>
+            <div class="ck-ui-li">
                 {!! $homeContent->content !!}
             </div>
         </div>

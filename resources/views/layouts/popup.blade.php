@@ -13,7 +13,7 @@
         </a>
         <div class="w-[90%] md:w-[700px] max-h-[83vh] overflow-y-auto py-6 xl:px-[3rem] px-2">
             <h2 class="text-2xl text-center font-bold mb-4 text-white">{{ $proviso->title }}</h2>
-            <div class="text-sm text-gray-300 space-y-4">
+            <div class="ck-ui-li text-sm text-gray-300 space-y-4">
                 {!! $proviso->content !!}
             </div>
 

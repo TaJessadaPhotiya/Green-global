@@ -17,7 +17,7 @@
                     <p class="text-[#8E8E8E] text-[14px] font-semibold mt-4">{{ $news['date'] }}</p>
 
                     {{-- ck --}}
-                    <div class="w-full min-h-[320px] mt-4 text-[18px] text-[#098C46]">
+                    <div class="ck-ui-li w-full min-h-[320px] mt-4 text-[18px] text-[#098C46]">
                         {!! $news['content'] !!}
                     </div>
                     <div class="border-[#098C46] border mt-4"></div>
