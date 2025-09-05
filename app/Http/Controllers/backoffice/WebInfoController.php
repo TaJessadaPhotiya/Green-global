@@ -21,10 +21,10 @@ class WebInfoController extends Controller
         $infoList = [];
         $infoDetail = [];
         $webInfos = $this->webInfoList($request->language);
-        // dd($webInfos);
+
         $infoTypeArr = $this->webInfoType($request->language);
         // $adminLevel = AdminAccount::where('account_id', Auth::user()->id)->first();
-
+        // dd($webInfos->toArray());
         try {
 
             foreach ($webInfos as $val) {
@@ -444,7 +444,7 @@ class WebInfoController extends Controller
         // ) as webinfo GROUP BY id ";
         // return DB::select($sql, [':lang' => $language]);
 
-          $sql = WebInfo::select(
+        $sql = WebInfo::select(
             'web_infos.info_id as id',
             'web_infos.admin_level',
             'web_infos.created_at',
@@ -464,13 +464,20 @@ class WebInfoController extends Controller
         )
             ->join('web_info_types as t', function (JoinClause $join) use ($language) {
                 $join->on('web_infos.info_type', '=', 't.id')
-                 ->where('t.language', $language);
+                    ->where('t.language', $language);
             })
             ->where('web_infos.language', $language)
             ->orWhere('web_infos.defaults', 1)
             ->get();
 
-        return $sql;
+        return $sql->groupBy('id')   // group ตาม id
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
     }
 
     private function webInfoType($language)
