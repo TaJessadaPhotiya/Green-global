@@ -75,8 +75,8 @@ class NewsController extends Controller
                     'products.thumbnail_title',
                     'products.thumbnail_alt',
                 )
-                ->where('defaults', 1)
-                ->where('pin', 1)
+                ->where('products.defaults', 1)
+                ->where('products.pin', 1)
                 ->first();
         }
         // dd($ProductData);
