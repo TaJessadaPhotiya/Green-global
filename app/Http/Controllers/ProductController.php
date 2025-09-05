@@ -33,7 +33,7 @@ class ProductController extends Controller
                     ->orWhere('defaults', 1);
             })
             ->where('display', 1)
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('priority', 'ASC')
             ->get()
             ->groupBy('id')   // group ตาม id
             ->map(function ($items) use ($language) {
@@ -65,6 +65,7 @@ class ProductController extends Controller
             ->leftJoin('product_category', 'product_category.id', '=', 'products.category')
             ->where(['products.language' => $language, 'products.display' => 1])
             ->orWhere('products.defaults', 1)
+            ->orderBy('priority', 'ASC')
             ->get()
             ->groupBy('id')   // group ตาม id
             ->map(function ($items) use ($language) {
