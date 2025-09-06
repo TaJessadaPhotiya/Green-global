@@ -25,17 +25,37 @@
                     data-aos-duration="1200">
                     <div
                         class="xl:w-full sm:w-[80%] w-full xl:h-[460px] h-auto rounded-tl-[50px] overflow-hidden drop-shadow-md">
-                        <img class="w-full h-full object-contain" src="{{ '/' . $product->thumbnail_link }}"
-                            alt="{{ $product->thumbnail_alt }}">
+                        <img id="mainImage" class="w-full h-full object-contain"
+                            src="{{ '/' . $product->thumbnail_link }}" alt="{{ $product->thumbnail_alt }}">
                     </div>
+
                     <div
                         class="grid xl:grid-cols-3 sm:grid-cols-1 grid-cols-3 xl:gap-4 gap-3 xl:w-full sm:w-[20%] w-full xl:h-auto sm:h-[600px] h-auto">
-                        <div class="w-full">
+                        <div class="w-full" onclick="swapImage(this)">
                             <figure
-                                class="w-full md:h-[130px] sm:h-[100px] h-[100px] xl:rounded-2xl rounded-lg overflow-hidden shadow-md ">
+                                class="relative w-full md:h-[130px] sm:h-[100px] h-[100px] xl:rounded-2xl rounded-lg overflow-hidden shadow-md cursor-pointer group">
                                 <img class="w-full h-full object-cover" src="{{ '/' . $product->thumbnail_link }}"
                                     alt="{{ $product->thumbnail_alt }}">
+
+                                <!-- Overlay -->
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/30 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
+                                <div
+                                    class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                                    <span
+                                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 backdrop-blur">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                                d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12s-3.75 6.75-9.75 6.75S2.25 12 2.25 12z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </span>
+                                </div>
                             </figure>
+
                             <p class="xl:text-lg sm:text-[18px] text-sm text-[#098C46] text-center font-semibold mt-3">
                                 Plant Growth
                             </p>
@@ -132,7 +152,17 @@
     </div>
 </div>
 
-{{-- Script --}}
+<script>
+    function swapImage(thumbnailDiv) {
+        const mainImage = document.getElementById("mainImage");
+        const thumbImg = thumbnailDiv.querySelector("img");
+
+        const tempSrc = mainImage.src;
+        mainImage.src = thumbImg.src;
+        thumbImg.src = tempSrc;
+    }
+</script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const openBtn = document.getElementById("openVideoModal");
