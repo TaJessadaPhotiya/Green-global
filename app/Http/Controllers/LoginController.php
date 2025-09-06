@@ -43,6 +43,7 @@ class LoginController extends Controller
             if ($check->member_status === 1) {
                 if ($check->member_expire_at > date('Y-m-d H:i:s')) {
                     $request->session()->regenerate();
+                    //  dd('123');
                     return response()->json([
                         'status' => '200',
                         'Message' => 'Login successful',
@@ -64,6 +65,7 @@ class LoginController extends Controller
                     }
                 }
             } else {
+                dd('456');
                 $request->session()->invalidate();
                 if ($language == "th") {
                     $request->session()->invalidate();
@@ -79,6 +81,7 @@ class LoginController extends Controller
                 }
             }
         } else {
+            dd('789');
             $request->session()->invalidate();
             if ($language == "th") {
                 $request->session()->invalidate();

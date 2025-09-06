@@ -214,8 +214,8 @@
             <div class="w-full flex justify-center gap-5 mt-8">
                 <!-- ปุ่ม loading -->
                 <button type="submit" form="registerForm" id="registerBtn"
-                    class="w-[95px] flex items-center justify-center text-sm text-white py-2 
-                            bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 
+                    class="w-[95px] flex items-center justify-center text-sm text-white py-2
+                            bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400
                             hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
                     <span id="btnText">ACCEPT</span>
                     <!-- Spinner สวย -->
@@ -248,9 +248,7 @@
         const btnText = document.getElementById("btnText");
         const btnSpinner = document.getElementById("btnSpinner");
 
-        btn.disabled = true;
-        btnText.classList.add("hidden");
-        btnSpinner.classList.remove("hidden");
+
 
         const username = document.getElementById('username').value.trim();
         const firstname = document.getElementById('firstname').value.trim();
@@ -419,6 +417,9 @@
 
         // ถ้าผ่านทั้งหมด
         const url = '{{ $language }}';
+        btn.disabled = true;
+        btnText.classList.add("hidden");
+        btnSpinner.classList.remove("hidden");
 
         axios.post(`/${url}/register/store`, {
             username,

@@ -15,6 +15,7 @@ class LanguageConfigController extends BaseController
     {
         try {
             $data = $this->queryLanguages();
+            dd($data);
             $availables = LanguageAvailable::select('abbv_name as language')->get();
             $filtered = [];
             if ($data) {
@@ -150,17 +151,34 @@ class LanguageConfigController extends BaseController
 
     /* Private function */
     private function queryLanguages() {
-        $sql = "SELECT  lc.id,
-                        lc.param,
-                        lc.updated_at,
-                        categories.id as pageId,
-                        categories.cate_title as pageTitle,
-                        GROUP_CONCAT(lc.title SEPARATOR '|#') as titles,
-                        GROUP_CONCAT(lc.language SEPARATOR '|#') as languages
-                FROM language_configs as lc
-                LEFT JOIN categories ON lc.page_control = categories.id AND lc.language = categories.language
-                GROUP BY lc.param ORDER BY title";
-        $result = DB::select($sql, []);
+        // $sql = "SELECT  lc.id,
+        //                 lc.param,
+        //                 lc.updated_at,
+        //                 categories.id as pageId,
+        //                 categories.cate_title as pageTitle,
+        //                 GROUP_CONCAT(lc.title SEPARATOR '|#') as titles,
+        //                 GROUP_CONCAT(lc.language SEPARATOR '|#') as languages
+        //         FROM language_configs as lc
+        //         LEFT JOIN categories ON lc.page_control = categories.id AND lc.language = categories.language
+        //         GROUP BY lc.param ORDER BY title";
+
+        $sql = LanguageConfig::select(
+            'language_configs.id',
+            'language_configs.param',
+            'language_configs.updated_at',
+            'categories.id as pageId',
+            'categories.cate_title as pageTitle',
+            DB::raw("GROUP_CONCAT(language_configs.title SEPARATOR '|#') as titles"),
+            DB::raw("GROUP_CONCAT(language_configs.language SEPARATOR '|#') as languages")
+        )
+            ->leftJoin('categories', function ($join) {
+                $join->on('language_configs.page_control', '=', 'categories.id')
+                    ->on('language_configs.language', '=', 'categories.language');
+            })
+            // ->groupBy('language_configs.param')
+            ->orderBy('language_configs.title')
+            ->get();
+        $result = $sql->toArray();
         return $result;
     }
 }

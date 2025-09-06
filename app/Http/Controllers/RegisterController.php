@@ -86,7 +86,7 @@ class RegisterController extends Controller
             $webInfo = $this->infoSetting($infos);
             Mail::to($request->input('email'))->send(new ConfirmMember($memberPro, $webInfo));
             // Mail::to($webInfo->contact->email->value)->send(new MailableNewMember($memberPro, $webInfo));
-
+dd('gogo');
             DB::commit();
 
             return response()->json([

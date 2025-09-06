@@ -88,7 +88,8 @@ class ShareWebData
 
 
 
-        // dd($getMenu(2, 'MEMBER', true) );
+        // dd($getMenu(1) , $getMenu(2, 'REGISTER', true) );
+        // dd( $getMenu(2, 'REGISTER', true));
         // Share global data with all views
         view::share('language', $language);
         View::share('appName', config('app.name'));

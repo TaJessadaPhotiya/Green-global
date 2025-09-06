@@ -16,6 +16,7 @@
                     </p>
                 </div>
                 <div class="space-y-6">
+
                     <div class="w-full mx-auto max-w-md ">
                         {{-- Username --}}
                         <div>
@@ -107,7 +108,8 @@
 
         axios.post(`/${url}/authenticate`, {
             username: userName,
-            password: passWord
+            password: passWord,
+
         }).then(function(response) {
             if (response.data.status === '200') {
                 const redirectUrl = response.data.url;

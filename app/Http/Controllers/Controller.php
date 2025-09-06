@@ -179,7 +179,14 @@ class Controller extends BaseController
             ->orWhere('defaults', 1)
             ->orderBy('cateLevel', 'DESC')
             ->orderBy('priority', 'ASC')
-            ->get();
+            ->get()->groupBy('id')   // group ตาม id
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
 
 
         return $this->categoryConvertGroup($result);

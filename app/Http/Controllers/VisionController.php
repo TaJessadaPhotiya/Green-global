@@ -18,7 +18,7 @@ class VisionController extends Controller
 
         // ถ้าไม่มี ให้หา defaults = 1
         if (!$visionContent) {
-            $homeContent = Post::select('id', 'title', 'description', 'thumbnail_link', 'thumbnail_title', 'thumbnail_alt', 'category', 'content', 'slug', 'language')
+            $visionContent = Post::select('id', 'title', 'description', 'thumbnail_link', 'thumbnail_title', 'thumbnail_alt', 'category', 'content', 'slug', 'language')
                 ->where('slug', 'VISION')
                 ->where('defaults', 1)
                 ->first();

@@ -71,7 +71,6 @@ class ProducrAgricultureController extends BaseController
             'tasteLine2' => 'string|required',
             'diseaseLine1' => 'string|required',
             'diseaseLine2' => 'string|required',
-            'link_youtube' => 'string|required',
 
             'display' => 'numeric|required',
             'p_new' => 'numeric|required',
@@ -166,8 +165,8 @@ class ProducrAgricultureController extends BaseController
             'TasteLine2' => 'string|required',
             'DiseaseLine1' => 'string|required',
             'DiseaseLine2' => 'string|required',
-            'linkYoutub' => 'string|required',
-            'docLink' => 'string|required',
+            // 'linkYoutub' => 'string',
+            // 'docLink' => 'string',
 
             'display' => 'numeric|required',
             'pNew' => 'numeric|required',

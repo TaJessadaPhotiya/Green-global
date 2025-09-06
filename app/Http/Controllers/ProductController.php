@@ -33,7 +33,7 @@ class ProductController extends Controller
                     ->orWhere('defaults', 1);
             })
             ->where('display', 1)
-            ->orderBy('priority', 'ASC')
+            ->orderByRaw('priority + 0 ASC')
             ->get()
             ->groupBy('id')   // group ตาม id
             ->map(function ($items) use ($language) {
