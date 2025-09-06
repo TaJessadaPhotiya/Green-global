@@ -84,7 +84,7 @@ class BaseController extends Controller
                 ->orWhere('defaults', 1);
         })
             ->where('display', 1)
-            ->orderBy('updated_at', 'DESC')
+            ->orderBy('priority', 'ASC')
             ->get();
 
         return $data->groupBy('id')   // group ตาม rootId

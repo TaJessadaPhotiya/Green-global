@@ -48,7 +48,7 @@
             src="/image/Top-Line - Copy (2).png" alt="">
         <div
             class="flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 xl:px-[4rem] px-4 drop-shadow-md">
-            <a href="/<?= $language ?>/">
+            <a href="/<?= $language ?>">
                 <img class=" xl:w-[75px] w-[50px] h-auto" src="/image/logo-GGS.png 1.png" alt=""
                     data-aos="fade-right" data-aos-duration="1200">
             </a>

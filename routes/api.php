@@ -60,6 +60,7 @@ Route::prefix('backoffice/v1')->group(function () {
             Route::post('create', [ProductCateController::class, 'createProductcate']);
             Route::post('update/{id}', [ProductCateController::class, 'updateProductcate']);
             Route::post('segment/create', [ProductCateController::class, 'createSegment']);
+            Route::post('segment/update/{id}', [ProductCateController::class, 'updateSegment']);
             Route::delete('segment/destroy/{id}', [ProductCateController::class, 'deleteSegment']);
             Route::delete('destroy/{id}/{language}', [ProductCateController::class, 'deleteProductcate']);
         });
