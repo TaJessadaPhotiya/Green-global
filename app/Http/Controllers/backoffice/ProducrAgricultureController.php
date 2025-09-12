@@ -17,6 +17,16 @@ class ProducrAgricultureController extends BaseController
     {
         $cates = $this->getProductCate($request->language)->toarray();
         $segment = Segment::select('id', 'title')->orderBy('title', 'ASC')->get()->toarray();
+
+        $HighestCategoryPriority = Product::select(DB::raw('product_category.id, product_category.title AS category_title ,MAX(products.priority) AS max_priority'))
+            ->join('product_category', 'product_category.id', '=', 'products.category')
+            ->where('product_category.defaults', 1)
+            ->where('product_category.display', 1)
+            ->groupBy('product_category.id', 'product_category.title')
+            ->get();
+
+// dd($HighestCategoryPriority);
+
         $catesCollection = collect($cates);
         $newCatesCollection = $catesCollection->map(function ($cate) use ($segment) {
             // ... transformation logic here ...
@@ -33,6 +43,7 @@ class ProducrAgricultureController extends BaseController
             'status' => true,
             'description' => 'Get product category success',
             'cates' => $newCatesCollection->toarray(),
+            'maxPriority' => $HighestCategoryPriority->toarray(),
         ], 200);
     }
 
@@ -92,7 +103,7 @@ class ProducrAgricultureController extends BaseController
             $thumbnailSecond = (isset($files['ImageSecond'])) ? $this->uploadImage($newFolder, $files['ImageSecond'], "", "", $params['thumbnailSecond_name']) : "";
             $doc_pdf = (isset($files['pdf'])) ? $this->uploadImage($newFolderFile, $files['pdf'], "", "", $params['pdfName'] . time()) : "";
 
-            $this->updatePriority("products", $params['priority']);
+            $this->updateProductPriority("products", $params['category'], $params['priority']);
 
             $productsCreated = Product::create([
                 "thumbnail_link" => $thumbnail,
@@ -193,6 +204,13 @@ class ProducrAgricultureController extends BaseController
 
             $conditions = ['id' => $params['id'], 'language' => $params['language']];
 
+
+            if ($productUpdate != null) {
+                if ($productUpdate->priority != $params['priority']) {
+                    $this->updateProductPriority("products", $productUpdate->category, $params['priority']);
+                }
+            }
+
             $values = [
                 "id" => $params['id'],
                 "thumbnail_link" => $thumbnail,
@@ -227,11 +245,7 @@ class ProducrAgricultureController extends BaseController
 
             DB::table('products')->updateOrInsert($conditions, $values);
 
-            if ($productUpdate != null) {
-                if ($productUpdate->priority != $params['priority']) {
-                    $this->updatePriority("products", $params['priority']);
-                }
-            }
+
 
             DB::table('products')
                 ->where($conditions)
@@ -282,15 +296,34 @@ class ProducrAgricultureController extends BaseController
         })
             // ->groupBy('id')
             ->orderBy('updated_at', 'DESC')
+            // ->orderBy('priority', 'ASC')
             ->get();
 
         return $data->groupBy('id')   // group ตาม rootId
-        ->map(function ($items) use ($language) {
-            // หาตัวที่ตรงกับ language
-            $match = $items->firstWhere('language', $language);
-            // ถ้าไม่มีให้ใช้ defaults
-            return $match ?? $items->firstWhere('defaults', 1);
-        })
-        ->values();  // reset index
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
+    }
+
+    private function updateProductPriority($table, $category, $priority)
+    {
+
+       $duplicatePriority = DB::table($table)
+            ->where('priority', '=', $priority)
+            ->where('category', '=', $category)
+            ->first();
+
+        if ($duplicatePriority) {
+            // update priority
+            DB::table($table)
+                ->where('priority', '>=', $priority)
+                ->where('category', '=', $category)
+                ->increment('priority', 1);
+        }
+
     }
 }

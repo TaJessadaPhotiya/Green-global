@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LanguageConfig;
 use App\Models\WebInfo;
 use App\Models\LeaveMessages;
 use Illuminate\Http\Request;
@@ -38,8 +39,16 @@ class ContactController extends Controller
             'image3' => $image3
         ])->toArray();
 
-        // dd( $contactImage);
-        return view('pages.contact.contact', compact('contactData', 'contactImage'));
+        $lang_config_contact = [];
+        $lang_config = LanguageConfig::where(['language' => $language, 'page_control' => 6])->orderBy('id', 'DESC')->get();
+        if (!empty($lang_config)) {
+            foreach ($lang_config as $key => $value) {
+                $lang_config_contact[$value->param] = $value->title;
+            }
+        }
+
+        // dd( $lang_config_contact);
+        return view('pages.contact.contact', compact('contactData', 'contactImage', 'lang_config_contact'));
     }
 
     public function store(Request $request)

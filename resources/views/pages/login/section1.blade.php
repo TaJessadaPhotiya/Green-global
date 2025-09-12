@@ -9,10 +9,10 @@
                 {{-- Header --}}
                 <div class="text-center mb-8">
                     <h1 class="text-xl text-white font-extrabold mb-4">
-                        Key in password and selecting product for your market
+                        {{ $lang_config_sign['SignIn_Text_Heading1'] ?? 'Key in password and selecting product for your market' }}
                     </h1>
                     <p class="text-base text-blue-100 mb-8">
-                        Please enter your details.
+                        {{ $lang_config_sign['SignIn_Text_Heading2'] ?? 'Please enter your details.' }}
                     </p>
                 </div>
                 <div class="space-y-6">
@@ -20,14 +20,16 @@
                     <div class="w-full mx-auto max-w-md ">
                         {{-- Username --}}
                         <div>
-                            <label for="username" class="text-white">*User name</label>
+                            <label for="username"
+                                class="text-white">{{ $lang_config_sign['SignIn_User name'] ?? '*User name' }}</label>
                             <input id="username" type="text" name="username" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 placeholder-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="User Name">
                         </div>
                         {{-- Password --}}
                         <div class="mt-4">
-                            <label for="password" class="text-white">*Password</label>
+                            <label for="password"
+                                class="text-white">{{ $lang_config_sign['SignIn_Password'] ?? '*Password' }}</label>
                             <div class="relative mt-2">
                                 <input id="password" name="password" type="password" required
                                     class=" rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -50,7 +52,7 @@
                             <input type="checkbox" id="occupation_other" name="occupations[]" value="Other"
                                 class="accent-white w-4 h-4" />
                             <label for="occupation_other" class="text-white text-sm">
-                                Remember Me
+                                {{ $lang_config_sign['SignIn_RememberMe'] ?? 'Remember Me' }}
                             </label>
                         </div>
                     </div>
@@ -60,13 +62,13 @@
                             <img class="w-5 h-5" src="/icons/hugeicons_reset-password.png" alt="">
                             <a class="text-white font-medium hover:text-yellow-300 hover:underline"
                                 href="/{{ $language }}/forgot">
-                                Forgot password?
+                                {{ $lang_config_sign['SignIn_Forgot'] ?? 'Forgot password?' }}
                             </a>
                         </div>
                         <div>
                             <a class="text-white text-sm font-normal hover:text-yellow-300 hover:underline underline"
                                 href="/{{ $language }}/register">
-                                Register to get password for business growth together (B2B)
+                                {{ $lang_config_sign['SignIn_Register'] ?? 'Register to get password for business growth together (B2B)' }}
                             </a>
                         </div>
                     </div>
@@ -76,7 +78,7 @@
             <div class="w-full flex justify-center gap-5 mt-8">
                 <button type="submit" form="loginForm" id="loginBtn"
                     class="w-[110px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm flex justify-center items-center">
-                    <span id="btnText">SIGN IN</span>
+                    <span id="btnText">{{ $lang_config_sign['SignIn_SIGN'] ?? 'SIGN IN' }}</span>
                     <svg id="btnSpinner" class="hidden animate-spin h-4 w-4 ml-2 text-white"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"

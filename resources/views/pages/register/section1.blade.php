@@ -1,34 +1,3 @@
-@php
-    $occupations = [
-        'Farmer',
-        'Seed Company',
-        'Agriculture-related business',
-        'Seed Distributor',
-        'Seedling nursery',
-        'Chemical or fertilizer',
-    ];
-
-    $countries = [
-        'Thailand',
-        'Vietnam',
-        'Malaysia',
-        'Singapore',
-        'Indonesia',
-        'Philippines',
-        'Cambodia',
-        'Laos',
-        'Myanmar',
-        'Brunei',
-        'United States',
-        'United Kingdom',
-        'Australia',
-        'Canada',
-        'Japan',
-        'South Korea',
-        'China',
-        'India',
-    ];
-@endphp
 
 <div class="relative w-full h-full">
     @include('layouts.popup')
@@ -41,10 +10,10 @@
                 {{-- Header --}}
                 <div class="text-center mb-8">
                     <h1 class="text-xl text-white font-extrabold mb-4">
-                        Register To Get Password For Business Growth Together (B2B)
+                        {{ $lang_config_register['Register_Text_Heading1'] ?? 'Register To Get Password For Business Growth Together (B2B)' }}
                     </h1>
                     <p class="text-base text-blue-100 mb-8">
-                        Please fill out the information completely to get member.
+                        {{ $lang_config_register['Register_Text_Heading2'] ?? 'Please fill out the information completely to get member.' }}
                     </p>
                 </div>
 
@@ -53,7 +22,7 @@
 
                     {{-- Username --}}
                     <div>
-                        <label for="username" class="text-white">*User name</label>
+                        <label for="username" class="text-white">{{ $lang_config_register['Register_User name'] ?? '*User name' }}</label>
                         <input id="username" type="text" name="username" required
                             class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 placeholder-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                             placeholder="User Name">
@@ -62,13 +31,13 @@
                     {{-- First & Last Name --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="firstname" class="text-white">*First Name</label>
+                            <label for="firstname" class="text-white">{{ $lang_config_register['Register_First Name'] ?? '*First Name' }}</label>
                             <input id="firstname" name="firstname" type="text" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="First Name">
                         </div>
                         <div>
-                            <label for="lastname" class="text-white">*Last Name</label>
+                            <label for="lastname" class="text-white">{{ $lang_config_register['Register_Last Name'] ?? '*Last Name' }}</label>
                             <input id="lastname" name="lastname" type="text" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="Last Name">
@@ -78,14 +47,14 @@
                     {{-- Telephone & Email --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="telephone" class="text-white">*Telephone Number</label>
+                            <label for="telephone" class="text-white">{{ $lang_config_register['Register_Telephone Number'] ?? '*Telephone Number' }}</label>
                             <input id="telephone" name="telephone" type="tel" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="000-000-0000">
                             <span id="error-telephone" class="text-red-500 ml-2"></span>
                         </div>
                         <div>
-                            <label for="email" class="text-white">*Email</label>
+                            <label for="email" class="text-white">{{ $lang_config_register['Register_Email'] ?? '*Email' }}</label>
                             <input id="email" name="email" type="email" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="sample@gmail.com">
@@ -96,7 +65,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- Password -->
                         <div>
-                            <label for="password" class="text-white">*Password</label>
+                            <label for="password" class="text-white">{{ $lang_config_register['Register_Password'] ?? '*Password' }}</label>
                             <div class="relative mt-2">
                                 <input id="password" name="password" type="password" required
                                     class=" rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -118,7 +87,7 @@
 
                         <!-- Confirm Password -->
                         <div>
-                            <label for="password_confirmation" class="text-white">*Confirm Password</label>
+                            <label for="password_confirmation" class="text-white">{{ $lang_config_register['Register_Confirm Password'] ?? '*Confirm Password' }}</label>
                             <div class="relative mt-2">
                                 <input id="password_confirmation" name="password_confirmation" type="password" required
                                     class="rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -142,21 +111,21 @@
                     {{-- Info Section --}}
                     <div class="mt-12">
                         <div class="border-b border-white/30 pb-2 mb-8">
-                            <h2 class="text-xl font-bold text-white">INFORMATION</h2>
+                            <h2 class="text-xl font-bold text-white">{{ $lang_config_register['Register_information'] ?? 'INFORMATION' }}</h2>
                         </div>
 
                         {{-- Occupation --}}
                         <div class="mb-8">
-                            <h3 class="text-white font-medium mb-6">What is your occupation?</h3>
-
+                            <h3 class="text-white font-medium mb-6">{{ $lang_config_register['Register_Text_Heading3'] ?? 'What is your occupation?' }}</h3>
+{{-- @DD($occupations) --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 @foreach ($occupations as $occupation)
                                     <div class="flex items-center space-x-3">
                                         <input type="checkbox" id="occupation_{{ $loop->index }}"
-                                            name="occupations[]" value="{{ $occupation }}"
+                                            name="occupations[]" value="{{ $occupation->name }}"
                                             class="accent-white w-4 h-4 chk" />
                                         <label for="occupation_{{ $loop->index }}"
-                                            class="text-white text-sm">{{ $occupation }}</label>
+                                            class="text-white text-sm">{{ $occupation->name }}</label>
                                     </div>
                                 @endforeach
                                 <div class="flex items-center space-x-3">
@@ -175,15 +144,15 @@
                         {{-- Country --}}
                         <div class="w-full mb-8">
                             <label for="country" class="text-white font-semibold mb-2 block">
-                                Which country are you from?
+                                {{ $lang_config_register['Register_Text_Heading4'] ?? 'Which country are you from?' }}
                             </label>
                             <span id="error-country" class="text-red-500"></span>
                             <div class="relative w-full">
                                 <select name="country" id="country"
                                     class="peer appearance-none rounded-md px-4 py-2 bg-white text-gray-900 flex justify-center w-full text-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-                                    <option value="">Please select a country</option>
+                                    <option value="">{{ $lang_config_register['Register_Select_Country'] ?? 'Please select a country' }}</option>
                                     @foreach ($countries as $country)
-                                        <option value="{{ strtolower($country) }}">{{ $country }}</option>
+                                        <option value="{{ strtolower($country->english) }}">{{ $country->english }}</option>
                                     @endforeach
                                 </select>
 
@@ -199,13 +168,13 @@
                     {{-- PDPA Notice --}}
                     <div class="text-sm text-center text-blue-100 leading-relaxed mb-8">
                         <p>
-                            "Your personal information is important to us. We need your information solely for
+                            {{ $lang_config_register['Register_Text_Heading5'] ?? "Your personal information is important to us. We need your information solely for
                             processing
                             and
                             improving the services we provide. Please give your consent. If you agree, you accept
                             the terms of use in accordance with Thailand's PDPA regulations. Read the terms of our
                             privacy
-                            policy."
+                            policy."}}
                         </p>
                     </div>
                 </div>
@@ -217,7 +186,7 @@
                     class="w-[95px] flex items-center justify-center text-sm text-white py-2
                             bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400
                             hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
-                    <span id="btnText">ACCEPT</span>
+                    <span id="btnText">{{ $lang_config_register['Register_Text_ACCEPT'] ?? 'ACCEPT' }}</span>
                     <!-- Spinner สวย -->
                     <svg id="btnSpinner" class="hidden animate-spin ml-2 h-5 w-5 text-white"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -231,7 +200,7 @@
                 <a type="button" href="{{ route('login', ['language' => $language]) }}">
                     <button type="button"
                         class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
-                        REJECT
+                        {{ $lang_config_register['Register_Text_REJECT'] ?? 'REJECT' }}
                     </button>
                 </a>
             </div>
@@ -247,8 +216,6 @@
         const btn = document.getElementById("registerBtn");
         const btnText = document.getElementById("btnText");
         const btnSpinner = document.getElementById("btnSpinner");
-
-
 
         const username = document.getElementById('username').value.trim();
         const firstname = document.getElementById('firstname').value.trim();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LanguageConfig;
 use App\Models\MemberProfiles;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -10,12 +11,20 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index($language)
     {
         $user = Auth::user();
         $profile = $user->memberAccount->memberProfiles;
+          $lang_config_profile = [];
+        $lang_config = LanguageConfig::where(['language' => $language, 'page_control' => 7])
+        ->orderBy('id', 'DESC')->get();
+        if (!empty($lang_config)) {
+            foreach ($lang_config as $key => $value) {
+                $lang_config_profile[$value->param] = $value->title;
+            }
+        }
         // dd($profile);
-        return view('pages.profile.profile', compact('user', 'profile'));
+        return view('pages.profile.profile', compact('user', 'profile', 'lang_config_profile'));
     }
 
     public function update($language, Request $request)
