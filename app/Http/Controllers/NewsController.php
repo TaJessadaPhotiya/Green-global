@@ -50,9 +50,28 @@ class NewsController extends Controller
                 ->where('defaults', 1)
                 ->first();
         }
-        // dd($NewsData);
-        $ProductData = Product::leftJoin('product_category', 'products.category', '=', 'product_category.id')
-            ->select(
+
+
+        $ProductPost = Post::where(['slug' => 'NEWSPRODUCT', 'language' => $language])->first();
+
+        if (is_null($ProductPost) || empty($ProductPost)) {
+            $ProductPost = Post::where(['slug' => 'NEWSPRODUCT', 'defaults' => 1])->first();
+        }
+
+        $ProductData = Product::select(
+            'products.id',
+            'products.title',
+            'product_category.title AS c_title',
+            'products.short_url',
+            'products.thumbnail_link',
+            'products.thumbnail_title',
+            'products.thumbnail_alt',
+        )
+            ->leftJoin('product_category', 'products.category', '=', 'product_category.id')
+            ->where(['products.short_url' => $ProductPost->redirect, 'products.language' => $language])->first();
+            // dd($ProductData);
+        if (is_null($ProductData) || empty($ProductData)) {
+            $ProductData = Product::select(
                 'products.id',
                 'products.title',
                 'product_category.title AS c_title',
@@ -61,26 +80,22 @@ class NewsController extends Controller
                 'products.thumbnail_title',
                 'products.thumbnail_alt',
             )
-            ->where('products.pin', 1)
-            ->where('.products.language', $language)
-            ->first();
-        if (!$ProductData) {
-            $ProductData = Product::leftJoin('product_category', 'products.category', '=', 'product_category.id')
-                ->select(
-                    'products.id',
-                    'products.title',
-                    'product_category.title AS c_title',
-                    'products.short_url',
-                    'products.thumbnail_link',
-                    'products.thumbnail_title',
-                    'products.thumbnail_alt',
-                )
-                ->where('products.defaults', 1)
-                ->where('products.pin', 1)
-                ->first();
+                ->leftJoin('product_category', 'products.category', '=', 'product_category.id')
+                ->where(['products.title' => $ProductPost->redirect, 'products.defaults' => 1, 'products.display' => 1])->first();
         }
-        // dd($ProductData);
 
-        return view('pages.news.news', compact('NewsData', 'ProductData'));
+        $NewsProduct = collect([
+            "id" => $ProductData->id,
+            "title" => $ProductData->title,
+            "c_title" => $ProductData->c_title,
+            "short_url" => $ProductData->short_url,
+            "thumbnail_link" => $ProductData->thumbnail_link,
+            "thumbnail_title" => $ProductData->thumbnail_title,
+            "thumbnail_alt" => $ProductData->thumbnail_alt,
+            "description" => $ProductPost->description,
+        ]);
+        // dd($NewsProduct['c_title'] );
+
+        return view('pages.news.news', compact('NewsData', 'NewsProduct'));
     }
 }
