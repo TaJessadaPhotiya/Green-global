@@ -87,6 +87,7 @@
 
 @php
     $status = 0;
+    // dd($mainMenu);
 @endphp
 
 <div>
@@ -100,43 +101,14 @@
 
     <div class="sidebar bg-cover bg-center bg-no-repeat {{ $language == 'ar' ? 'left-0' : 'right-0' }}"
         style="background-image: url('/image/Rectangle 361.png')">
-        <div class="{{ Request::is("$language") ? 'border-l-4 border-[#E9C713] ' : '' }} ">
-            <a class="drop-shadow-md border-y border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/">
-                HOME
-            </a>
-        </div>
-        <div class="{{ Request::is("$language/vision") ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/vision") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/vision">
-                VISION
-            </a>
-        </div>
-        <div class="{{ Request::is("$language/news") ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/news") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/news">
-                NEWS
-            </a>
-        </div>
-        <div
-            class="{{ Request::is("$language/product") || Request::is('product-detail*') ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/product") || Request::is('product-detail*') ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/product">
-                PRODUCT
-            </a>
-        </div>
-        <div class="{{ Request::is("$language/term") ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/term") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/term">
-                TERM
-            </a>
-        </div>
-        <div class="{{ Request::is("$language/contact") ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/contact") ? 'bg-gray-300/10' : '' }} "
-                href="/<?= $language ?>/contact">
-                CONTACT US
-            </a>
-        </div>
+        @foreach ($mainMenu as $menu)
+            <div class="{{ Request::is($language . $menu->cate_url) ? 'border-l-4 border-[#E9C713] ' : '' }} ">
+                <a class="drop-shadow-md border-y border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is($language . $menu->cate_url) ? 'bg-gray-300/10 ' : '' }} "
+                    href={{ $menu->cate_redirect }}>
+                    {{ $menu->cate_title ?? 'HOME' }}
+                </a>
+            </div>
+        @endforeach
 
         @if ($menuChildren)
             @if (Auth::check())
@@ -177,20 +149,18 @@
                     <button id="myMemberDropdownBtn1"
                         class="items-center justify-center w-full rounded-md text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm text-[14px] font-medium"
                         onclick="toggleMemberDropdown1()">
-                        REGISTER
+                        {{ $menuChildren['register']->cate_title }}
                     </button>
 
                     <div id="myMemberDropdownMenu1"
                         class="hidden absolute top-full left-0 z-30 w-full mx-auto bg-white shadow-lg">
                         <div class="flex flex-col items-center justify-center w-full">
-                            <a href="/{{ $language }}/login"
-                                class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200 border-b border-t">
-                                Sign In
-                            </a>
-                            <a href="/{{ $language }}/register"
-                                class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200">
-                                Register
-                            </a>
+                            @foreach ($menuChildren['register']->childrenData as $children)
+                                <a href={{ $children->cate_redirect }}
+                                    class="flex justify-center w-full py-3 text-sm font-medium bg-gray-300/20 text-gray-700 hover:text-yellow-500 transition duration-200 border-b border-t">
+                                    {{ $children->cate_title }}
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
