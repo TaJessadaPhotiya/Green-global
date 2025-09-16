@@ -5,7 +5,7 @@
             @foreach ($slides as $slide)
                 <div class="swiper-slide relative">
                     <img class="w-full h-full object-cover" src="/{{ $slide->ad_image }}"
-                        alt="{{ $slide->ad_image_alt }}">
+                         alt="{{ $slide->ad_image_alt }}">{{-- --}}
                     <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/10"></div>
                 </div>
             @endforeach
