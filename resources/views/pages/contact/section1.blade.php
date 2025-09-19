@@ -41,7 +41,7 @@
                         <div class="{{ $language == 'ar' ? 'border-r-2 pr-3' : 'border-l-2 pl-3' }} border-[#008C46] ">
                             <p class="text-[#19703D] sm:text-xl text-md font-semibold">
                                 {{ $lang_config_contact['Contact_Text_Email'] ?? $contactData[2]['info_title'] }}</p>
-                            <p class="text-[#19703D] text-md font-sans">{{ $contactData[2]['info_value'] }}</p>
+                            <p class="text-[#19703D] text-md font-sans">{{ $contactData[3]['info_value'] }}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3 mt-5">
@@ -50,7 +50,7 @@
                         <div class="{{ $language == 'ar' ? 'border-r-2 pr-3' : 'border-l-2 pl-3' }} border-[#008C46] ">
                             <p class="text-[#19703D] sm:text-xl text-md font-semibold">
                                 {{ $lang_config_contact['Contact_Text_Address'] ?? $contactData[3]['info_title'] }}</p>
-                            <p class="text-[#19703D] text-md font-sans">{{ $contactData[3]['info_value'] }}</p>
+                            <p class="text-[#19703D] text-md font-sans">{{ $contactData[2]['info_value'] }}</p>
                         </div>
                     </div>
                     <div class="flex justify-center w-full mt-8">

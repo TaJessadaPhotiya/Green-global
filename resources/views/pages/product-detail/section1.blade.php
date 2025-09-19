@@ -58,7 +58,7 @@
                             </figure>
 
                             <p class="xl:text-lg sm:text-[18px] text-sm text-[#098C46] text-center font-semibold mt-3">
-                                Plant Growth
+                               {{$lang_config_contact['Product_text1'] ?? "Plant Growth"}}
                             </p>
                         </div>
                         @if ($product->link_youtube !== null)
@@ -70,7 +70,7 @@
                                 </figure>
                                 <p
                                     class="xl:text-lg sm:text-[18px] text-sm text-[#098C46] group-hover:text-[#7AC53A] text-center font-semibold mt-3">
-                                    Watch Video
+                                   {{ $lang_config_contact['Product_text2'] ?? "Watch Video"}}
                                 </p>
                             </div>
                         @endif
@@ -84,7 +84,7 @@
                                 </figure>
                                 <p
                                     class="xl:text-lg sm:text-[18px] text-sm text-[#098C46] group-hover:text-[#7AC53A] text-center font-semibold mt-3">
-                                    ดู PDF
+                                    {{ $lang_config_contact['Product_text3'] ?? "Watch PDF" }}
                                 </p>
                             </a>
                         @endif
@@ -99,7 +99,7 @@
                         <figure>
                             <img class="min-w-[70px] h-[70px] drop-shadow-md" src="/icons/icon-plant.png"
                                 alt="">
-                            <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">PLANT</figcaption>
+                            <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">{{ $lang_config_contact['Product_text4'] ?? "PLANT" }}</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
                             <li>{{ $product->plant_1 ?? 'No description available.' }}</li>
@@ -112,7 +112,7 @@
                         <figure>
                             <img class="min-w-[70px] h-[70px] drop-shadow-md" src="/icons/icon-fruit.png"
                                 alt="">
-                            <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">FRUIT</figcaption>
+                            <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">{{ $lang_config_contact['Product_text5'] ?? "FRUIT" }}</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
                             <li>{{ $product->fruit_1 ?? 'No description available.' }}</li>
@@ -125,7 +125,7 @@
                         <figure>
                             <img class="min-w-[70px] h-[70px] drop-shadow-md" src="/icons/icon-taste.png"
                                 alt="">
-                            <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">TASTE</figcaption>
+                            <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">{{ $lang_config_contact['Product_text_TASTE'] ??  "TASTE" }}</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px] ">
                             <li>{{ $product->taste_1 ?? 'No description available.' }}</li>
@@ -137,7 +137,7 @@
                         <figure>
                             <img class="min-w-[70px] h-[70px] drop-shadow-md" src="/icons/icon-disease.png"
                                 alt="">
-                            <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">DISEASE</figcaption>
+                            <figcaption class="text-center text-md font-[600] text-[#7AC53A] ">{{ $lang_config_contact['Product_text_DISEASE'] ?? "DISEASE" }}</figcaption>
                         </figure>
                         <ul class="text-[#098C46] text-[18px]/8 ">
                             <li>{{ $product->disease_1 ?? 'No description available.' }}</li>
@@ -149,7 +149,7 @@
                     <div class="flex sm:justify-end justify-center w-full">
                         <a href="javascript:history.back()"
                             class="flex items-start justify-center gap-4 w-[110px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm mt-6">
-                            <img class="w-5 h-5" src="/icons/icon-park-solid_back.png" alt="">BACK
+                            <img class="w-5 h-5" src="/icons/icon-park-solid_back.png" alt="">{{ $lang_config_contact['Product_text_BACK'] ?? "BACK" }}
                         </a>
                     </div>
                 </div>

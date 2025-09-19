@@ -38,13 +38,13 @@ class SendMailResetPassword extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.resetpassword',
+            view: 'mail.resetpasswordBackoffice',
             with: ([
                 'user' => $this->user,
                 'reset_token' => $this->reset_token,
                 'user_account' => $this->user_account,
                 'web_info' => $this->webinfo,
-                'linkReset' => env('APP_BACKOFFICE_URL','') . '/resetpassword/' . $this->reset_token->token
+                'linkReset' => env('APP_BACKOFFICE_URL','') . '/setpassword/' . $this->reset_token->token
                 ]),
         );
     }

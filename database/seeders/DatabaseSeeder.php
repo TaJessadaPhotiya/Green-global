@@ -58,6 +58,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             WebInfoSeeder::class, //web_infostable
+            LanguageConfigsSeeder::class, //language_configstable
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LanguageConfig;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\MemberAccount;
@@ -86,9 +87,17 @@ class RegisterController extends Controller
                 $memberOccupation->save();
             }
 
+            /* *เพิ่มผู้ไช้งานและอนุมัด 1 เอง */
+            // สร้างวันที่ปัจจุบัน
+            $currentDate = Carbon::now();
+            $newDate = $currentDate->addDays(2);
+
             $memberAccounts = new MemberAccount();
             $memberAccounts->users_id = $users->id;
             $memberAccounts->profiles_id = $memberPro->id;
+            $memberAccounts->member_status = 1; // 1 = active, 0 = inactive
+            // $memberAccounts->member_verify_at = $currentDate; // กำหนดวันที่
+            // $memberAccounts->member_expire_at = $newDate; // กำหนดวันที่หมดอายุ
             $memberAccounts->save();
 
 
@@ -96,7 +105,8 @@ class RegisterController extends Controller
             $webInfo = $this->infoSetting($infos);
             Mail::to($request->input('email'))->send(new ConfirmMember($memberPro, $webInfo));
             // Mail::to($webInfo->contact->email->value)->send(new MailableNewMember($memberPro, $webInfo));
-// dd('gogo');
+            // dd('gogo');
+
             DB::commit();
 
             return response()->json([
