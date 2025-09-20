@@ -167,7 +167,6 @@
             @endif
         @endif
 
-
         <!-- Language Dropdown อยู่ตรงกลางแนวนอน -->
         <div class="relative mx-auto mt-6 w-fit" id="myLangDropdown">
             <button id="myLangDropdownBtn"

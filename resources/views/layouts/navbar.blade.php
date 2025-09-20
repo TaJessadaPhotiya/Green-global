@@ -35,7 +35,7 @@
 @endphp
 
 <nav class="sticky top-0 z-20 bg-[#E9C713] ">
-    <div class="relative bg-white xl:mt-3 mt-1.5 ">
+    <div class="relative bg-white lg:mt-3 mt-1.5 ">
         {{-- style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;" --}}
 
         <img class=" {{ $language == 'ar' ? 'right-0 scale-x-[-1]' : 'left-0' }} absolute top-full w-[302px] max-2xl:hidden z-20"
@@ -47,13 +47,13 @@
         <img class="absolute top-full left-0 w-full h-[14px] overflow-hidden max-2xl:hidden "
             src="/image/Top-Line - Copy (2).png" alt="">
         <div
-            class="flex items-center max-xl:justify-between max-xl:py-1 max-w-[1300px] xl:h-[80px] h-[55px] mx-auto 2xl:px-0 xl:px-[4rem] px-4 drop-shadow-md">
+            class="flex items-center max-lg:justify-between max-lg:py-1 max-w-[1300px] lg:h-[80px] h-[55px] mx-auto 2xl:px-0 lg:px-[4rem] px-4 drop-shadow-md">
             <a href="/<?= $language ?>">
-                <img class=" xl:w-[75px] w-[50px] h-auto" src="/image/logo-GGS.png 1.png" alt=""
+                <img class=" lg:w-[75px] w-[50px] h-auto" src="/image/logo-GGS.png 1.png" alt=""
                     data-aos="fade-right" data-aos-duration="1200">
             </a>
 
-            <div class="max-xl:hidden flex items-center justify-end w-full gap-7 mt-1" data-aos="fade-left"
+            <div class="max-lg:hidden flex items-center justify-end w-full gap-7 mt-1" data-aos="fade-left"
                 data-aos-duration="1200">
                 @foreach ($mainMenu as $menu)
                     <a class="text-[18px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 drop-shadow-sm border-b-2 border-transparent
@@ -151,7 +151,7 @@
             </div>
 
             {{-- Hamberger --}}
-            <div class="xl:hidden">
+            <div class="lg:hidden">
                 @include('layouts.hamburger')
             </div>
         </div>
