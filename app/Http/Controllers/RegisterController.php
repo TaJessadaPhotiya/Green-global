@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LanguageConfig;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\MemberAccount;
@@ -16,9 +18,19 @@ use App\Mail\MailableNewMember;
 
 class RegisterController extends Controller
 {
-    public function index()
+    public function index($language)
     {
-        return view('pages.register.register');
+        $occupations = DB::table('occupations_configs')->select('id', 'name')->get()->toArray();
+        $countries = DB::table('countries_configs')->select('id', 'english')->get()->toArray();
+        $lang_config_register = [];
+        $lang_config = LanguageConfig::where(['language' => $language, 'page_control' => 8])->orderBy('id', 'DESC')->get();
+        if (!empty($lang_config)) {
+            foreach ($lang_config as $key => $value) {
+                $lang_config_register[$value->param] = $value->title;
+            }
+        }
+        // dd($lang_config_register);
+        return view('pages.register.register', compact('occupations', 'countries', 'lang_config_register'));
     }
 
     public function store($language, Request $request)
@@ -75,18 +87,26 @@ class RegisterController extends Controller
                 $memberOccupation->save();
             }
 
+            /* *เพิ่มผู้ไช้งานและอนุมัด 1 เอง */
+            // สร้างวันที่ปัจจุบัน
+            $currentDate = Carbon::now();
+            $newDate = $currentDate->addDays(2);
+
             $memberAccounts = new MemberAccount();
             $memberAccounts->users_id = $users->id;
             $memberAccounts->profiles_id = $memberPro->id;
+            $memberAccounts->member_status = 1; // 1 = active, 0 = inactive
+            // $memberAccounts->member_verify_at = $currentDate; // กำหนดวันที่
+            // $memberAccounts->member_expire_at = $newDate; // กำหนดวันที่หมดอายุ
             $memberAccounts->save();
-
 
 
             $infos = $this->getWebInfo('', );
             $webInfo = $this->infoSetting($infos);
             Mail::to($request->input('email'))->send(new ConfirmMember($memberPro, $webInfo));
             // Mail::to($webInfo->contact->email->value)->send(new MailableNewMember($memberPro, $webInfo));
-dd('gogo');
+            // dd('gogo');
+
             DB::commit();
 
             return response()->json([

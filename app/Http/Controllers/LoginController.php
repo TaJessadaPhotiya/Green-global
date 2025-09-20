@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LanguageConfig;
 use App\Models\MemberAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -9,9 +10,29 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function index($language)
     {
-        return view('pages.login.login');
+        $lang_config_sign = [];
+        $lang_config = LanguageConfig::where(['language' => $language, 'page_control' => 8])
+            ->whereIn('param', [
+                'SignIn_Forgot',
+                'SignIn_Password',
+                'SignIn_Register',
+                'SignIn_RememberMe',
+                'SignIn_SIGN',
+                'SignIn_Text_Heading1',
+                'SignIn_Text_Heading2',
+                'SignIn_User name'
+            ])
+            ->orderBy('id', 'DESC')
+            ->get();
+        if (!empty($lang_config)) {
+            foreach ($lang_config as $key => $value) {
+                $lang_config_sign[$value->param] = $value->title;
+            }
+        }
+
+        return view('pages.login.login', compact('lang_config_sign'));
     }
 
     public function authenticate($language, Request $request)

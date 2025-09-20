@@ -399,9 +399,9 @@ class AuthBackOfficeController extends BaseController
         try {
             $infos = $this->getWebInfo('', );
             $webInfo = $this->infoSetting($infos);
-            $url = array_filter(explode('/', URL::current()));
-            // dd($user->account_role);
-            Mail::to($user->email)->send(new SendMailResetPassword($user, $user_account, $reset_token, $webInfo, $url));
+            // $url = array_filter(explode('/', URL::current()));
+            // dd($webInfo);
+            Mail::to($user->email)->send(new SendMailResetPassword($user, $user_account, $reset_token, $webInfo));
             return response()->json([
                 'message' => 'success',
                 'description' => 'We have e-mailed your password reset link!'

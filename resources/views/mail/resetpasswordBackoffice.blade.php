@@ -67,9 +67,10 @@
             font-size: 16px;
         }
 
-        .email-body .btn-link{
+        .email-body .btn-link {
             text-align: center;
         }
+
         .email-body .btn {
             background-color: black;
             height: 3rem;
@@ -117,6 +118,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="email-container">
         <div class="email-header">
@@ -124,7 +126,7 @@
             <div class="h1">Reset Password</div>
         </div>
         <div class="email-body">
-            <h1>Hello you {{ $user_account->first_name }} {{ $user_account->last_name }},</h1>
+            <h1>Hello you {{ $user->username }},</h1>
             <p>You have requested a password reset for your THE Green Global account recently.</p>
             <p>If you did not request a password reset, please ignore this email
                 or reply to let us know. This password reset was created when

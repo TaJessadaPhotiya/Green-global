@@ -22,6 +22,8 @@
         href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Archivo:ital,wght@0,100..900;1,100..900&family=El+Messiri:wght@400..700&family=Noto+Sans+Thai:wght@100..900&display=swap"
         rel="stylesheet">
 
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/logo-GGS.png 1.png') }}">
+
     <!-- App CSS & JS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

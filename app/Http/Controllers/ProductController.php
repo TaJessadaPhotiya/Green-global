@@ -26,6 +26,9 @@ class ProductController extends Controller
         ];
         $Segment = Segment::select('id', 'title')->orderBy('title', 'ASC')->get();
 
+        $cate_id = $request->query('id');
+        $segment_id = $request->query('segment');
+
         // First, try to get categories for the specified language.
         $MenuProductCrop = ProductCate::select($selectedColumns)
             ->where(function ($q) use ($language) {
@@ -65,7 +68,11 @@ class ProductController extends Controller
             ->leftJoin('product_category', 'product_category.id', '=', 'products.category')
             ->where(['products.language' => $language, 'products.display' => 1])
             ->orWhere('products.defaults', 1)
-            ->orderBy('priority', 'ASC')
+            ->when($cate_id || $segment_id, function ($query) {
+                return $query->orderByRaw('products.priority + 0 ASC');
+            }, function ($query) {
+                return $query->orderBy('products.updated_at', 'DESC');
+            })
             ->get()
             ->groupBy('id')   // group ตาม id
             ->map(function ($items) use ($language) {
@@ -86,8 +93,7 @@ class ProductController extends Controller
         //         ->get();
         // }
 
-        $cate_id = $request->query('id');
-        $segment_id = $request->query('segment');
+
 
         if ($segment_id) {
             $ProductLists = $ProductLists->filter(function ($product) use ($segment_id) {

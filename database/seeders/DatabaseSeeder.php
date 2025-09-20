@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         ]);
         // admin_accountstable
         DB::table('admin_accounts')->insert([
-            ['account_id' => 1, 'admin_level' => 1, 'admin_status' => 1, 'language' => "th,en", 'display_name' => "Tester", 'admin_note' => "Account devmode", 'admin_verify_at' => Carbon::now()]
+            ['account_id' => 1, 'admin_level' => 1, 'admin_status' => 1, 'language' => "th,en,ar", 'display_name' => "Tester", 'admin_note' => "Account devmode", 'admin_verify_at' => Carbon::now()]
         ]);
         // admin_roles table
         DB::table('admin_roles')->insert([
@@ -36,16 +36,18 @@ class DatabaseSeeder extends Seeder
         ]);
         // language_availablestable
         DB::table('language_availables')->insert([
-            ['id' => 1, 'abbv_name' => 'th', 'flag' => 'upload/2022/10/11/th-flag.png', 'name' => 'ไทย', "defaults" => 1, "display" => 1],
-            ['id' => 2, 'abbv_name' => 'en', 'flag' => 'upload/2022/10/11/en-flag.png', 'name' => 'English', "defaults" => 0, "display" => 1],
+            ['id' => 1, 'abbv_name' => 'th', 'flag' => 'image/TH.png', 'name' => 'ไทย', "defaults" => 1, "display" => 1],
+            ['id' => 2, 'abbv_name' => 'en', 'flag' => 'image/EN.png', 'name' => 'English', "defaults" => 0, "display" => 1],
+            ['id' => 3, 'abbv_name' => 'ar', 'flag' => 'image/AR.png', 'name' => 'Arabic', "defaults" => 0, "display" => 1],
         ]);
         // web_info_typestable
         DB::table('web_info_types')->insert([
+            ['id' => 1, 'type_name' => 'detail', 'title' => 'Web Info', 'language' => 'ar', 'defaults' => false],
+            ['id' => 1, 'type_name' => 'detail', 'title' => 'Web Info', 'language' => 'en', 'defaults' => false],
             ['id' => 1, 'type_name' => 'detail', 'title' => 'ข้อมูลเว็บไซต์', 'language' => 'th', 'defaults' => true],
-            ['id' => 5, 'type_name' => 'related websites', 'title' => 'เว็บไซต์ที่เกี่ยวข้อง', 'language' => 'th', 'defaults' => true],
+            ['id' => 2, 'type_name' => 'contact', 'title' => 'Contact', 'language' => 'ar', 'defaults' => false],
+            ['id' => 2, 'type_name' => 'contact', 'title' => 'Contact', 'language' => 'en', 'defaults' => false],
             ['id' => 2, 'type_name' => 'contact', 'title' => 'ข้อมูลติดต่อ', 'language' => 'th', 'defaults' => true],
-            ['id' => 3, 'type_name' => 'location', 'title' => 'ข้อมูลที่อยู่', 'language' => 'th', 'defaults' => true],
-            ['id' => 4, 'type_name' => 'footer', 'title' => 'ข้อมูลส่วนท้าย', 'language' => 'th', 'defaults' => true],
         ]);
         // ad_slide_positions
         DB::table('ad_slide_positions')->insert([
@@ -56,6 +58,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             WebInfoSeeder::class, //web_infostable
+            LanguageConfigsSeeder::class, //language_configstable
         ]);
     }
 }

@@ -7,14 +7,15 @@
                 {{-- Header --}}
                 <div class="text-center mb-6">
                     <h1 class="text-3xl text-white font-extrabold mb-4">
-                        PROFILE MEMBER
+                        {{ $lang_config_profile['Profile_MEMBER'] ?? 'PROFILE MEMBER' }}
                     </h1>
                 </div>
 
                 <div class="space-y-6">
                     {{-- Username --}}
                     <div>
-                        <label for="username" class="text-white">*User name</label>
+                        <label for="username"
+                            class="text-white">{{ $lang_config_profile['Profile_UserName'] ?? '*User name' }}</label>
                         <input id="username" type="text" name="username" required
                             value="{{ $profile->display_name ?? '' }}"
                             class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 placeholder-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -24,14 +25,17 @@
                     {{-- First & Last Name --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="firstname" class="text-white">*First Name</label>
+                            <label for="firstname"
+                                class="text-white">{{ $lang_config_profile['Profile_FirstName'] ?? '*First Name' }}</label>
                             <input id="firstname" name="firstname" type="text"
                                 value="{{ $profile->first_name ?? '' }}" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="First Name">
                         </div>
                         <div>
-                            <label for="lastname" class="text-white">*Last Name</label>
+                            <label for="lastname" class="text-white">
+                                {{ $lang_config_profile['Profile_LastName'] ?? '*Last Name' }}
+                            </label>
                             <input id="lastname" name="lastname" type="text" value="{{ $profile->last_name ?? '' }}"
                                 required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -42,14 +46,16 @@
                     {{-- Telephone & Email --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="telephone" class="text-white">*Telephone Number</label>
+                            <label for="telephone"
+                                class="text-white">{{ $lang_config_profile['Profile_Telephone'] ?? '*Telephone Number' }}</label>
                             <input id="telephone" name="telephone" type="tel"
                                 value="{{ $profile->phone_number ?? '' }}" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="000-000-0000">
                         </div>
                         <div>
-                            <label for="email" class="text-white">*Email</label>
+                            <label for="email"
+                                class="text-white">{{ $lang_config_profile['Profile_Email'] ?? '*Email' }}</label>
                             <input id="email" name="email" type="email" value="{{ $user->email }}" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 placeholder="sample@gmail.com">
@@ -59,7 +65,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- Password -->
                         <div>
-                            <label for="password" class="text-white">*Password</label>
+                            <label for="password"
+                                class="text-white">{{ $lang_config_profile['Profile_Password'] ?? '*Password' }}</label>
                             <div class="relative mt-2">
                                 <input id="password" name="password" type="password"
                                     class=" rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -80,7 +87,8 @@
 
                         <!-- Confirm Password -->
                         <div>
-                            <label for="password_confirmation" class="text-white">*Confirm Password</label>
+                            <label for="password_confirmation"
+                                class="text-white">{{ $lang_config_profile['Profile_ConfirmPassword'] ?? '*Confirm Password' }}</label>
                             <div class="relative mt-2">
                                 <input id="password_confirmation" name="password_confirmation" type="password"
                                     class="rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -105,7 +113,7 @@
             <div class="w-full flex justify-center gap-5 mt-8">
                 <button type="submit" form="profileForm" id="profileBtn"
                     class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-green-700 to-green-500 hover:from-green-600 hover:to-green-400 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm flex justify-center items-center">
-                    <span id="btnText">SAVE</span>
+                    <span id="btnText">{{ $lang_config_profile['Profile_SAVE'] ?? 'SAVE' }}</span>
                     <svg id="btnSpinner" class="hidden animate-spin h-4 w-4 ml-2 text-white"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -117,7 +125,7 @@
                 <a href="javascript:history.back()">
                     <button type="button"
                         class="w-[95px] text-sm text-white py-2 bg-gradient-to-r from-red-600 to-red-400 hover:from-red-500 hover:to-red-300 hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
-                        CANCEL
+                        {{ $lang_config_profile['Profile_CANCEL'] ?? 'CANCEL' }}
                     </button>
                 </a>
             </div>
