@@ -112,15 +112,16 @@
                 VISION
             </a>
         </div>
-        <div class="{{ Request::is("$language/news") ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/news") ? 'bg-gray-300/10 ' : '' }} "
+        <div
+            class="{{ Request::is("$language/news") || Request::is('news-detail*') ? 'border-l-4 border-[#E9C713] ' : '' }}">
+            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/news") || Request::is("$language/news-detail*") ? 'bg-gray-300/10 ' : '' }} "
                 href="/<?= $language ?>/news">
                 NEWS
             </a>
         </div>
         <div
             class="{{ Request::is("$language/product") || Request::is('product-detail*') ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/product") || Request::is('product-detail*') ? 'bg-gray-300/10 ' : '' }} "
+            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/product") || Request::is("$language/product-detail*") ? 'bg-gray-300/10 ' : '' }} "
                 href="/<?= $language ?>/product">
                 PRODUCT
             </a>
