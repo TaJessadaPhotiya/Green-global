@@ -144,45 +144,45 @@ class PostController extends BaseController
             DB::beginTransaction();
             $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
             // $newFolderFile = "upload/docs/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
-            // $uploadMoreImage = array();
-            // $addMoreImage = array();
-            // $idRemove = explode(',', $params['moreImageRemove']);
+            $uploadMoreImage = array();
+            $addMoreImage = array();
+            $idRemove = explode(',', $params['moreImageRemove']);
 
-            // if (isset($params['EditImageLink'])) {
-            //     PostImage::where('post_id', $params['id'])->where('language', $params['language'])->delete();
-            //     $numb = count($params['EditImageLink']);
-            //     for ($ii = 0; $ii < $numb; $ii++) {
-            //         array_push($addMoreImage, [
-            //             "post_id" => $params['id'],
-            //             "language" => $params['language'],
-            //             "title" => ($params['EditImageTitle'][$ii]) ? $params['EditImageTitle'][$ii] : "",
-            //             "alt" => ($params['EditImageAlt'][$ii]) ? $params['EditImageAlt'][$ii] : "",
-            //             "image_link" => $params['EditImageLink'][$ii],
-            //             "position" => $ii + 1,
-            //         ]);
-            //     }
-            //     PostImage::insert($addMoreImage);
-            // }
+            if (isset($params['EditImageLink'])) {
+                PostImage::where('post_id', $params['id'])->where('language', $params['language'])->delete();
+                $numb = count($params['EditImageLink']);
+                for ($ii = 0; $ii < $numb; $ii++) {
+                    array_push($addMoreImage, [
+                        "post_id" => $params['id'],
+                        "language" => $params['language'],
+                        "title" => ($params['EditImageTitle'][$ii]) ? $params['EditImageTitle'][$ii] : "",
+                        "alt" => ($params['EditImageAlt'][$ii]) ? $params['EditImageAlt'][$ii] : "",
+                        "image_link" => $params['EditImageLink'][$ii],
+                        "position" => $ii + 1,
+                    ]);
+                }
+                PostImage::insert($addMoreImage);
+            }
 
-            // if (isset($params['Images'])) {
-            //     foreach ($files['Images'] as $key => $val) {
-            //         array_push($uploadMoreImage, [
-            //             "post_id" => $params['id'],
-            //             "image_link" => $this->uploadImage($newFolder, $files['Images'][$key], "", "", $params['ImagesName'][$key]),
-            //             "alt" => ($params['ImagesAlt'][$key]) ? $params['ImagesAlt'][$key] : "",
-            //             "title" => ($params['ImagesTitle'][$key]) ? $params['ImagesTitle'][$key] : "",
-            //             "position" => $params['ImagesPosition'][$key],
-            //             "language" => $params['language'],
-            //         ]);
-            //     }
-            //     PostImage::insert($uploadMoreImage);
-            // }
+            if (isset($params['Images'])) {
+                foreach ($files['Images'] as $key => $val) {
+                    array_push($uploadMoreImage, [
+                        "post_id" => $params['id'],
+                        "image_link" => $this->uploadImage($newFolder, $files['Images'][$key], "", "", $params['ImagesName'][$key]),
+                        "alt" => ($params['ImagesAlt'][$key]) ? $params['ImagesAlt'][$key] : "",
+                        "title" => ($params['ImagesTitle'][$key]) ? $params['ImagesTitle'][$key] : "",
+                        "position" => $params['ImagesPosition'][$key],
+                        "language" => $params['language'],
+                    ]);
+                }
+                PostImage::insert($uploadMoreImage);
+            }
 
             /* ยังขาด function สำหรับลบ image ออกจาก frontend! */
-            // PostImage::where('post_id', $params['id'])
-            //     ->where('language', $params['language'])
-            //     ->whereIn('id', $idRemove)
-            //     ->delete();
+            PostImage::where('post_id', $params['id'])
+                ->where('language', $params['language'])
+                ->whereIn('id', $idRemove)
+                ->delete();
 
             /* Upload Thumbnail */
             // $doc_link = $params['doc_link'];
