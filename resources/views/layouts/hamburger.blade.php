@@ -101,46 +101,6 @@
 
     <div class="sidebar bg-cover bg-center bg-no-repeat {{ $language == 'ar' ? 'left-0' : 'right-0' }}"
         style="background-image: url('/image/Rectangle 361.png')">
-<<<<<<< HEAD
-        <div class="{{ Request::is("$language") ? 'border-l-4 border-[#E9C713] ' : '' }} ">
-            <a class="drop-shadow-md border-y border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/">
-                HOME
-            </a>
-        </div>
-        <div class="{{ Request::is("$language/vision") ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/vision") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/vision">
-                VISION
-            </a>
-        </div>
-        <div
-            class="{{ Request::is("$language/news") || Request::is('news-detail*') ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/news") || Request::is("$language/news-detail*") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/news">
-                NEWS
-            </a>
-        </div>
-        <div
-            class="{{ Request::is("$language/product") || Request::is('product-detail*') ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/product") || Request::is("$language/product-detail*") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/product">
-                PRODUCT
-            </a>
-        </div>
-        <div class="{{ Request::is("$language/term") ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/term") ? 'bg-gray-300/10 ' : '' }} "
-                href="/<?= $language ?>/term">
-                TERM
-            </a>
-        </div>
-        <div class="{{ Request::is("$language/contact") ? 'border-l-4 border-[#E9C713] ' : '' }}">
-            <a class="drop-shadow-md border-b border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is("$language/contact") ? 'bg-gray-300/10' : '' }} "
-                href="/<?= $language ?>/contact">
-                CONTACT US
-            </a>
-        </div>
-=======
         @foreach ($mainMenu as $menu)
             <div class="{{ Request::is($language . $menu->cate_url) ? 'border-l-4 border-[#E9C713] ' : '' }} ">
                 <a class="drop-shadow-md border-y border-gray-400/20 px-6 py-4 w-full flex justify-center {{ Request::is($language . $menu->cate_url) ? 'bg-gray-300/10 ' : '' }} "
@@ -149,7 +109,6 @@
                 </a>
             </div>
         @endforeach
->>>>>>> bce96b5813317c0e5ddfc063108c4e8110ac1c38
 
         @if ($menuChildren)
             @if (Auth::check())
@@ -207,7 +166,6 @@
                 </div>
             @endif
         @endif
-
 
         <!-- Language Dropdown อยู่ตรงกลางแนวนอน -->
         <div class="relative mx-auto mt-6 w-fit" id="myLangDropdown">

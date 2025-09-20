@@ -25,7 +25,6 @@
                 <div class="swiper-pagination absolute top-12 w-full flex justify-center z-20"></div>
             </div>
 
-
             <h1 class="text-[#098C46] lg:text-2xl text-xl font-semibold text-center italic mt-6">
                 {{ $visionContent->title }}
             </h1>
