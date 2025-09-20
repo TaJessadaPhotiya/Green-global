@@ -23,8 +23,8 @@
                             <div class="w-full xl:h-[360px] sm:h-[260px] h-[250px] bg-[#FFFAE8] py-4 xl:px-[3rem] px-4">
                                 <figure class="relative w-full h-full rounded-xl overflow-hidden">
                                     {{-- ป้ายวิบวับ --}}
-                                    <img class="flash-img absolute top-2 left-2 sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] drop-shadow-sm z-10"
-                                        src="/image/Group 108.png" alt="">
+                                    {{-- <img class="flash-img absolute top-2 left-2 sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] drop-shadow-sm z-10"
+                                        src="/image/Group 108.png" alt=""> --}}
                                     <img class="w-full h-full object-cover" src={{ '/' . $NewsData->thumbnail_link }}
                                         alt={{ $NewsData->thumbnail_alt }}>
                                 </figure>
