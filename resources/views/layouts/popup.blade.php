@@ -21,7 +21,7 @@
             <div class="flex justify-center mt-6">
                 <button onclick="closeWarrantyPopup()"
                     class="bg-[#DEDEDE] text-[#8E8E8E] text-sm px-5 py-1.5 rounded shadow-xl hover:bg-blue-500 hover:text-white transition">
-                    ACPPECT
+                   {{ $lang_config_popup['Popup_ACPPECT'] ?? 'ACPPECT' }}
                 </button>
             </div>
         </div>

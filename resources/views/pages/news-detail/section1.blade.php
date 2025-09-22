@@ -24,7 +24,7 @@
                     <div class="flex sm:justify-end justify-center w-full">
                         <a href="javascript:history.back()"
                             class="flex items-start justify-center gap-4 w-[110px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm mt-6">
-                            <img class="w-5 h-5" src="/icons/icon-park-solid_back.png" alt="">BACK
+                            <img class="w-5 h-5" src="/icons/icon-park-solid_back.png" alt="">{{ $lang_config_contact['new_text_BACK'] ?? "BACK" }}
                         </a>
                     </div>
                 </div>

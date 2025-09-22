@@ -1,5 +1,7 @@
 @php
-    $images = ['/image/1.jpg', '/image/2.jpg', '/image/3.jpg', '/image/4.jpg'];
+     $images = $visionContent->imagesOpsts->map(function ($img) {
+        return asset($img->image_link);
+    })->toArray();
 @endphp
 
 <div class="relative w-full h-full">

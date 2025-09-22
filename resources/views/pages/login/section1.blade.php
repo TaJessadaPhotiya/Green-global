@@ -24,7 +24,7 @@
                                 class="text-white">{{ $lang_config_sign['SignIn_User name'] ?? '*User name' }}</label>
                             <input id="username" type="text" name="username" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 placeholder-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="User Name">
+                                placeholder="{{ $lang_config_sign['SignIn_placeholder_User Name'] ?? 'User Name' }}">
                         </div>
                         {{-- Password --}}
                         <div class="mt-4">
@@ -33,7 +33,7 @@
                             <div class="relative mt-2">
                                 <input id="password" name="password" type="password" required
                                     class=" rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    placeholder="••••••••" />
+                                    placeholder="{{ $lang_config_sign['SignIn_placeholder_Password'] ?? '••••••••' }}" />
                                 <button type="button" onclick="togglePassword('password', this)"
                                     class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none">
                                     <svg xmlns="http://www.w3.org/2000/svg"
