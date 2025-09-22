@@ -92,7 +92,7 @@
                                 <label class="block text-sm font-semibold text-[#005F25] mb-1"
                                     for="phone">{{ $lang_config_contact['Contact_Title_Phone'] ?? 'Phone:' }}</label>
                                 <input type="tel" id="phone" name="phone"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                                    class="{{ $language == 'ar' ? 'text-right' : 'text-left' }} w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
                                     placeholder="Enter your phone number" />
                             </div>
 
