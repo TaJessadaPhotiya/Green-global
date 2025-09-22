@@ -19,7 +19,7 @@
                         <input id="username" type="text" name="username" required
                             value="{{ $profile->display_name ?? '' }}"
                             class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 placeholder-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            placeholder="User Name">
+                            placeholder="{{ $lang_config_profile['Profile_placeholder_User Name'] ?? 'User Name' }}">
                     </div>
 
                     {{-- First & Last Name --}}
@@ -30,7 +30,7 @@
                             <input id="firstname" name="firstname" type="text"
                                 value="{{ $profile->first_name ?? '' }}" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="First Name">
+                                placeholder="{{ $lang_config_profile['Profile_placeholder_First Name'] ?? 'First Name' }}">
                         </div>
                         <div>
                             <label for="lastname" class="text-white">
@@ -39,7 +39,7 @@
                             <input id="lastname" name="lastname" type="text" value="{{ $profile->last_name ?? '' }}"
                                 required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="Last Name">
+                                placeholder="{{ $lang_config_profile['Profile_placeholder_Last Name'] ?? 'Last Name' }}">
                         </div>
                     </div>
 
@@ -58,7 +58,7 @@
                                 class="text-white">{{ $lang_config_profile['Profile_Email'] ?? '*Email' }}</label>
                             <input id="email" name="email" type="email" value="{{ $user->email }}" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="sample@gmail.com">
+                                placeholder="{{ $lang_config_profile['Profile_placeholder_email'] ?? 'sample@gmail.com' }}">
                         </div>
                     </div>
 
@@ -70,7 +70,7 @@
                             <div class="relative mt-2">
                                 <input id="password" name="password" type="password"
                                     class=" rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    placeholder="••••••••" />
+                                    placeholder="{{ $lang_config_profile['Profile_placeholder_password'] ?? '••••••••' }}" />
                                 <button type="button" onclick="togglePassword('password', this)"
                                     class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@
                             <div class="relative mt-2">
                                 <input id="password_confirmation" name="password_confirmation" type="password"
                                     class="rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    placeholder="••••••••" />
+                                    placeholder="{{ $lang_config_profile['Profile_placeholder_password_confirmation'] ?? '••••••••' }}" />
                                 <button type="button" onclick="togglePassword('password_confirmation', this)"
                                     class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none">
                                     <svg xmlns="http://www.w3.org/2000/svg"

@@ -1,7 +1,7 @@
 {{-- Category --}}
 @php
     $selectedSegment = isset($_GET['segment']) ? $SegmentFiltered->firstWhere('id', $_GET['segment']) : null;
-
+// dd($lang_config_product);
 @endphp
 
 <div class="relative w-full h-full ">
@@ -9,7 +9,7 @@
         class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[6rem] shadow-2xl ">
         <div class="container mx-auto ">
             <h1 class="text-[#098C46] xl:text-3xl text-2xl text-center font-semibold animate-focusInExpand ">
-                PRODUCT CROP
+               {{$lang_config_product['PRODUCT_head1'] ??' PRODUCT CROP'}}
             </h1>
 
             {{-- swiper --}}

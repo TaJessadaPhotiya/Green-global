@@ -25,7 +25,7 @@
                         <label for="username" class="text-white">{{ $lang_config_register['Register_User name'] ?? '*User name' }}</label>
                         <input id="username" type="text" name="username" required
                             class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 placeholder-gray-400 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            placeholder="User Name">
+                            placeholder="{{ $lang_config_register['Register_Placeholder_User name'] ?? 'Please enter your user name' }}">
                     </div>
 
                     {{-- First & Last Name --}}
@@ -34,13 +34,13 @@
                             <label for="firstname" class="text-white">{{ $lang_config_register['Register_First Name'] ?? '*First Name' }}</label>
                             <input id="firstname" name="firstname" type="text" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="First Name">
+                                placeholder="{{ $lang_config_register['Register_Placeholder_First Name'] ?? 'Please enter your first name' }}">
                         </div>
                         <div>
                             <label for="lastname" class="text-white">{{ $lang_config_register['Register_Last Name'] ?? '*Last Name' }}</label>
                             <input id="lastname" name="lastname" type="text" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="Last Name">
+                                placeholder="{{ $lang_config_register['Register_Placeholder_Last Name'] ?? 'Please enter your last name' }}">
                         </div>
                     </div>
 
@@ -50,14 +50,14 @@
                             <label for="telephone" class="text-white">{{ $lang_config_register['Register_Telephone Number'] ?? '*Telephone Number' }}</label>
                             <input id="telephone" name="telephone" type="tel" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="000-000-0000">
+                                placeholder="{{ $lang_config_register['Register_Placeholder_Telephone Number'] ?? 'Please enter your telephone number ' }}">
                             <span id="error-telephone" class="text-red-500 ml-2"></span>
                         </div>
                         <div>
                             <label for="email" class="text-white">{{ $lang_config_register['Register_Email'] ?? '*Email' }}</label>
                             <input id="email" name="email" type="email" required
                                 class="mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="sample@gmail.com">
+                                placeholder="{{ $lang_config_register['Register_Placeholder_Email'] ?? 'Please enter your email address for example "sample@gmail.com"' }}">
                             <span id="error-email" class="text-red-500 ml-2"></span>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                             <div class="relative mt-2">
                                 <input id="password" name="password" type="password" required
                                     class=" rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    placeholder="••••••••" />
+                                    placeholder="{{ $lang_config_register['Register_Placeholder_Password'] ?? '••••••••' }}" />
                                 <button type="button" onclick="togglePassword('password', this)"
                                     class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@
                             <div class="relative mt-2">
                                 <input id="password_confirmation" name="password_confirmation" type="password" required
                                     class="rounded-md px-4 py-2 pr-10 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    placeholder="••••••••" />
+                                    placeholder="{{ $lang_config_register['Register_Placeholder_Confirm Password'] ?? '••••••••' }}" />
                                 <button type="button" onclick="togglePassword('password_confirmation', this)"
                                     class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -134,9 +134,9 @@
                                     <label for="occupation_other" class="text-white text-sm">Other (please
                                         specify)</label>
                                 </div>
-                                <input type="text" id="other_occupation"" name="other_occupation"
+                                <input type="text" id="other_occupation" name="other_occupation"
                                     class="rounded-md px-4 py-2 bg-white text-gray-900 w-full max-w-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    placeholder="Please specify your occupation">
+                                    placeholder="{{ $lang_config_register['Register_Placeholder_occupation'] ?? 'Please specify your occupation' }}">
                             </div>
                             <span id="error-occupation" class="text-red-500"></span>
                         </div>

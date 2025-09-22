@@ -1,9 +1,10 @@
 @php
     $target_id = 2;
-
+use Carbon\Carbon;
     // ดึงสินค้าที่ product_new = 1 และ id = 2
     // $new_product = $menu_product->where('product_new', 1)->firstWhere('id', $target_id);
-
+// dd($NewsData->updated_at);
+// $NewsData->updated_at->setLocale('th')->format('M d, Y') ;
 @endphp
 
 <div class="relative w-full h-full">
@@ -16,7 +17,7 @@
                     @if ($NewsData)
                         <div class="sm:w-[300px] w-full bg-[#EEC90E] py-1 pr-4 max-sm:pl-4">
                             <div class="bg-[#098C46] p-1">
-                                <p class="text-center text-white text-lg font-semibold">NEWS</p>
+                                <p class="text-center text-white text-lg font-semibold">{{$lang_config_contact['new_text_NEWS'] ?? "NEWS" }}</p>
                             </div>
                         </div>
                         <div class="w-full rounded-xl shadow-md overflow-hidden mt-4">
@@ -39,13 +40,14 @@
                                         {{ $NewsData->description ?? '-' }}
                                     </p>
                                 </div>
+
                                 <div class="flex items-center justify-between px-6 py-4">
                                     <p class="text-[#B8B8B8] md:text-[16px] text-sm">
-                                        {{ \Carbon\Carbon::parse($NewsData->updated_at)->format('M d, Y') }}
+                                        {{ $NewsData->updated_at }}
                                     </p>
                                     <a href={{ url('/' . $NewsData->iframe) }}
                                         class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">
-                                        Detail
+                                        {{$lang_config_contact['new_text_Detail'] ?? "Detail" }}
                                     </a>
                                 </div>
                             </div>
@@ -58,7 +60,7 @@
                     @if ($NewsProduct)
                         <div class="sm:w-[300px] w-full bg-[#EEC90E] py-1 pr-4 max-sm:pl-4">
                             <div class="bg-[#098C46] p-1">
-                                <p class="text-center text-white text-lg font-semibold">NEW PRODUCT</p>
+                                <p class="text-center text-white text-lg font-semibold">{{$lang_config_contact['new_text_NEW PRODUCT'] ?? "NEW PRODUCT" }}</p>
                             </div>
                         </div>
                         <div class="w-full rounded-xl shadow-md overflow-hidden mt-4">
@@ -89,12 +91,12 @@
                                     @if (Auth::check())
                                         <a href="{{ url('/' . $NewsProduct['short_url']) }}"
                                             class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm block">
-                                            Detail
+                                            {{ $lang_config_contact['new_text_Detail'] ?? "Detail"  }}
                                         </a>
                                     @else
                                         <div
                                             class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D]  transition duration-200 rounded-md shadow-md drop-shadow-sm block">
-                                            Detail
+                                            {{ $lang_config_contact['new_text_Detail'] ?? "Detail"  }}
                                         </div>
                                     @endif
                                 </div>

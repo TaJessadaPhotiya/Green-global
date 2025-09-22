@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\AdSlide;
 use App\Models\Category;
+use App\Models\LanguageConfig;
 use App\Models\Post;
 use Closure;
 use Illuminate\Http\Request;
@@ -86,6 +87,14 @@ class ShareWebData
                 ->get();
         }
 
+        $lang_config = [];
+        $lang_config = LanguageConfig::where(['param' => 'Popup_ACPPECT'])->orderBy('id', 'DESC')->get();
+        if (!empty($lang_config)) {
+            foreach ($lang_config as $key => $value) {
+                $lang_config[$value->param] = $value->title;
+            }
+        }
+
 
 
         // dd($getMenu(1) , $getMenu(2, 'REGISTER', true) );
@@ -98,6 +107,8 @@ class ShareWebData
         View::share('menuChildren', ['register' => $getMenu(2, 'REGISTER', true), 'member' => $getMenu(2, 'MEMBER', true)]);
         View::share('proviso', $proviso);
         View::share('slides', $slides);
+        View::share('lang_config_popup', $lang_config);
+
 
         return $next($request);
     }

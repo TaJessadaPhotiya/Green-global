@@ -22,7 +22,9 @@ class LoginController extends Controller
                 'SignIn_SIGN',
                 'SignIn_Text_Heading1',
                 'SignIn_Text_Heading2',
-                'SignIn_User name'
+                'SignIn_User name',
+                'SignIn_placeholder_User Name',
+                'SignIn_placeholder_password',
             ])
             ->orderBy('id', 'DESC')
             ->get();
@@ -86,7 +88,6 @@ class LoginController extends Controller
                     }
                 }
             } else {
-                dd('456');
                 $request->session()->invalidate();
                 if ($language == "th") {
                     $request->session()->invalidate();
@@ -102,7 +103,6 @@ class LoginController extends Controller
                 }
             }
         } else {
-            dd('789');
             $request->session()->invalidate();
             if ($language == "th") {
                 $request->session()->invalidate();

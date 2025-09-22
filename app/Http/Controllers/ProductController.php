@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LanguageConfig;
 use App\Models\Product;
 use App\Models\ProductCate;
 use App\Models\Segment;
@@ -63,7 +64,7 @@ class ProductController extends Controller
             $cate['segments_data'] = $segmentsData->values()->all();
             return $cate;
         });
-
+        // dd($request->all());
         $ProductLists = Product::select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
             ->leftJoin('product_category', 'product_category.id', '=', 'products.category')
             ->where(['products.language' => $language, 'products.display' => 1])
@@ -83,7 +84,7 @@ class ProductController extends Controller
             })
             ->values();  // reset index
 
-        // dd($ProductLists);
+        // dd($ProductLists[0]->seement);
 
         // if ($ProductLists->isEmpty()) {
         //     $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
@@ -92,25 +93,25 @@ class ProductController extends Controller
         //         ->where('products.defaults', 1)
         //         ->get();
         // }
-
-
-
+        $SegmentFiltered = $Segment;
+        $filtered = $ProductLists;
+        //  dd($segment_id);
         if ($segment_id) {
-            $ProductLists = $ProductLists->filter(function ($product) use ($segment_id) {
-                return in_array($segment_id, explode(',', $product->c_segment_id));
-            });
+            $filtered = $ProductLists->where('seement', $segment_id);
         }
+
         if ($cate_id) {
             $filtered = $ProductLists->where('category', $cate_id);
             $SegmentFiltered = $this->getSegmentsByCategory($cate_id);
-        } else {
-            $filtered = $ProductLists;
-            $SegmentFiltered = $Segment;
         }
-
+        //          else {
+//             $filtered = $ProductLists;
+//             $SegmentFiltered = $Segment;
+//         }
+// dd($filtered);
 
         $sorted = $filtered->sortByDesc('pin')->values(); // รี index ใหม่
-
+// dd($sorted);
         // ---- Pagination ----
         $perPage = 12;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
@@ -124,7 +125,15 @@ class ProductController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
-        return view('pages.product.product', compact('ProductCate', 'filtered_products', 'SegmentFiltered'));
+        $lang_config_product = [];
+        $lang_config = LanguageConfig::where(['language' => $language, 'page_control' => 3])->orderBy('id', 'DESC')->get();
+        if (!empty($lang_config)) {
+            foreach ($lang_config as $key => $value) {
+                $lang_config_product[$value->param] = $value->title;
+            }
+        }
+
+        return view('pages.product.product', compact('ProductCate', 'filtered_products', 'SegmentFiltered', 'lang_config_product'));
     }
 
     /* Private Function */
