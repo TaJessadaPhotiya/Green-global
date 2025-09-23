@@ -6,7 +6,8 @@ use App\Models\LanguageConfig;
 use App\Models\Product;
 use App\Models\ProductCate;
 use App\Models\Segment;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -66,7 +67,12 @@ class ProductController extends Controller
         });
         // dd($request->all());
         $ProductLists = Product::select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
-            ->leftJoin('product_category', 'product_category.id', '=', 'products.category')
+            // ->leftJoin('product_category', 'product_category.id', '=', 'products.category')
+            ->join('product_category', function (JoinClause $join) use ($language) {
+                $join->on('product_category.id', '=', 'products.category')
+                    ->where('product_category.language', $language);
+            })
+            ->where('products.language', '=', 'product_category.language')
             ->where(['products.language' => $language, 'products.display' => 1])
             ->orWhere('products.defaults', 1)
             ->when($cate_id || $segment_id, function ($query) {
@@ -84,15 +90,14 @@ class ProductController extends Controller
             })
             ->values();  // reset index
 
-        // dd($ProductLists[0]->seement);
+        if ($ProductLists->isEmpty()) {
+            $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
+                ->select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
+                ->where('products.display', 1)
+                ->where('products.defaults', 1)
+                ->get();
+        }
 
-        // if ($ProductLists->isEmpty()) {
-        //     $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
-        //         ->select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
-        //         ->where('products.display', 1)
-        //         ->where('products.defaults', 1)
-        //         ->get();
-        // }
         $SegmentFiltered = $Segment;
         $filtered = $ProductLists;
         //  dd($segment_id);
@@ -124,7 +129,7 @@ class ProductController extends Controller
             $currentPage,
             ['path' => $request->url(), 'query' => $request->query()]
         );
-
+        // dd($filtered_products);
         $lang_config_product = [];
         $lang_config = LanguageConfig::where(['language' => $language, 'page_control' => 3])->orderBy('id', 'DESC')->get();
         if (!empty($lang_config)) {

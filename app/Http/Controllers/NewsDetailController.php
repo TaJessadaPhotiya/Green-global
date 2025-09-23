@@ -38,7 +38,7 @@ class NewsDetailController extends Controller
                 'thumbnail_alt',
                 'category',
                 'content',
-                DB::raw('DATE_FORMAT(updated_at, "%a %D %b %Y") AS date')
+                'updated_at',
             )
                 ->where('id', $id)
                 ->where('slug', 'NEWSACTIVTY')

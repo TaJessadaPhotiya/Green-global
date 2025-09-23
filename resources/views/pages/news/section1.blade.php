@@ -1,10 +1,10 @@
 @php
     $target_id = 2;
-use Carbon\Carbon;
-    // ดึงสินค้าที่ product_new = 1 และ id = 2
-    // $new_product = $menu_product->where('product_new', 1)->firstWhere('id', $target_id);
-// dd($NewsData->updated_at);
-// $NewsData->updated_at->setLocale('th')->format('M d, Y') ;
+use Illuminate\Support\Carbon;
+Carbon::setLocale( $language );
+
+$date_time = Carbon::parse($NewsData->updated_at)->translatedFormat('l j F Y');
+
 @endphp
 
 <div class="relative w-full h-full">
@@ -43,7 +43,7 @@ use Carbon\Carbon;
 
                                 <div class="flex items-center justify-between px-6 py-4">
                                     <p class="text-[#B8B8B8] md:text-[16px] text-sm">
-                                        {{ $NewsData->updated_at }}
+                                        {{ $date_time }}
                                     </p>
                                     <a href={{ url('/' . $NewsData->iframe) }}
                                         class="w-[100px] text-white sm:text-[16px] text-sm font-medium text-center py-2 bg-[#19703D] hover:bg-[#EEC90E] hover:shadow-xl transition duration-200 rounded-md shadow-md drop-shadow-sm">

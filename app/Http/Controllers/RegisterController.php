@@ -20,7 +20,7 @@ class RegisterController extends Controller
 {
     public function index($language)
     {
-        $occupations = DB::table('occupations_configs')->select('id', 'name')->get()->toArray();
+        $occupations = DB::table('occupations_configs')->select('id', 'name')->where('language', $language)->get()->toArray();
         $countries = DB::table('countries_configs')->select('id', 'english')->get()->toArray();
         $lang_config_register = [];
         $lang_config = LanguageConfig::where(['language' => $language, 'page_control' => 8])->orderBy('id', 'DESC')->get();

@@ -1,3 +1,11 @@
+@php
+use Illuminate\Support\Carbon;
+Carbon::setLocale( $language );
+
+$date_time = Carbon::parse($news['updated_at'])->translatedFormat('l j F Y');
+
+@endphp
+
 <div class="relative w-full h-full">
     <div
         class="2xl:w-[1300px] w-full h-full min-h-screen 2xl:min-h-[calc(100vh-94px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">
@@ -14,7 +22,7 @@
                 <div class="w-full" data-aos="fade-left" data-aos-duration="1200">
                     <p class="text-2xl text-[#098C46] font-semibold">{{ $news['title'] }}
                     </p>
-                    <p class="text-[#8E8E8E] text-[14px] font-semibold mt-4">{{ $news['date'] }}</p>
+                    <p class="text-[#8E8E8E] text-[14px] font-semibold mt-4">{{ $date_time }}</p>
 
                     {{-- ck --}}
                     <div class="ck-ui-li w-full min-h-[320px] mt-4 text-[18px] text-[#098C46]">
