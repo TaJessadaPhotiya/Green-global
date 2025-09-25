@@ -88,7 +88,7 @@ class ShareWebData
         }
 
         $lang_config = [];
-        $lang_config = LanguageConfig::where(['param' => 'Popup_ACPPECT'])->orderBy('id', 'DESC')->get();
+        $lang_config = LanguageConfig::where(['param' => 'Popup_ACPPECT', 'language' => $language])->orderBy('id', 'DESC')->get();
         if (!empty($lang_config)) {
             foreach ($lang_config as $key => $value) {
                 $lang_config[$value->param] = $value->title;

@@ -1,8 +1,8 @@
 @php
 use Illuminate\Support\Carbon;
 Carbon::setLocale( $language );
-
-$date_time = Carbon::parse($news['updated_at'])->translatedFormat('l j F Y');
+// dd($news->updated_at);
+$date_time = Carbon::parse($news->updated_at)->translatedFormat('l j F Y');
 
 @endphp
 

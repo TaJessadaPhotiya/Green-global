@@ -49,7 +49,7 @@ class ProductController extends Controller
             })
             ->values();  // reset index
 
-        // dd($MenuProductCrop);
+        // dd($request->all());
         // If no categories are found for the language, get the default ones.
         // if ($MenuProductCrop->isEmpty()) {
         //     $MenuProductCrop = ProductCate::select($selectedColumns)
@@ -65,16 +65,19 @@ class ProductController extends Controller
             $cate['segments_data'] = $segmentsData->values()->all();
             return $cate;
         });
-        // dd($request->all());
+
         $ProductLists = Product::select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
-            // ->leftJoin('product_category', 'product_category.id', '=', 'products.category')
-            ->join('product_category', function (JoinClause $join) use ($language) {
+            ->join('product_category', function ($join) use ($language) {
                 $join->on('product_category.id', '=', 'products.category')
-                    ->where('product_category.language', $language);
+                    ->where(function ($q) use ($language) {
+                        $q->where('product_category.language', $language)
+                            ->orWhere('product_category.defaults', 1);
+                    });
             })
-            ->where('products.language', '=', 'product_category.language')
-            ->where(['products.language' => $language, 'products.display' => 1])
-            ->orWhere('products.defaults', 1)
+            ->where(function ($query) use (&$language) {
+                $query->where(['products.display' => 1, 'products.language' => $language])
+                    ->orWhere('products.defaults', 1);
+            })
             ->when($cate_id || $segment_id, function ($query) {
                 return $query->orderByRaw('products.priority + 0 ASC');
             }, function ($query) {
@@ -89,31 +92,30 @@ class ProductController extends Controller
                 return $match ?? $items->firstWhere('defaults', 1);
             })
             ->values();  // reset index
+        // dd($ProductLists);
 
-        if ($ProductLists->isEmpty()) {
-            $ProductLists = Product::join('product_category', 'products.category', '=', 'product_category.id')
-                ->select('products.*', 'product_category.title AS c_title', 'product_category.segment_id AS c_segment_id')
-                ->where('products.display', 1)
-                ->where('products.defaults', 1)
-                ->get();
-        }
+        if ($cate_id && $segment_id) {
+            // กรณีที่ 1: กรองทั้ง category และ segment
+            $filtered = $ProductLists->where('category', $cate_id)->where('seement', $segment_id);
+            $SegmentFiltered = $this->getSegmentsByCategory($cate_id);
 
-        $SegmentFiltered = $Segment;
-        $filtered = $ProductLists;
-        //  dd($segment_id);
-        if ($segment_id) {
-            $filtered = $ProductLists->where('seement', $segment_id);
-        }
-
-        if ($cate_id) {
+        } elseif ($cate_id) {
+            // กรณีที่ 2: กรองเฉพาะ category
             $filtered = $ProductLists->where('category', $cate_id);
             $SegmentFiltered = $this->getSegmentsByCategory($cate_id);
+
+        } elseif ($segment_id) {
+            // กรณีที่ 3: กรองเฉพาะ segment
+            $filtered = $ProductLists->where('seement', $segment_id);
+            $SegmentFiltered = $Segment;
+            // ถ้าต้องการให้ $SegmentFiltered กรองตาม segment_id ด้วย สามารถเพิ่มโค้ดที่นี่ได้
+
+        } else {
+            // กรณีที่ 4: ไม่มีการส่งค่าใด ๆ มา
+            $filtered = $ProductLists;
+            $SegmentFiltered = $Segment;
         }
-        //          else {
-//             $filtered = $ProductLists;
-//             $SegmentFiltered = $Segment;
-//         }
-// dd($filtered);
+        // dd($filtered);
 
         $sorted = $filtered->sortByDesc('pin')->values(); // รี index ใหม่
 // dd($sorted);

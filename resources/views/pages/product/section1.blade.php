@@ -65,9 +65,9 @@
                     <p class="sm:text-[16px] text-[14px] font-semibold text-[#098C46]">SEGMENT :</p>
                     <div class="relative ">
                         <button id="memberDropdownBtn"
-                            class="inline-flex items-center justify-center border-2 border-[#098C46] gap-4 xl:w-[120px] w-[100px] py-0.5 xl:text-[16px] text-[14px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 rounded-md">
+                            class="inline-flex items-center justify-center border-2 border-[#098C46] gap-4 xl:w-auto w-[100px] py-0.5 xl:text-[16px] text-[14px] font-medium text-[#098C46] hover:text-yellow-500 transition duration-200 rounded-md">
                             <span
-                                id="memberDropdownLabel">{{ $selectedSegment ? $selectedSegment->title : 'ALL' }}</span>
+                                id="memberDropdownLabel" class="ml-2" >{{ $selectedSegment ? $selectedSegment->title : 'ALL' }}</span>
                             <svg id="memberDropdownIcon" class="transition-transform duration-300 w-4 h-4"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -88,7 +88,7 @@
                                     @php
                                         $isActive = isset($_GET['segment']) && $_GET['segment'] == $segment->id;
                                     @endphp
-                                    <a href="{{ url($language . '/product?segment=' . $segment->id) }}"
+                                    <a href="{{ url($language . '/product?id=' . request('id') . '&segment=' . $segment->id) }}"
                                         class="block px-4 py-2 text-sm text-gray-700 transition whitespace-nowrap
                                         {{ $isActive ? 'bg-[#098C46] text-white' : 'hover:bg-[#098C46] hover:text-white' }}">
                                         {{ $segment->title }}
