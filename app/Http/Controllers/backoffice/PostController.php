@@ -209,7 +209,7 @@ class PostController extends BaseController
                 // "topic" => $params['topic'],
                 "slug" => $params['slug'],
                 "content" => $params['content'],
-                // "defaults" => $params['language'] == "th" ? 1 : 0,
+                "defaults" => $params['language'] == "th" ? 1 : 0,
                 "redirect" => $params['redirect'],
                 // "date_begin_display" => $params['display_date'],
                 // "date_end_display" => $params['hidden_date'],

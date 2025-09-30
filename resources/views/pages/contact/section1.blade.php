@@ -75,7 +75,7 @@
                                     for="name">{{ $lang_config_contact['Contact_Title_Name'] ?? 'Name:' }}</label>
                                 <input type="text" id="name" name="name"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
-                                    placeholder="Enter your name" />
+                                   placeholder="{{ $lang_config_contact['Contact_placeholder_name'] ?? 'Enter your name' }}" />
                             </div>
 
                             <!-- Email -->
@@ -84,7 +84,7 @@
                                     for="email">{{ $lang_config_contact['Contact_Title_Email'] ?? 'Email:' }}</label>
                                 <input type="email" id="email" name="email"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
-                                    placeholder="Enter your email" />
+                                    placeholder="{{ $lang_config_contact['Contact_placeholder_email'] ?? 'Enter your email' }}" />
                             </div>
 
                             <!-- Phone -->
@@ -93,7 +93,7 @@
                                     for="phone">{{ $lang_config_contact['Contact_Title_Phone'] ?? 'Phone:' }}</label>
                                 <input type="tel" id="phone" name="phone"
                                     class="{{ $language == 'ar' ? 'text-right' : 'text-left' }} w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
-                                    placeholder="Enter your phone number" />
+                                    placeholder="{{ $lang_config_contact['Contact_placeholder_phone'] ?? 'Enter your phone number' }}" />
                             </div>
 
                             <!-- Message -->
@@ -102,7 +102,7 @@
                                     for="message">{{ $lang_config_contact['Contact_Title_Message'] ?? 'Message:' }}</label>
                                 <textarea id="message" name="message" rows="4"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
-                                    placeholder="Write your message here"></textarea>
+                                     placeholder="{{ $lang_config_contact['Contact_placeholder_message'] ?? 'Write your message here' }}"></textarea>
                             </div>
                         </div>
                         <div class="flex justify-center w-full">

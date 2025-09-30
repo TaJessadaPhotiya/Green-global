@@ -51,7 +51,7 @@
                             <input id="telephone" name="telephone" type="tel"
                                 value="{{ $profile->phone_number ?? '' }}" required
                                 class="{{ $language == 'ar' ? 'text-right' : 'text-left' }} mt-2 rounded-md px-4 py-2 bg-white text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="000-000-0000">
+                                placeholder="{{ $lang_config_profile['Profile_placeholder_telephone'] ?? '000-000-0000' }}">
                         </div>
                         <div>
                             <label for="email"

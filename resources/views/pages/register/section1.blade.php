@@ -125,7 +125,11 @@
                             <h3 class="text-white font-medium mb-6">
                                 {{ $lang_config_register['Register_Text_Heading3'] ?? 'What is your occupation?' }}
                             </h3>
+<<<<<<< HEAD
                             {{-- @DD($occupations) --}}
+=======
+
+>>>>>>> 846963f140d058b84761af53541a2944a83c0c42
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 @foreach ($occupations as $occupation)
                                     <div class="flex items-center space-x-3">
@@ -139,8 +143,7 @@
                                 <div class="flex items-center space-x-3">
                                     <input type="checkbox" id="occupation_other" name="occupations[]" value="Other"
                                         class="accent-white w-4 h-4 chk" />
-                                    <label for="occupation_other" class="text-white text-sm">Other (please
-                                        specify)</label>
+                                    <label for="occupation_other" class="text-white text-sm">{{ $lang_config_register['Register_Text_Other']??"Other (please specify)" }}</label>
                                 </div>
                                 <input type="text" id="other_occupation" name="other_occupation"
                                     class="rounded-md px-4 py-2 bg-white text-gray-900 w-full max-w-md focus:outline-none focus:ring-2 focus:ring-blue-400"
