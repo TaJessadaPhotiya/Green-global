@@ -14,6 +14,7 @@ use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsDetailController;
 use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\AnnounceController;
 
 Route::redirect('/', '/th');
 Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], function () {
@@ -37,6 +38,7 @@ Route::group(['prefix' => '{language}', 'where' => ['language' => 'th|en|ar']], 
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/product-detail/{id}', [ProductDetailController::class, 'index'])->name('product-detail');
     Route::get('/news-detail/{id}', [NewsDetailController::class, 'index'])->name('news-detail');
+    // Route::get('/announce', [AnnounceController::class, 'index'])->name('announce');
 });
 
 // Route::get('/email/test', function () {

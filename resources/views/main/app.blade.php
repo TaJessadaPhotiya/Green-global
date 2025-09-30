@@ -28,21 +28,28 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
+@php
+    $status = 1;
+@endphp
+
 <body class="{{ $language === 'ar' ? 'font-Almarai' : 'font-Kanit' }} flex flex-col min-h-screen relative">
 
-    @include('layouts.loading')
+    @if ($status == 1)
+        @include('pages.announce.announce')
+    @else
+        @include('layouts.loading')
+        @include('layouts.navbar')
 
-    @include('layouts.navbar')
+        @if (Request::is($language) || Request::is($language . '/'))
+            @include('layouts.swiper')
+        @endif
 
-    @if (Request::is($language) || Request::is($language . '/'))
-        @include('layouts.swiper')
+        <div class="flex-grow max-w-full overflow-hidden">
+            @yield('content')
+        </div>
+
+        @include('layouts.footer')
     @endif
-
-    <div class="flex-grow max-w-full overflow-hidden">
-        @yield('content')
-    </div>
-
-    @include('layouts.footer')
 
     {{-- เซ็ตค่าภาษาจาก localStorage ใช้ชั่วคราว --}}
     <script>

@@ -1,7 +1,7 @@
 {{-- Category --}}
 @php
     $selectedSegment = isset($_GET['segment']) ? $SegmentFiltered->firstWhere('id', $_GET['segment']) : null;
-// dd($lang_config_product);
+    // dd($lang_config_product);
 @endphp
 
 <div class="relative w-full h-full ">
@@ -9,7 +9,7 @@
         class="2xl:w-[1300px] w-full h-full min-h-screen mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[2.5rem] xl:pb-[4rem] pb-[6rem] shadow-2xl ">
         <div class="container mx-auto ">
             <h1 class="text-[#098C46] xl:text-3xl text-2xl text-center font-semibold animate-focusInExpand ">
-               {{$lang_config_product['PRODUCT_head1'] ??' PRODUCT CROP'}}
+                {{ $lang_config_product['PRODUCT_head1'] ?? ' PRODUCT CROP' }}
             </h1>
 
             {{-- swiper --}}
@@ -78,7 +78,7 @@
 
                         <!-- dropdown อยู่ด้านล่างเสมอ -->
                         <div id="memberDropdownMenu"
-                            class="hidden absolute right-0 top-full mt-2 w-[120px] max-h-[250px] origin-top-right rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 z-20 transition-all duration-200 ease-out overflow-y-auto">
+                            class="hidden absolute right-0 top-full mt-2 w-auto min-w-[120px] max-h-[250px] origin-top-right rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 z-20 transition-all duration-200 ease-out overflow-y-auto">
                             <div>
                                 <a href="{{ url($language . '/product') }}"
                                     class=" block px-4 py-2 text-sm text-gray-700 hover:bg-[#098C46] hover:text-white rounded-t-md transition">
@@ -89,7 +89,7 @@
                                         $isActive = isset($_GET['segment']) && $_GET['segment'] == $segment->id;
                                     @endphp
                                     <a href="{{ url($language . '/product?segment=' . $segment->id) }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 transition
+                                        class="block px-4 py-2 text-sm text-gray-700 transition whitespace-nowrap
                                         {{ $isActive ? 'bg-[#098C46] text-white' : 'hover:bg-[#098C46] hover:text-white' }}">
                                         {{ $segment->title }}
                                     </a>
