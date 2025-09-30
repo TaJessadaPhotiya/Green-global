@@ -17,7 +17,7 @@
             <div class="grid md:grid-cols-2 grid-cols-1 gap-6 w-full mt-12">
                 {{-- ซ้าย --}}
                 <div class="w-full" data-aos="fade-right" data-aos-duration="1200">
-                    <div class="flex items-center gap-3">
+                    {{-- <div class="flex items-center gap-3">
                         <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm"
                             src="/icons/icon-telephone.png" alt="">
                         <div class="{{ $language == 'ar' ? 'border-r-2 pr-3' : 'border-l-2 pl-3' }} border-[#008C46] ">
@@ -25,7 +25,7 @@
                                 {{ $lang_config_contact['Contact_Text_Phone'] ?? $contactData[0]['info_title'] }}</p>
                             <p class="text-[#19703D] text-md font-sans">{{ $contactData[0]['info_value'] }}</p>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="flex items-center gap-3 mt-5">
                         <img class="sm:w-[60px] w-[50px] sm:h-[60px] h-[50px] drop-shadow-sm" src="/icons/icon-web.png"
                             alt="">

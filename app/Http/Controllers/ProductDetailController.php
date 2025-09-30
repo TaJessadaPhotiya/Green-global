@@ -12,7 +12,12 @@ class ProductDetailController extends Controller
     {
 
         // ดึงเฉพาะสินค้าตาม id
-        $product = Product::join('product_category', 'products.category', '=', 'product_category.id')
+        $product = Product::join('product_category', function ($join) use ($language) {
+            $join->on('products.category', '=', 'product_category.id')
+                ->where(function ($q) use ($language) {
+                    $q->where('product_category.language', $language);
+                });
+        })
             ->select('products.*', 'product_category.title as category_name')
             ->where('products.id', (int) $id)
             ->where('products.language', $language)
@@ -21,11 +26,16 @@ class ProductDetailController extends Controller
         // ถ้าไม่พบสินค้า
         if (!$product) {
             // abort(404, 'Product not found');
-             $product = Product::join('product_category', 'products.category', '=', 'product_category.id')
-            ->select('products.*', 'product_category.title as category_name')
-            ->where('products.id', (int) $id)
-            ->where('products.defaults', 1)
-            ->first();
+            $product = Product::join('product_category', function ($join) use ($language) {
+                $join->on('products.category', '=', 'product_category.id')
+                    ->where(function ($q) use ($language) {
+                        $q->where('product_category.defaults', 1);
+                    });
+            })
+                ->select('products.*', 'product_category.title as category_name')
+                ->where('products.id', (int) $id)
+                ->where('products.defaults', 1)
+                ->first();
         }
 
         $lang_config_contact = [];
@@ -36,8 +46,8 @@ class ProductDetailController extends Controller
             }
         }
 
-// dd($lang_config_contact);
+        // dd($lang_config_contact);
 
-        return view('pages.product-detail.product-detail', compact('product','lang_config_contact'));
+        return view('pages.product-detail.product-detail', compact('product', 'lang_config_contact'));
     }
 }

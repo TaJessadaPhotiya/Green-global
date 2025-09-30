@@ -29,7 +29,12 @@
 </head>
 
 @php
-    $status = 1;
+use Illuminate\Support\Facades\Auth;
+
+    $url = $_SERVER['REQUEST_URI'];
+
+    // ถ้า URL มีคำว่า 'login' หรือ Auth::check() = true → $status = 0
+    $status = (strpos($url, 'login') !== false || Auth::check()) ? 0 : 1;
 @endphp
 
 <body class="{{ $language === 'ar' ? 'font-Almarai' : 'font-Kanit' }} flex flex-col min-h-screen relative">

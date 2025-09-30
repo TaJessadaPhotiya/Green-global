@@ -1,7 +1,9 @@
 <div
     class=" relative flex flex-col justify-center items-center w-full h-screen bg-gradient-to-r from-[#fff2b1] to-[#e3fff1]">
 
-    <img width="110" src="/image/logo-GGS.png 1.png" alt="">
+    <img width="310" src="/image/logo-GGS.png 1.png" alt="">
+    {{-- <img width="210" src="/image/pngtree-website-under-construction-concept-png-image_6561256.png" alt=""> --}}
+
     <div class="w-full text-center text-[#cda540] text-3xl font-bold mt-6">
         Website is currently being improved.
     </div>

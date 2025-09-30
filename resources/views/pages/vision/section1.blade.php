@@ -3,7 +3,7 @@
         return asset($img->image_link);
     })->toArray();
 @endphp
-
+{{-- @DD($images); --}}
 <div class="relative w-full h-full">
     <div
         class="2xl:w-[1300px] w-full h-full min-h-screen 2xl:min-h-[calc(100vh-92px)] mx-auto md:px-[4rem] px-[1rem] xl:pt-[4rem] pt-[3rem] xl:pb-[4rem] pb-[4rem] shadow-2xl ">

@@ -487,7 +487,7 @@ class WebInfoController extends Controller
         // WHERE language = :lang OR defaults = 1 GROUP BY id ORDER BY defaults ASC, id ASC";
 
         $sql = WebInfoType::select('id', 'type_name as typeName', 'title')
-            ->where('language', $language)
+            ->where(['language' => $language, 'display' => 1])
             ->where(function ($q) use ($language) {
                 $q->where('language', $language)
                     ->orWhere('defaults', 1);
