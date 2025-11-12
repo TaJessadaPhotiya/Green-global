@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\JoinClause;
 
 class NewsController extends Controller
 {
@@ -67,10 +68,17 @@ class NewsController extends Controller
             'products.thumbnail_link',
             'products.thumbnail_title',
             'products.thumbnail_alt',
+            'products.language',
         )
-            ->leftJoin('product_category', 'products.category', '=', 'product_category.id')
-            ->where(['products.short_url' => $ProductPost->redirect, 'products.language' => $language])->first();
-
+            ->leftJoin('product_category', function (JoinClause $join) use ($language) {
+                $join->on('products.category', '=', 'product_category.id')
+                    ->where(function ($q) use ($language) {
+                        $q->where('product_category.language', $language);
+                    });
+            })
+            ->where(['products.title' => $ProductPost->redirect, 'products.language' => $language])
+            ->first();
+        // dd($ProductData);
         if (is_null($ProductData) || empty($ProductData)) {
             $ProductData = Product::select(
                 'products.id',
@@ -81,7 +89,12 @@ class NewsController extends Controller
                 'products.thumbnail_title',
                 'products.thumbnail_alt',
             )
-                ->leftJoin('product_category', 'products.category', '=', 'product_category.id')
+                ->leftJoin('product_category', function (JoinClause $join) {
+                    $join->on('products.category', '=', 'product_category.id')
+                        ->where(function ($q) {
+                            $q->where('product_category.defaults', 1);
+                        });
+                })
                 ->where(['products.title' => $ProductPost->redirect, 'products.defaults' => 1, 'products.display' => 1])->first();
         }
 
@@ -103,6 +116,6 @@ class NewsController extends Controller
                 $lang_config_contact[$value->param] = $value->title;
             }
         }
-        return view('pages.news.news', compact('NewsData', 'NewsProduct','lang_config_contact'));
+        return view('pages.news.news', compact('NewsData', 'NewsProduct', 'lang_config_contact'));
     }
 }

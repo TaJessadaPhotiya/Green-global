@@ -154,6 +154,7 @@ class ProductController extends Controller
             ->where('product_category.id', $categoryId)
             ->select('segments.id', 'segments.title')
             ->distinct()
+            ->orderBy('segments.title', 'ASC')
             ->get();
     }
 }
