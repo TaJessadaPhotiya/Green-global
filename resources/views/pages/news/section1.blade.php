@@ -78,7 +78,7 @@
                             </div>
                             <div class="flex flex-col w-full">
                                 <div class="w-full p-6">
-                                    <div class="text-[#8E8E8E] sm:text-xl text-lg font-medium">
+                                    <div class="text-[#8E8E8E] sm:text-xl text-lg font-semibold">
                                         {{ $NewsProduct['c_title'] }} :
                                         <span class="text-[#098C46] sm:text-xl text-lg font-semibold ml-2">
                                             {{ $NewsProduct['title'] }}
