@@ -795,6 +795,7 @@ class ComposerStaticInit0c7b2b7fad24a89054471394e0908f15
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\CategorySeeder' => __DIR__ . '/../..' . '/database/seeders/CategorySeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\LanguageConfigsSeeder' => __DIR__ . '/../..' . '/database/seeders/LanguageConfigsSeeder.php',
         'Database\\Seeders\\PostsSeeder' => __DIR__ . '/../..' . '/database/seeders/PostsSeeder.php',
         'Database\\Seeders\\WebInfoSeeder' => __DIR__ . '/../..' . '/database/seeders/WebInfoSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',

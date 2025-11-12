@@ -201,6 +201,7 @@ return array(
     'Database\\Factories\\UserFactory' => $baseDir . '/database/factories/UserFactory.php',
     'Database\\Seeders\\CategorySeeder' => $baseDir . '/database/seeders/CategorySeeder.php',
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
+    'Database\\Seeders\\LanguageConfigsSeeder' => $baseDir . '/database/seeders/LanguageConfigsSeeder.php',
     'Database\\Seeders\\PostsSeeder' => $baseDir . '/database/seeders/PostsSeeder.php',
     'Database\\Seeders\\WebInfoSeeder' => $baseDir . '/database/seeders/WebInfoSeeder.php',
     'DateError' => $vendorDir . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
