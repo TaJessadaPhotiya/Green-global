@@ -6,9 +6,11 @@
     .ck-ui-li ul {
         @apply list-disc ml-8 p-2;
     }
+
     .ck-ui-li iframe {
         @apply w-full sm:w-[660px] sm:h-[415px] h-[300px] py-4;
     }
+
     .ck-ui-li ol {
         @apply list-decimal ml-6;
     }
@@ -24,10 +26,12 @@
     margin-left: 1.5em;
     list-style: unset;
 }
+
 #boxTermContent {
     word-break: break-word;
 }
 
 .fontNoneCk * {
-  font-family:inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
 }

@@ -25,7 +25,7 @@ $date_time = Carbon::parse($news->updated_at)->translatedFormat('l j F Y');
                     <p class="text-[#8E8E8E] text-[14px] font-semibold mt-4">{{ $date_time }}</p>
 
                     {{-- ck --}}
-                    <div class="ck-ui-li w-full min-h-[320px] mt-4 text-[18px] text-[#098C46]">
+                    <div class="ck-ui-li fontNoneCk w-full min-h-[320px] mt-4 text-[18px] text-[#098C46]">
                         {!! $news['content'] !!}
                     </div>
                     <div class="border-[#098C46] border mt-4"></div>
