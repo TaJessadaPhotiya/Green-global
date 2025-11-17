@@ -12,22 +12,23 @@ use Illuminate\Support\Facades\Validator;
 
 class SlideController extends BaseController
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         try {
             $slideData = $this->getSlideList($request->language);
-            $sliedPos = AdSlidePosition::orderBy('position','ASC')->get()->all();
+            $sliedPos = AdSlidePosition::orderBy('position', 'ASC')->get()->all();
             $positionList = [];
-            foreach( $sliedPos as $val){
+            foreach ($sliedPos as $val) {
                 array_push($positionList, [
                     "id" => $val->id,
-                    "title" => $val->position  . " ({$val->dimension})" ,
+                    "title" => $val->position . " ({$val->dimension})",
                 ]);
             }
             return response([
                 'message' => 'ok',
                 'data' => $slideData,
                 'positionList' => $positionList,
-                'maxpriority' =>AdSlide::max('ad_priority')
+                'maxpriority' => AdSlide::max('ad_priority')
             ]);
         } catch (Exception $e) {
             return response([
@@ -38,9 +39,10 @@ class SlideController extends BaseController
         }
     }
 
-     public function getSlideById(Request $req) {
+    public function getSlideById(Request $req)
+    {
         try {
-            $data = AdSlide::where("id",$req->id)->get()->first();
+            $data = AdSlide::where("id", $req->id)->get()->first();
             return response([
                 'message' => 'ok',
                 'data' => $data
@@ -54,7 +56,8 @@ class SlideController extends BaseController
         }
     }
 
-    public function createSlide(Request $req) {
+    public function createSlide(Request $req)
+    {
         $this->getAuthUser();
         $files = $req->allFiles();
         $params = $req->all();
@@ -78,25 +81,25 @@ class SlideController extends BaseController
             'dateDisplay' => 'string|nullable',
             'dateHidden' => 'string|nullable',
         ]);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return $this->sendErrorValidators('Invalid params', $validator->errors());
         }
 
         try {
 
             /* Update Position */
-            $priority = (int)$params['priority'];
-            $this->prioritySlideUpdate(99999999,$params['priority'], $params['language']);
+            $priority = (int) $params['priority'];
+            $this->prioritySlideUpdate(99999999, $params['priority'], $params['language']);
 
 
             /* Upload Image */
-            $newFolder = "upload/".date('Y')."/".date('m')."/".date('d')."/";
-            $imgSrc = (isset($files['image']))? $this->uploadImage($newFolder, $files['image'], "", "", $params['imageName']):"";
+            $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
+            $imgSrc = (isset($files['image'])) ? $this->uploadImage($newFolder, $files['image'], "", "", $params['imageName']) : "";
 
             $creating = new AdSlide();
             $creating->ad_image = $imgSrc;
             $creating->ad_image_alt = $params['imageAlt'];
-            $creating->ad_image_title =  $params['imageTitle'];
+            $creating->ad_image_title = $params['imageTitle'];
             $creating->ad_title = $params['title'];
             $creating->ad_description = $params['description'];
             $creating->ad_h1 = $params['h1'];
@@ -108,10 +111,10 @@ class SlideController extends BaseController
             $creating->ad_priority = $priority;
             $creating->page_id = $params['pageId'];
             $creating->language = $params['language'];
-            $creating->ad_status_display = ($params['display'] == 1)?1:0;
+            $creating->ad_status_display = ($params['display'] == 1) ? 1 : 0;
             $creating->defaults = true;
-            $creating->ad_date_display = ($params['dateDisplay'] !== null)?date('Y-m-d H:i',strtotime($params['dateDisplay'])):null;
-            $creating->ad_date_hidden = ($params['dateHidden'] !== null)?date('Y-m-d H:i',strtotime($params['dateHidden'])):null;
+            $creating->ad_date_display = ($params['dateDisplay'] !== null) ? date('Y-m-d H:i', strtotime($params['dateDisplay'])) : null;
+            $creating->ad_date_hidden = ($params['dateHidden'] !== null) ? date('Y-m-d H:i', strtotime($params['dateHidden'])) : null;
             $creating->save();
 
             return response([
@@ -128,7 +131,8 @@ class SlideController extends BaseController
         }
     }
 
-    public function updateSlideById(Request $req) {
+    public function updateSlideById(Request $req)
+    {
         $this->getAuthUser();
         $files = $req->allFiles();
         $params = $req->all();
@@ -156,43 +160,43 @@ class SlideController extends BaseController
             'isEdit' => 'required|numeric',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return $this->sendErrorValidators('Invalid params', $validator->errors());
         }
 
         try {
 
-            $priority = (int)$params['priority'];
+            $priority = (int) $params['priority'];
             /* Update Position */
-            if(isset($params['priorityNew'])) {
-                $this->prioritySlideUpdate($priority,$params['priorityNew'], $params['language']);
-                $priority = (int)$params['priorityNew'];
+            if (isset($params['priorityNew'])) {
+                $this->prioritySlideUpdate($priority, $params['priorityNew'], $params['language']);
+                $priority = (int) $params['priorityNew'];
             }
 
             /* Upload Image */
-            $newFolder = "upload/".date('Y')."/".date('m')."/".date('d')."/";
-            $imgSrc = (isset($files['image']))? $this->uploadImage($newFolder, $files['image'], "", "", $params['imageName']): $params['imageSrc'];
+            $newFolder = "upload/" . date('Y') . "/" . date('m') . "/" . date('d') . "/";
+            $imgSrc = (isset($files['image'])) ? $this->uploadImage($newFolder, $files['image'], "", "", $params['imageName']) : $params['imageSrc'];
 
-            $conditions  = ['id' => $params['id'], 'language' => $params['language']];
+            $conditions = ['id' => $params['id'], 'language' => $params['language']];
             $values = [
                 "id" => $params['id'],
                 "ad_image" => $imgSrc,
-                "ad_image_alt" =>  $params['imageAlt'],
-                "ad_image_title" =>   $params['imageTitle'],
-                "ad_title" =>  $params['title'],
-                "ad_description" =>  $params['description'],
-                "ad_h1" =>  $params['h1'],
-                "ad_h2" =>  $params['h2'],
-                "ad_type" =>  $params['type'],
-                "ad_link" =>  $params['link'],
-                "ad_redirect" =>  $params['redirect'],
-                "ad_position_id" =>  $params['positionId'],
-                "ad_priority" =>  $priority,
-                "page_id" =>  $params['pageId'],
-                "language" =>  $params['language'],
-                "ad_status_display" =>  ($params['display'] == 1)?1:0,
-                "ad_date_display" =>  ($params['dateDisplay'] !== null)?date('Y-m-d H:i',strtotime($params['dateDisplay'])):null,
-                "ad_date_hidden" =>  ($params['dateHidden'] !== null)?date('Y-m-d H:i',strtotime($params['dateHidden'])):null,
+                "ad_image_alt" => $params['imageAlt'],
+                "ad_image_title" => $params['imageTitle'],
+                "ad_title" => $params['title'],
+                "ad_description" => $params['description'],
+                "ad_h1" => $params['h1'],
+                "ad_h2" => $params['h2'],
+                "ad_type" => $params['type'],
+                "ad_link" => $params['link'],
+                "ad_redirect" => $params['redirect'],
+                "ad_position_id" => $params['positionId'],
+                "ad_priority" => $priority,
+                "page_id" => $params['pageId'],
+                "language" => $params['language'],
+                "ad_status_display" => ($params['display'] == 1) ? 1 : 0,
+                "ad_date_display" => ($params['dateDisplay'] !== null) ? date('Y-m-d H:i', strtotime($params['dateDisplay'])) : null,
+                "ad_date_hidden" => ($params['dateHidden'] !== null) ? date('Y-m-d H:i', strtotime($params['dateHidden'])) : null,
                 "updated_at" => date('Y-m-d H:i:s')
             ];
             DB::table('ad_slides')->updateOrInsert($conditions, $values);
@@ -200,7 +204,7 @@ class SlideController extends BaseController
             return response([
                 'message' => 'success',
                 'description' => 'Ad has been created successfully.'
-            ], ($params['isEdit'] == 1)?200:201);
+            ], ($params['isEdit'] == 1) ? 200 : 201);
 
         } catch (Exception $e) {
             return response([
@@ -211,13 +215,14 @@ class SlideController extends BaseController
         }
     }
 
-    public function deleteWebInfoByInfoId($language , $token) {
+    public function deleteWebInfoByInfoId($language, $token)
+    {
         $this->getAuthUser();
 
         try {
-            $id =  base64_decode($token);
+            $id = base64_decode($token);
             $deleting = AdSlide::where('id', $id)->where('language', $language);
-            if(!$deleting) {
+            if (!$deleting) {
                 return response([
                     'message' => 'error',
                     'description' => 'Token is invalid!'
@@ -225,7 +230,7 @@ class SlideController extends BaseController
             }
 
             $slide = $deleting->get()->first();
-            $this->prioritySlideUpdate($slide->ad_priority, 99999999 , $slide->language);
+            $this->prioritySlideUpdate($slide->ad_priority, 99999999, $slide->language);
 
             $deleting->delete();
             return response([
@@ -244,19 +249,36 @@ class SlideController extends BaseController
     }
 
     /* Private Function */
-    private function getSlideList($language){
-        $sql = "SELECT * FROM (
-            SELECT * FROM `ad_slides`
-            WHERE language = :lang OR defaults = 1
-            ORDER BY defaults ASC
-        ) as slides GROUP BY id ORDER BY updated_at  DESC";
-        return DB::select($sql, [':lang' => $language]);
+    private function getSlideList($language)
+    {
+        // $sql = "SELECT * FROM (
+        //     SELECT * FROM `ad_slides`
+        //     WHERE language = :lang OR defaults = 1
+        //     ORDER BY defaults ASC
+        // ) as slides GROUP BY id ORDER BY updated_at  DESC";
+        // return DB::select($sql, [':lang' => $language]);
+        $sql = AdSlide::where(function ($query) use ($language) {
+            $query->where('language', $language)
+                ->orWhere('defaults', 1);
+        })
+            ->orderBy('ad_priority', 'ASC')
+            ->get();
+
+        return $sql->groupBy('id')   // group ตาม rootId
+            ->map(function ($items) use ($language) {
+                // หาตัวที่ตรงกับ language
+                $match = $items->firstWhere('language', $language);
+                // ถ้าไม่มีให้ใช้ defaults
+                return $match ?? $items->firstWhere('defaults', 1);
+            })
+            ->values();  // reset index
     }
 
-    private function prioritySlideUpdate( $current, $new, $language){
-        $setOp = ($new <= $current)? ["<",">="] : [">","<="];
-        $updating = AdSlide::where("ad_priority",$setOp[0], $current)->where("ad_priority", $setOp[1], $new)->where('language', $language);
-        if($new <= $current) {
+    private function prioritySlideUpdate($current, $new, $language)
+    {
+        $setOp = ($new <= $current) ? ["<", ">="] : [">", "<="];
+        $updating = AdSlide::where("ad_priority", $setOp[0], $current)->where("ad_priority", $setOp[1], $new)->where('language', $language);
+        if ($new <= $current) {
             return $updating->increment("ad_priority", 1);
         } else {
             return $updating->decrement("ad_priority", 1);

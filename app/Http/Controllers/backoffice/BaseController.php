@@ -83,7 +83,6 @@ class BaseController extends Controller
             $query->where('language', $language)
                 ->orWhere('defaults', 1);
         })
-            ->where('display', 1)
             ->orderBy('priority', 'ASC')
             ->get();
 

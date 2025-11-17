@@ -54,7 +54,7 @@ class ProductCateController extends BaseController
     {
         try {
             $cate = ProductCate::where('id', $id)
-                ->where('language', $request->language)
+                // ->where('language', $request->language)
                 ->update(['display' => $request->display]);
 
             return response([

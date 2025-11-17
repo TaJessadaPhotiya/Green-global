@@ -184,6 +184,8 @@
     const selectedFlag = document.getElementById("selectedFlag");
     const langIcon = document.getElementById("langIcon");
 
+
+
     dropdownBtn2.addEventListener("click", () => {
         dropdownMenu2.classList.toggle("hidden");
         langIcon.classList.toggle("rotate-180");
@@ -232,7 +234,18 @@
     });
 
     window.addEventListener("DOMContentLoaded", () => {
-        const savedLang = localStorage.getItem("selectedLanguage") || "TH";
-        updateLanguageUI(savedLang);
+        const currentPath = window.location.pathname;
+        const pathParts = currentPath.split('/').filter(p => p);
+        console.log(pathParts);
+        let initialLang = "TH"; // ค่าเริ่มต้น
+        if (pathParts.length > 0) {
+            const urlLang = pathParts[0].toUpperCase();
+            if (['TH', 'EN', 'AR'].includes(urlLang)) {
+                initialLang = urlLang;
+            }
+        }
+        updateLanguageUI(initialLang);
+        localStorage.setItem("selectedLanguage", initialLang); // บันทึกภาษาที่ใช้จาก URL ลง localStorage ด้วย
+        // const savedLang = localStorage.getItem("selectedLanguage") || "TH";
     });
 </script>
