@@ -75,9 +75,10 @@ class ProductController extends Controller
                     });
             })
             ->where(function ($query) use (&$language) {
-                $query->where(['products.display' => 1, 'products.language' => $language])
+                $query->where('products.language', $language)
                     ->orWhere('products.defaults', 1);
             })
+            ->where('products.display', 1)
             ->when($cate_id || $segment_id, function ($query) {
                 return $query->orderByRaw('products.priority + 0 ASC');
             }, function ($query) {
