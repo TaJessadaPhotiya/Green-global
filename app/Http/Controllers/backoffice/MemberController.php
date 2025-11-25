@@ -11,6 +11,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailStartMember;
 
 class MemberController extends BaseController
 {
@@ -45,6 +47,8 @@ class MemberController extends BaseController
         try {
             DB::beginTransaction();
             $memberUpdate = MemberAccount::findOrFail($params['member_id']);
+            $memberUser =  User::findOrFail( $memberUpdate->users_id);
+            // dd(  $memberUser->username);
             $date_expired = $data_expire->addDays($params['member_expire']);
             $values = [
                 "member_status" => $params['member_status'],
@@ -55,7 +59,9 @@ class MemberController extends BaseController
             ];
             MemberAccount::where('id', $params['member_id'])->update($values);
 
+             Mail::to($memberUser->email)->send(new SendMailStartMember($memberUser, ));
             DB::commit();
+
             return response([
                 'message' => 'ok',
                 'status' => true,
